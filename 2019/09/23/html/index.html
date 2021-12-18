@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>html相关 | Hexo</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Kaidi Lin&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Kaidi Lin&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">html相关</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 23, 2019&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>简介：HTML的全称为超文本标记语言，是一种标记语言。它包括一系列标签．通过这些标签可以将网络上的文档格式统一，使分散的Internet资源连接为一个逻辑整体</p>
+<span id="more"></span>
+<h1 id="第一章-FirstHtml"><a href="#第一章-FirstHtml" class="headerlink" title="第一章 FirstHtml"></a>第一章 FirstHtml</h1><h2 id="注释书写"><a href="#注释书写" class="headerlink" title="注释书写"></a>注释书写</h2><p>快捷键为：<br>ctrl + /</p>
+<h2 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h2><ul>
+<li>整体：element(元素)<br>起始标记 + 结束标记 + 元素内容 + 元素属性</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://bilibili.com&quot;</span> <span class="attr">title</span>=<span class="string">&quot;鼠标指着我有提示哦&quot;</span>&gt;</span>bilibili<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>属性的分类：<ul>
+<li>局部属性：某些元素特有的属性</li>
+<li>全局属性：所有元素通用</li>
+</ul>
+</li>
+</ul>
+<p>有些元素没有结束标记，这样的元素叫 <strong>空元素</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>元素不能相互嵌套</p>
+<h2 id="标准的文档结构"><a href="#标准的文档结构" class="headerlink" title="标准的文档结构"></a>标准的文档结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span> <span class="comment">&lt;!-- 文档声明，说明当前文档使用的HTML标准是H5--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>不写文档声明，将导致浏览器进入怪异渲染模式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>根元素，一个页面最多只能一个，并且该元素是所有其他元素的父元素或者祖先元素(可以不写)</p>
+<h1 id="第二章-语义化"><a href="#第二章-语义化" class="headerlink" title="第二章 语义化"></a>第二章 语义化</h1><ol>
+<li>每一个HTML元素都有具体的含义</li>
+</ol>
+<ul>
+<li>a元素：超链接</li>
+<li>p元素：段落</li>
+<li>h1元素：一级标题</li>
+</ul>
+<ol start="2">
+<li>所有元素与展示效果无关</li>
+</ol>
+<ul>
+<li>元素展示到页面中的效果，应当由css决定</li>
+</ul>
+<h1 id="第三章-HTML实体"><a href="#第三章-HTML实体" class="headerlink" title="第三章 HTML实体"></a>第三章 HTML实体</h1><ul>
+<li><p>实体字符，HTML Entity</p>
+</li>
+<li><p>实体字符通常用于在页面中显示一些特殊符号</p>
+</li>
+</ul>
+<ol>
+<li>&amp;单词;</li>
+<li>&amp;#数字;</li>
+</ol>
+<ul>
+<li>小于符号：&lt;</li>
+<li>大于符号: &gt;</li>
+<li>空格符号：&nbsp;</li>
+<li>版权符号：&copy;</li>
+<li>&amp;符号本身：&amp;</li>
+</ul>
+<h1 id="第四章-文本元素"><a href="#第四章-文本元素" class="headerlink" title="第四章 文本元素"></a>第四章 文本元素</h1><p>HTML5中支持的元素：HTML5的元素周期表</p>
+<h2 id="h"><a href="#h" class="headerlink" title="h"></a>h</h2><ul>
+<li>h1-h6:表示1-6级标题(head)</li>
+</ul>
+<h2 id="p"><a href="#p" class="headerlink" title="p"></a>p</h2><ul>
+<li>段落(paragraphs)</li>
+<li>乱数假文(lorem)：没有任何实际含义的文字</li>
+</ul>
+<h2 id="span-无语义"><a href="#span-无语义" class="headerlink" title="span [无语义]"></a>span [无语义]</h2><ul>
+<li><p>没有语义，仅仅用于设置样式</p>
+</li>
+<li><p>某些元素在显示时会独占一行(块级元素)，而某些元素(行级元素)不会</p>
+</li>
+<li><p>到了HTML5已经弃用这种说法</p>
+</li>
+</ul>
+<h2 id="pre-无语义"><a href="#pre-无语义" class="headerlink" title="pre [无语义]"></a>pre [无语义]</h2><ul>
+<li><p>预格式化文本元素</p>
+</li>
+<li><p>空白折叠：在源代码中的连续空白字符(空格、换行、制表)，在页面显示时会被折叠成一个。</p>
+<ul>
+<li>例外：在pre元素中的内容不会出现空白折叠</li>
+</ul>
+</li>
+<li><p>在pre元素内部出现的内容，会按照源代码格式显示在页面上</p>
+</li>
+<li><p>该元素通常用于在网页中显示一些代码</p>
+</li>
+<li><p>pre元素的本质是有一个默认的css属性，故可以改变其他元素的css也能达到效果</p>
+</li>
+</ul>
+<blockquote>
+<p>显示代码时，通常外面套code元素，code表示代码区域</p>
+</blockquote>
+<h1 id="第五章-a元素"><a href="#第五章-a元素" class="headerlink" title="第五章 a元素"></a>第五章 a元素</h1><ul>
+<li>超链接</li>
+</ul>
+<h2 id="herf属性"><a href="#herf属性" class="headerlink" title="herf属性"></a>herf属性</h2><ul>
+<li>hyper reference:通常表示跳转地址</li>
+</ul>
+<ol>
+<li>跳转地址</li>
+<li>跳转某个锚点(自跳转)</li>
+</ol>
+<ul>
+<li>id属性：全局属性，表示元素在文档中的唯一编号</li>
+</ul>
+<h1 id="第六章-路径的写法"><a href="#第六章-路径的写法" class="headerlink" title="第六章 路径的写法"></a>第六章 路径的写法</h1><h2 id="站内资源和站外资源"><a href="#站内资源和站外资源" class="headerlink" title="站内资源和站外资源"></a>站内资源和站外资源</h2><ul>
+<li>站内资源：当前网站的资源</li>
+<li>站外资源：非当前网站的资源</li>
+</ul>
+<h2 id="绝对路径和相对路径"><a href="#绝对路径和相对路径" class="headerlink" title="绝对路径和相对路径"></a>绝对路径和相对路径</h2><p>推荐：</p>
+<ul>
+<li>站外资源：绝对路径(不可以使用相对路径)</li>
+<li>站内资源：相对路径(也可以使用绝对路径)</li>
+</ul>
+<ol>
+<li>绝对路径</li>
+</ol>
+<ul>
+<li>绝对路径的基本格式：(url地址)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">协议名://主机名:端口号/路径</span><br><span class="line">schema://host:port/path</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>当跳转目标和当前页面的协议相同时，可以省略协议</p>
+</li>
+<li><p>协议名:http、https、file</p>
+</li>
+<li><p>主机名：域名、ip地址</p>
+</li>
+<li><p>端口号：如果协议是http协议，默认端口号80；如果为https协议</p>
+</li>
+<li><p>端口号为443</p>
+</li>
+</ul>
+<ol start="2">
+<li>相对路径</li>
+</ol>
+<ul>
+<li>以./开头，./表示当前资源所在的目录</li>
+<li>可以书写../表示返回上一级目录</li>
+</ul>
+<h1 id="第七章-图片元素"><a href="#第七章-图片元素" class="headerlink" title="第七章 图片元素"></a>第七章 图片元素</h1><h2 id="img元素"><a href="#img元素" class="headerlink" title="img元素"></a>img元素</h2><ul>
+<li><p>img缩写，空元素</p>
+</li>
+<li><p>src属性：source(资源)</p>
+</li>
+<li><p>alt属性：当图片资源失效时，将该使用的属性的文字替换成图片</p>
+</li>
+</ul>
+<h2 id="和a元素连用"><a href="#和a元素连用" class="headerlink" title="和a元素连用"></a>和a元素连用</h2><p>直接在里面使用就好</p>
+<h2 id="和map元素"><a href="#和map元素" class="headerlink" title="和map元素"></a>和map元素</h2><p>点不同的区域就有不同的跳转<br>使用map标签命名，使用img内的usemap联系</p>
+<ul>
+<li><p>map的子元素：area</p>
+</li>
+<li><p>area：</p>
+<ul>
+<li>shape：圆形、矩形、多边形</li>
+<li>coords：坐标</li>
+<li>href：形状的链接地址</li>
+<li>alt：无法显示时显示的文字内容</li>
+<li>ltarget：是否是新窗口</li>
+</ul>
+</li>
+<li><p>衡量坐标时，为了避免衡量误差，需要使用专业的衡量工具</p>
+</li>
+</ul>
+<h2 id="和figure元素"><a href="#和figure元素" class="headerlink" title="和figure元素"></a>和figure元素</h2><p>指定义，通常用于把图图片标题、描述包裹起来。</p>
+<h1 id="第八章-多媒体元素"><a href="#第八章-多媒体元素" class="headerlink" title="第八章 多媒体元素"></a>第八章 多媒体元素</h1><ul>
+<li>video 视频</li>
+<li>audio 音频</li>
+</ul>
+<h2 id="video"><a href="#video" class="headerlink" title="video"></a>video</h2><ul>
+<li><p>显示播放控件：controls：控制控件的显示，取值只能为controls。</p>
+</li>
+<li><p>某些属性只有两种状态：1.不写 2.取值为属性名，这种属性叫做布尔属性</p>
+</li>
+<li><p>布尔属性在h5中不需要书写属性值，书写了就是有该属性值</p>
+<ul>
+<li>autoplay:布尔属性，表示自动播放。</li>
+<li>muted:布尔属性，表示静音播放。</li>
+<li>loop:布尔属性，表示循环播放。</li>
+</ul>
+</li>
+</ul>
+<h2 id="audio"><a href="#audio" class="headerlink" title="audio"></a>audio</h2><ul>
+<li>和视频的完全一致。</li>
+</ul>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><ol>
+<li>旧版本的浏览器不支持这两个元素</li>
+<li>不同的浏览器支持的音视频格式可能不一致</li>
+</ol>
+<p>mp4、webm</p>
+<h1 id="第九章-列表元素"><a href="#第九章-列表元素" class="headerlink" title="第九章 列表元素"></a>第九章 列表元素</h1><h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><ul>
+<li>ol：ordered list</li>
+<li>li：list item</li>
+</ul>
+<blockquote>
+<p>type属性应避免使用，要尽量使用CSS来工作：list-style-type:<br>reversed:倒序</p>
+</blockquote>
+<h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>把ol改成ul</p>
+<ul>
+<li>ul：unordered list</li>
+</ul>
+<p>decimal可以将无序列表看起来像有序列表</p>
+<p>无序列表常常用于制作菜单或者新闻列表</p>
+<h2 id="定义列表"><a href="#定义列表" class="headerlink" title="定义列表"></a>定义列表</h2><p>通常用于属于的定义</p>
+<ul>
+<li><p>dl：definition list</p>
+</li>
+<li><p>dt：definition title 标题</p>
+</li>
+<li><p>dd：definition description 描述内容</p>
+</li>
+</ul>
+<h1 id="第十章-容器元素"><a href="#第十章-容器元素" class="headerlink" title="第十章 容器元素"></a>第十章 容器元素</h1><p>容器元素：该元素代表一个块区域，内部用于放置其他元素</p>
+<h2 id="div元素"><a href="#div元素" class="headerlink" title="div元素"></a>div元素</h2><p>没有语义，只用于划分区域，区域的属性全靠css来控制<br>优点：纯净，没有乱七八糟的样式<br>缺点：浏览器无法识别该区域的意思</p>
+<h2 id="语义化容器元素"><a href="#语义化容器元素" class="headerlink" title="语义化容器元素"></a>语义化容器元素</h2><ul>
+<li><p>header：通常用于表示页头，也可以用于表示文章头部</p>
+</li>
+<li><p>footer:通常用于表示页脚，也可以用于表示文章的尾部</p>
+</li>
+<li><p>artcile:用于表示文章</p>
+</li>
+<li><p>section：通常用于表示文章的章节</p>
+</li>
+<li><p>aside：通常用于表示附加的信息（侧边栏）</p>
+</li>
+</ul>
+<h1 id="第十一章-元素包含关系"><a href="#第十一章-元素包含关系" class="headerlink" title="第十一章 元素包含关系"></a>第十一章 元素包含关系</h1><p>以前，块级元素可以包含行级元素，行级元素不可以包含块级元素，a元素除外</p>
+<p>元素的包含关系由元素的内容类别决定</p>
+<p>eg：查看h1元素中是否包含p元素（不可以）</p>
+<p>总结：</p>
+<ol>
+<li>容器元素可以包含任何元素</li>
+<li>a元素几乎可以包含任何元素</li>
+<li>某些元素有固定的子元素(ul&gt;li,ol&gt;li,dl&gt;dt+dd)</li>
+<li>标题元素和段落元素不能相互嵌套，并且不能包含容器元素（h1和p）</li>
+</ol>
+<h1 id="第十二章-添加样式"><a href="#第十二章-添加样式" class="headerlink" title="第十二章 添加样式"></a>第十二章 添加样式</h1><h2 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a>术语解释</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cnt</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:red;</span><br><span class="line">    <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>css规则 = 选择器 + 声明块</p>
+<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>选择器：用于选中元素(选中h1)<br>同一标签的所有元素都会被选中</p>
+<ol>
+<li>ID选择器：选中的是对应ID值的元素，通常用于只使同一标签的其中一个元素选中<br>格式：#+idName{…}</li>
+<li>元素选择器：直接给标签声明css，这样使整个相同标签全部被赋予css<br>格式示例：p{…}</li>
+<li>类选择器：将ID选择器和元素选择器的功能结合起来了，能使相同class名称的所有元素被赋予css<br>格式：.+className{…}<br>注意，一个标签里面可以出现多个类，因此多个类选择器都可以出现在一个标签，并且还会有这些类选择器的css格式结合，有相同的元素类型时，后面覆盖前面</li>
+</ol>
+<h3 id="声明块"><a href="#声明块" class="headerlink" title="声明块"></a>声明块</h3><p>出现在大括号中</p>
+<p>声明块包含很多声明(属性)，每一个声明表达了某一方面的样式</p>
+<p>color:字体颜色<br>background-color:字体背景颜色<br>text-align:字体对齐方式</p>
+<h2 id="CSS代码书写位置"><a href="#CSS代码书写位置" class="headerlink" title="CSS代码书写位置"></a>CSS代码书写位置</h2><ol>
+<li>内部样式表：书写在style元素里面</li>
+</ol>
+<p>一般style元素书写到head里面，这样浏览器阅读代码的时候先会注意到CSS并预先加载<br>style元素也可以书写到body里，不过不推荐<br>好处：少读一个文件，第一次读取可以提高读取速度</p>
+<ol start="2">
+<li><p>内联样式表(元素样式表)：直接书写在要改变样式的标签里面，这样不需要选择器了<br>eg：<h1 style="color:red;background-color-green;">…</h1></p>
+</li>
+<li><p>外部样式表[推荐]：将样式直接书写在独立的css文件里面<br>通常用<link>标签填写url地址来引入css文件<br>rel=”stylesheet”连接样式表<br>ctrl+click=新页面打开</p>
+</li>
+</ol>
+<p>推荐原因：</p>
+<ol>
+<li>外部样式表可以解决多页面样式重复的问题</li>
+<li>有利于浏览器缓存，提高页面响应速度(下一次读取页面不需要重新读取css了)</li>
+<li>有利于代码分离(HTML和CSS)，更容易阅读和维护</li>
+</ol>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2019/09/23/html/">http://example.com/2019/09/23/html/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/10/20/JavaScript/">JavaScript</a>
+            
+            
+            <a class="next" rel="next" href="/2019/09/23/css/">CSS相关</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

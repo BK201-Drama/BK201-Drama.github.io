@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="BK201-Drama">
+
+
+
+
+
+<title>如何开发一个web app呢？ | BK201-Drama</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">⬅ home page</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">⬅ home page</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">如何开发一个web app呢？</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">BK201-Drama</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 11, 2021&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/frontend/">frontend</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>简介：我们需要使用前后端分离的技术开发原生安卓应用</p>
+<span id="more"></span>
+
+<h1 id="web文件的打包"><a href="#web文件的打包" class="headerlink" title="web文件的打包"></a>web文件的打包</h1><ul>
+<li>web文件的打包，我们直接使用：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果为react项目，我们则直接使用：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn build</span><br></pre></td></tr></table></figure>
+
+
+
+<p>打包出来的文件如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/web%E6%89%93%E5%8C%85%E6%88%90app/%E6%89%93%E5%8C%85%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9.jpg"></p>
+<h1 id="放在真机环境下以开发环境运行"><a href="#放在真机环境下以开发环境运行" class="headerlink" title="放在真机环境下以开发环境运行"></a>放在真机环境下以开发环境运行</h1><h2 id="创建HBuilderX项目并只保留配置文件"><a href="#创建HBuilderX项目并只保留配置文件" class="headerlink" title="创建HBuilderX项目并只保留配置文件"></a>创建HBuilderX项目并只保留配置文件</h2><p>在此，我们需要下载HbuilderX，然后在HbuilderX新建一个项目，记作test：</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/web%E6%89%93%E5%8C%85%E6%88%90app/%E6%96%B0%E5%BB%BAHbuilderX%E9%A1%B9%E7%9B%AE.png"></p>
+<p>这时候我们会得到一个项目test，然后在test项目中，我们需要删除<strong>除了manifest.json和unpackage文件的其他文件</strong></p>
+<h2 id="将原先web的打包文件放在HbuilderX创建的文件中"><a href="#将原先web的打包文件放在HbuilderX创建的文件中" class="headerlink" title="将原先web的打包文件放在HbuilderX创建的文件中"></a>将原先web的打包文件放在HbuilderX创建的文件中</h2><p>将原先web的打包文件放到文件夹中：</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/web%E6%89%93%E5%8C%85%E6%88%90app/HbuilderX%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E7%9A%84%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95.png"></p>
+<ul>
+<li><p>在这里，我们需要注意一点：</p>
+<p><strong>不要将原先web打包文件的manifest.json文件覆盖掉HBuilderX的manifest.json文件！</strong></p>
+</li>
+</ul>
+<h2 id="运行HBuilderX文件"><a href="#运行HBuilderX文件" class="headerlink" title="运行HBuilderX文件"></a>运行HBuilderX文件</h2><p>我们打开安卓模拟器，或者真机运行，然后打开：</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/web%E6%89%93%E5%8C%85%E6%88%90app/%E8%BF%90%E8%A1%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.jpg"></p>
+<p>选择第一个选项，这样我们就可以在真机或者安卓模拟器看我们的webApp了</p>
+<p><strong>注意：如果你在该环境下运行的文件是空白页，那么你需要这样解决：</strong></p>
+<ul>
+<li>在原来web前端项目的<code>package.json</code>文件中添加（针对react项目）：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/web%E6%89%93%E5%8C%85%E6%88%90app/%E9%81%BF%E5%85%8D%E7%A9%BA%E7%99%BD%E9%A1%B5%E7%9A%84%E9%85%8D%E7%BD%AE%E6%94%B9%E5%8A%A8.png"></p>
+<ul>
+<li>重新打包，重新放在HbuilderX项目中</li>
+</ul>
+<p>你可以在<code>manifest.json</code>文件中更改你的设置项，比如app图标，开屏图片【必须为png格式】</p>
+<h1 id="打包成apk文件"><a href="#打包成apk文件" class="headerlink" title="打包成apk文件"></a>打包成apk文件</h1><p>右键，选择【发行】-【原生app-云打包】</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/web%E6%89%93%E5%8C%85%E6%88%90app/%E6%89%93%E5%8C%85app.png"></p>
+<p>变更下列红色部分至与图片一致：</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/web%E6%89%93%E5%8C%85%E6%88%90app/app%E6%9C%80%E7%BB%88%E6%89%93%E5%8C%85%E8%AE%BE%E7%BD%AE.png"></p>
+<p>静等十分钟左右，就可以得到apk文件了</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>BK201-Drama</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2021/12/11/web%E6%96%87%E4%BB%B6%E7%9A%84app%E6%89%93%E5%8C%85/">http://example.com/2021/12/11/web%E6%96%87%E4%BB%B6%E7%9A%84app%E6%89%93%E5%8C%85/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/React/"># React</a>
+                    
+                        <a href="/tags/React-vant/"># React-vant</a>
+                    
+                        <a href="/tags/Android/"># Android</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/12/11/%E5%BE%AE%E5%89%8D%E7%AB%AF/">微前端</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© BK201-Drama | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

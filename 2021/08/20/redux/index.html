@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>redux与react-redux | Hexo</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Bentham&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Bentham&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">redux与react-redux</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">August 20, 2021&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>简介：redux是专门用来做状态管理的Js库</p>
+<span id="more"></span>
+<h1 id="第一章-redux理解"><a href="#第一章-redux理解" class="headerlink" title="第一章 redux理解"></a>第一章 redux理解</h1><h2 id="1-redux是什么"><a href="#1-redux是什么" class="headerlink" title="1.redux是什么"></a>1.redux是什么</h2><ol>
+<li>redux是专门用来做状态管理的JS库</li>
+<li>它可以在react/vue/Angular框架中使用</li>
+<li>作用：<strong>集中式管理</strong>react应用中多个组件共享的状态</li>
+</ol>
+<h2 id="2-什么情况下需要使用redux"><a href="#2-什么情况下需要使用redux" class="headerlink" title="2.什么情况下需要使用redux"></a>2.什么情况下需要使用redux</h2><ol>
+<li>某个组件的状态需要共享给其他组件</li>
+<li>一个组件需要改变另一个组件的状态（通信）</li>
+</ol>
+<h2 id="3-redux的安装"><a href="#3-redux的安装" class="headerlink" title="3.redux的安装"></a>3.redux的安装</h2><ul>
+<li>yarn add redux</li>
+</ul>
+<h1 id="第二章-redux三个核心概念"><a href="#第二章-redux三个核心概念" class="headerlink" title="第二章 redux三个核心概念"></a>第二章 redux三个核心概念</h1><p><img src="C:\Users\Drama\Desktop\redux状态.PNG" alt="redux状态"></p>
+<ul>
+<li>action：就是要操作的状态对象<ul>
+<li>type：要执行的动作</li>
+<li>data：执行动作需要操作的数据</li>
+</ul>
+</li>
+<li>dispatch：分发，用于将action提交给其他地方，继续将action往下送给Store</li>
+<li>Store：action的存储地方，不进行任何的状态加工 </li>
+<li>Reducer：用于加工action，与Store互动，并且可以初始状态</li>
+</ul>
+<h1 id="第三章-redux核心API"><a href="#第三章-redux核心API" class="headerlink" title="第三章 redux核心API"></a>第三章 redux核心API</h1><ul>
+<li>store.getState：获取store的状态</li>
+<li>store.dispatch：将Action发送给store，Action也可以是一个里面有action对象的回调函数</li>
+<li>store.subscribe：用于订阅每次改变的状态，并捕获状态的更新</li>
+</ul>
+<h1 id="第四章-使用redux编写简易应用"><a href="#第四章-使用redux编写简易应用" class="headerlink" title="第四章 使用redux编写简易应用"></a>第四章 使用redux编写简易应用</h1><h2 id="1-原生react编写："><a href="#1-原生react编写：" class="headerlink" title="1.原生react编写："></a>1.原生react编写：</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Count</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">  increment = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;count&#125; = <span class="built_in">this</span>.state</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="comment">// 这是强制类型转换</span></span><br><span class="line">      <span class="attr">count</span>: count + value * <span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  incrementIfOdd = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;count&#125; = <span class="built_in">this</span>.state</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="keyword">if</span>((count + value * <span class="number">1</span>) % <span class="number">2</span> === <span class="number">1</span>)&#123;</span><br><span class="line">      <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">        <span class="comment">// 这是强制类型转换</span></span><br><span class="line">        <span class="attr">count</span>: count + value * <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  incrementIfAsync = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;count&#125; = <span class="built_in">this</span>.state</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">        <span class="comment">// 这是强制类型转换</span></span><br><span class="line">        <span class="attr">count</span>: count + value * <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>当前页面为：&#123;this.state.count&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">ref</span>=<span class="string">&#123;c</span> =&gt;</span> this.selectNumber = c&#125;&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;1&#125;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;2&#125;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;3&#125;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.increment&#125;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementIfOdd&#125;</span>&gt;</span>当前求和为奇数再加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementIfAsync&#125;</span>&gt;</span>异步加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-简易redux编写"><a href="#2-简易redux编写" class="headerlink" title="2.简易redux编写"></a>2.简易redux编写</h2><ul>
+<li>省略Action Creater</li>
+<li>redux的状态更改不会直接导致页面渲染，需要自己重新渲染</li>
+<li>redux的公共状态更新时，在组件中需要使用componentDidMount捕获，当然，最好的办法就是在index入口文件就进行捕获</li>
+<li>reducer是一个纯函数，只用于根据type执行相应的操作而已</li>
+</ul>
+<p><strong>store文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 该文件专门用于暴露一个store对象，整个应用只有一个store对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入createStore，专门用于创建redux中最为核心的redux对象</span></span><br><span class="line"><span class="keyword">import</span> &#123;createStore&#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入为Count组件服务的reducer</span></span><br><span class="line"><span class="keyword">import</span> countReducer <span class="keyword">from</span> <span class="string">&#x27;./count_reducer&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 暴露store</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore(countReducer)</span><br></pre></td></tr></table></figure>
+
+<p><strong>reducer文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1.该文件是用于创建一个为Count组件服务的reducer，reducer的本质就是一个函数</span></span><br><span class="line"><span class="comment"> * 2.reducer函数会接到两个参数：preState和action</span></span><br><span class="line"><span class="comment"> * 3.没有action，代表此次reducer要初始化一个默认值，第一次的preState为undefined，第一次的action的type为乱码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 初始化状态</span></span><br><span class="line"><span class="keyword">const</span> initState = <span class="number">100</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">countReducer</span>(<span class="params">preState = initState, action</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 在action中拿到type和data</span></span><br><span class="line">  <span class="keyword">const</span> &#123;type, data&#125; = action</span><br><span class="line">  <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;increment&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> preState + data</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;decrement&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> preState - data</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> preState</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Count组件文件</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;../../redux/store&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Count</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 我们需要的状态已经在redux使用了，共享的数据就不要出现在state，state就出现个人的数据就好</span></span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">no_matters</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 检测redux状态的变化</span></span><br><span class="line"><span class="comment">   * 使用钩子函数，只要状态发生变化就会引起该钩子函数的发生</span></span><br><span class="line"><span class="comment">   * 当然，可以在index入口文件书写，从而不书写该钩子函数</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">// componentDidMount()&#123;</span></span><br><span class="line">  <span class="comment">//   store.subscribe(()=&gt;&#123;</span></span><br><span class="line">  <span class="comment">//     // 在这里，setState不是作为更新状态使用，而是使用它的另一个特性：更新状态后重新渲染</span></span><br><span class="line">  <span class="comment">//     this.setState(&#123;&#125;)</span></span><br><span class="line">  <span class="comment">//   &#125;)</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  increment = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="comment">// 获取action</span></span><br><span class="line">    <span class="keyword">var</span> Action = &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;increment&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: value * <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 通知redux获取value到action中</span></span><br><span class="line">    store.dispatch(Action)</span><br><span class="line">  &#125;</span><br><span class="line">  incrementIfOdd = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="keyword">const</span> Data = store.getState()</span><br><span class="line">    <span class="comment">// 获取action</span></span><br><span class="line">    <span class="keyword">var</span> Action = &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;increment&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: value * <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 通知redux获取value到action中</span></span><br><span class="line">    <span class="keyword">if</span>((Data + Action.data) % <span class="number">2</span> === <span class="number">1</span>)&#123;</span><br><span class="line">      store.dispatch(Action)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  incrementIfAsync = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="keyword">var</span> Action = &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;increment&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: value * <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      store.dispatch(Action)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>当前页面为：&#123;store.getState()&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">ref</span>=<span class="string">&#123;c</span> =&gt;</span> this.selectNumber = c&#125;&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;1&#125;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;2&#125;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;3&#125;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.increment&#125;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementIfOdd&#125;</span>&gt;</span>当前求和为奇数再加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementIfAsync&#125;</span>&gt;</span>异步加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>index文件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./redux/store&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一次初始化</span></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span>/&gt;</span></span>,<span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种书写就是redux的监测然后再从入口文件实时更新</span></span><br><span class="line"><span class="comment">// 好处：一次性将所有的状态一次性全部更新，减少状态改变导致的代码负担</span></span><br><span class="line">store.subscribe(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">  ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span>/&gt;</span></span>,<span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="3-完整redux编写"><a href="#3-完整redux编写" class="headerlink" title="3.完整redux编写"></a>3.完整redux编写</h2><ul>
+<li><p>新增文件：</p>
+<ul>
+<li>action.js：专门用于创建action对象</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actionIncreament = <span class="function">(<span class="params">value</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;increment&#x27;</span>,</span><br><span class="line">  <span class="attr">data</span>: value * <span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actionDecrement = <span class="function">(<span class="params">value</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;decrement&#x27;</span>,</span><br><span class="line">  <span class="attr">data</span>: value * <span class="number">1</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>constant.js：专门用于管理type字符串，防止程序员的单词拼写错误</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 该模块是为了定义action变量中的常量值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> INCREMENT = <span class="string">&#x27;increment&#x27;</span></span><br><span class="line"><span class="keyword">const</span> DECREMENT = <span class="string">&#x27;decrement&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="第五章-redux异步编程"><a href="#第五章-redux异步编程" class="headerlink" title="第五章 redux异步编程"></a>第五章 redux异步编程</h1><ul>
+<li>store文件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我们需要在store文件上面添加：</span></span><br><span class="line"><span class="comment">// 引入redux-thunk用于支持异步action</span></span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://cloud.tencent.com/developer/section/1374199</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore(countReducer, applyMiddleware(thunk))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>action文件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步action，就是指action的返回值是一个回调函数，因为函数能开启异步任务</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actionAsynDecrement = <span class="function">(<span class="params">value, time</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">      store.dispatch(actionIncreament(value))</span><br><span class="line">    &#125;,time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>组件Count的index文件</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">incrementIfAsync = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">  <span class="comment">// var Action = &#123;</span></span><br><span class="line">  <span class="comment">//   type: &#x27;increment&#x27;,</span></span><br><span class="line">  <span class="comment">//   data: value * 1</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="comment">// setTimeout(() =&gt; &#123;</span></span><br><span class="line">  <span class="comment">//   store.dispatch(Action)</span></span><br><span class="line">  <span class="comment">// &#125;, 1000)</span></span><br><span class="line">  <span class="comment">// 异步action</span></span><br><span class="line">  store.dispatch(actionAsynDecrement(value, <span class="number">1000</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按照这样的书写方式，为redux的action异步编程</p>
+<p>善用store.dispatch()，该函数不仅可以接收对象，还可以接收回调函数</p>
+<h1 id="第六章-react-redux"><a href="#第六章-react-redux" class="headerlink" title="第六章 react-redux"></a>第六章 react-redux</h1><h2 id="1-react-redux和UI组件的关系"><a href="#1-react-redux和UI组件的关系" class="headerlink" title="1.react-redux和UI组件的关系"></a>1.react-redux和UI组件的关系</h2><ul>
+<li>所有的UI组件都应该包裹一个容器组件，他们是父子关系</li>
+<li>容器组件时真正跟redux打交道的，里面可以随意使用redux的api</li>
+<li>UI组件中不能使用redux的api</li>
+<li>容器组件会传给UI组件：<ul>
+<li>redux保存的状态</li>
+<li>用于操作状态的方法</li>
+</ul>
+</li>
+<li>传递状态和操作状态的方法，我们使用props</li>
+<li>react-redux有不想让UI组件直接操作状态的意思</li>
+</ul>
+<h2 id="2-一些规范"><a href="#2-一些规范" class="headerlink" title="2.一些规范"></a>2.一些规范</h2><ul>
+<li>UI组件都放在Component文件夹中</li>
+<li>容器组件都放在Container文件夹中</li>
+</ul>
+<h2 id="3-模型图"><a href="#3-模型图" class="headerlink" title="3.模型图"></a>3.模型图</h2><p><img src="C:\Users\Drama\Desktop\react-redux模型图.PNG" alt="react-redux模型图"></p>
+<h2 id="4-连接实例"><a href="#4-连接实例" class="headerlink" title="4.连接实例"></a>4.连接实例</h2><ul>
+<li><p>作为容器组件，与react-redux连接，那么容器组件需要大量使用react-redux的api</p>
+</li>
+<li><p>连接方法</p>
+<p>  App文件</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Count <span class="keyword">from</span> <span class="string">&#x27;./containers/Count&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./redux/store&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Count</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  容器文件</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入UI组件</span></span><br><span class="line"><span class="keyword">import</span> CountUI <span class="keyword">from</span> <span class="string">&#x27;../../Component/Count&#x27;</span></span><br><span class="line"><span class="comment">// // 引入redux的store</span></span><br><span class="line"><span class="comment">// import store from &#x27;../../redux/store&#x27;</span></span><br><span class="line"><span class="comment">// 引入react-redux中的connect方法</span></span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接redux和UI组件</span></span><br><span class="line"><span class="keyword">const</span> CountContainer = connect()(CountUI)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> CountContainer</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-数据互动"><a href="#5-数据互动" class="headerlink" title="5.数据互动"></a>5.数据互动</h2><ul>
+<li><p>原理：</p>
+<ul>
+<li>连接之后，connect(mapDispatchToProps, mapDispatchToProps)(UI)，mapStateToProps与mapDispatchToProps都代表一个对象：<ul>
+<li>mapStateToProps函数返回的对象作为key就作为传递给UI组件props的key，value就作为传递给UI组件props的value——状态</li>
+<li>mapDispatchToProps函数返回的对象作为key就作为传递给UI组件props的key，value就作为传递给UI组件props的value——操作状态的方法</li>
+</ul>
+</li>
+<li>因此，我们只要将需要渲染的数据先在mapStateToProps拿出来，再从组件的DOM操作中使用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(</span><br><span class="line">  <span class="comment">// mapStateToProps</span></span><br><span class="line">  <span class="function"><span class="params">state</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">people</span>:state.personReducer,</span><br><span class="line">    <span class="attr">countNum</span>:state.countReducer</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// mapDispatchToProps</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">add</span>: actionAddPeople   <span class="comment">//用于添加人</span></span><br><span class="line">  &#125;</span><br><span class="line">)(Person)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Count</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  Syn = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">this</span>.props.addSyn(value)</span><br><span class="line">  &#125;</span><br><span class="line">  Asyn = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">this</span>.props.addAsyn(value, <span class="number">500</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>count:&#123;this.props.count&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>number of people:&#123;this.props.peopleNum&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">ref</span>=<span class="string">&#123;c</span> =&gt;</span> this.selectNumber = c&#125;&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;1&#125;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;2&#125;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;3&#125;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.Syn&#125;</span>&gt;</span>Syn+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.Asyn&#125;</span>&gt;</span>Asyn+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="第七章-使用react-redux数据共享"><a href="#第七章-使用react-redux数据共享" class="headerlink" title="第七章 使用react-redux数据共享"></a>第七章 使用react-redux数据共享</h1><h2 id="1-注意事项"><a href="#1-注意事项" class="headerlink" title="1.注意事项"></a>1.注意事项</h2><ul>
+<li>我们需要将其他组件对应的reducer合并</li>
+<li>合并之后变成了一个对象，我们需要自行进行对象的取属性的 ‘’ <strong>.</strong> ‘’操作</li>
+</ul>
+<h2 id="2-原理与详细"><a href="#2-原理与详细" class="headerlink" title="2.原理与详细"></a>2.原理与详细</h2><ul>
+<li><p>原理：</p>
+<ul>
+<li>连接之后，connect(mapDispatchToProps, mapDispatchToProps)(UI)，mapStateToProps与mapDispatchToProps都代表一个对象：<ul>
+<li>mapStateToProps函数返回的对象作为key就作为传递给UI组件props的key，value就作为传递给UI组件props的value——状态</li>
+<li>mapDispatchToProps函数返回的对象作为key就作为传递给UI组件props的key，value就作为传递给UI组件props的value——操作状态的方法</li>
+</ul>
+</li>
+<li>因此，我们只要将需要渲染的数据先在mapStateToProps拿出来，再从组件的DOM操作中使用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(</span><br><span class="line">  <span class="comment">// mapStateToProps</span></span><br><span class="line">  <span class="function"><span class="params">state</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">people</span>:state.personReducer,</span><br><span class="line">    <span class="attr">countNum</span>:state.countReducer</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// mapDispatchToProps</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">add</span>: actionAddPeople   <span class="comment">//用于添加人</span></span><br><span class="line">  &#125;</span><br><span class="line">)(Person)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Count</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  Syn = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">this</span>.props.addSyn(value)</span><br><span class="line">  &#125;</span><br><span class="line">  Asyn = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">this</span>.props.addAsyn(value, <span class="number">500</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>count:&#123;this.props.count&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>number of people:&#123;this.props.peopleNum&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">ref</span>=<span class="string">&#123;c</span> =&gt;</span> this.selectNumber = c&#125;&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;1&#125;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;2&#125;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;3&#125;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.Syn&#125;</span>&gt;</span>Syn+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.Asyn&#125;</span>&gt;</span>Asyn+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>store文件：将多个reducer同时合并起来</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, combineReducers &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> CountReducer <span class="keyword">from</span> <span class="string">&#x27;./reducers/count_reducer&#x27;</span></span><br><span class="line"><span class="keyword">import</span> PersonReducer <span class="keyword">from</span> <span class="string">&#x27;./reducers/person_reducer&#x27;</span></span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并Reducers</span></span><br><span class="line"><span class="keyword">const</span> allReducers = combineReducers(&#123;</span><br><span class="line">  <span class="attr">countReducer</span>: CountReducer,</span><br><span class="line">  <span class="attr">personReducer</span>: PersonReducer</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 暴露store并使其能够异步操作</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore(allReducers, applyMiddleware(thunk))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>入口文件:Provider的用处是重点</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./redux/store&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="comment">// 在这里Provider的作用就是同时包被App里面的组件并且精准传递改变的，并且自行需要的 状态</span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">App</span>/&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span>,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>action文件夹</p>
+<ul>
+<li>count_action</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;../store&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;INCREMENT&#125; <span class="keyword">from</span> <span class="string">&#x27;../constant&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actionIncrement = <span class="function">(<span class="params">value</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">type</span>: INCREMENT,</span><br><span class="line">  <span class="attr">data</span>: value * <span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actionAsynIncrement = <span class="function">(<span class="params">value, time</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">      store.dispatch(actionIncrement(value))</span><br><span class="line">    &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>person_action</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;ADDPEOPLE&#125; <span class="keyword">from</span> <span class="string">&#x27;../constant&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actionAddPeople = <span class="function">(<span class="params">people</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">type</span>: ADDPEOPLE,</span><br><span class="line">  <span class="attr">data</span>: people</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>reducer文件夹</p>
+<ul>
+<li>count_reducer</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;INCREMENT, DECREMENT&#125; <span class="keyword">from</span> <span class="string">&#x27;../constant&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initState = <span class="number">100</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">countReducer</span>(<span class="params">preState = initState, action</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;type, data&#125; = action</span><br><span class="line">  <span class="keyword">switch</span>(type)&#123;</span><br><span class="line">    <span class="keyword">case</span> INCREMENT:</span><br><span class="line">      <span class="keyword">return</span> preState + data</span><br><span class="line">    <span class="keyword">case</span> DECREMENT:</span><br><span class="line">      <span class="keyword">return</span> preState - data</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> preState</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>person_reducer</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;ADDPEOPLE&#125; <span class="keyword">from</span> <span class="string">&#x27;../constant&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initName = [</span><br><span class="line">  &#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;kd&#x27;</span>, <span class="attr">age</span>: <span class="number">12</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">personReducer</span>(<span class="params">preState = initName, action</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;type, data&#125; = action</span><br><span class="line">  <span class="keyword">switch</span>(type)&#123;</span><br><span class="line">    <span class="keyword">case</span> ADDPEOPLE:</span><br><span class="line">      <span class="keyword">return</span> [data, ...preState]</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> preState</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>组件文件夹：将容器组件和UI组件一起书写，所以放在一个文件夹里面了</p>
+<ul>
+<li>Count</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;actionIncrement, actionAsynIncrement&#125; <span class="keyword">from</span> <span class="string">&#x27;../../redux/actions/count_action&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Count</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  Syn = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">this</span>.props.addSyn(value)</span><br><span class="line">  &#125;</span><br><span class="line">  Asyn = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;value&#125; = <span class="built_in">this</span>.selectNumber</span><br><span class="line">    <span class="built_in">this</span>.props.addAsyn(value, <span class="number">500</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>count:&#123;this.props.count&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>number of people:&#123;this.props.peopleNum&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">ref</span>=<span class="string">&#123;c</span> =&gt;</span> this.selectNumber = c&#125;&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;1&#125;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;2&#125;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;3&#125;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.Syn&#125;</span>&gt;</span>Syn+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.Asyn&#125;</span>&gt;</span>Asyn+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(</span><br><span class="line">  <span class="function"><span class="params">state</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">count</span>: state.countReducer,</span><br><span class="line">    <span class="attr">peopleNum</span>: state.personReducer.length</span><br><span class="line">  &#125;),</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">addSyn</span>: actionIncrement,</span><br><span class="line">    <span class="attr">addAsyn</span>: actionAsynIncrement</span><br><span class="line">  &#125;</span><br><span class="line">)(Count)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Person</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;actionAddPeople&#125; <span class="keyword">from</span> <span class="string">&#x27;../../redux/actions/person_action&#x27;</span> </span><br><span class="line"><span class="keyword">import</span> personReducer <span class="keyword">from</span> <span class="string">&#x27;../../redux/reducers/person_reducer&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;nanoid&#125; <span class="keyword">from</span> <span class="string">&#x27;nanoid&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  addPerson = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> name = <span class="built_in">this</span>.nameNode.value</span><br><span class="line">    <span class="keyword">const</span> age = <span class="built_in">this</span>.ageNode.value</span><br><span class="line">    <span class="keyword">const</span> Obj = &#123; <span class="attr">id</span>:nanoid(), name, age &#125;</span><br><span class="line">    <span class="built_in">this</span>.props.add(Obj)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>the number of people:&#123;this.props.number&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>the number of count:&#123;this.props.countNum&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">          &#123;</span></span><br><span class="line"><span class="xml">            this.props.people.map((p)=&gt;&#123;</span></span><br><span class="line"><span class="xml">              return <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;p.id&#125;</span>&gt;</span>&#123;p.name&#125;-----&#123;p.age&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">            &#125;)</span></span><br><span class="line"><span class="xml">          &#125;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;c</span>=&gt;</span>this.nameNode = c&#125; type=&quot;text&quot; placeholder=&quot;输入名字&quot;/&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;c</span>=&gt;</span>this.ageNode = c&#125; type=&quot;text&quot; placeholder=&quot;输入年龄&quot;/&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.addPerson&#125;</span>&gt;</span>添加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(</span><br><span class="line">  <span class="function"><span class="params">state</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">people</span>:state.personReducer,</span><br><span class="line">    <span class="attr">countNum</span>:state.countReducer</span><br><span class="line">  &#125;),</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">add</span>: actionAddPeople</span><br><span class="line">  &#125;</span><br><span class="line">)(Person)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="第八章-纯函数"><a href="#第八章-纯函数" class="headerlink" title="第八章 纯函数"></a>第八章 纯函数</h1><ul>
+<li><p>redux机制：发现preState和之后的状态一致的时候，就不会发生更新</p>
+<ul>
+<li>在更新的时候会发生一次浅比较，如果两者地址相同，就不会进行更新</li>
+<li>因此，对于数组操作：unshift()，push()，是不可以的</li>
+<li>因此我们需要[…preState，data]来进行新数组包装操作</li>
+</ul>
+</li>
+<li><p>纯函数：</p>
+<ul>
+<li><strong>只要是同样的输入，必定得到同样的相同的输出</strong></li>
+<li>纯函数必须遵守以下内容：<ul>
+<li>不得改写参数数据</li>
+<li>不会产生任何副作用，比如网络请求，和输入输出设备</li>
+<li>不能调用Date.now()或者Math.random()等不纯的方法</li>
+</ul>
+</li>
+<li>redux的reducer函数必须是一个纯函数</li>
+</ul>
+</li>
+</ul>
+<h1 id="第九章-redux开发者工具"><a href="#第九章-redux开发者工具" class="headerlink" title="第九章 redux开发者工具"></a>第九章 redux开发者工具</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, combineReducers &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> CountReducer <span class="keyword">from</span> <span class="string">&#x27;./reducers/count_reducer&#x27;</span></span><br><span class="line"><span class="keyword">import</span> PersonReducer <span class="keyword">from</span> <span class="string">&#x27;./reducers/person_reducer&#x27;</span></span><br><span class="line"><span class="comment">// 使用开发者工具</span></span><br><span class="line"><span class="keyword">import</span> &#123;composeWithDevTools&#125; <span class="keyword">from</span> <span class="string">&#x27;redux-devtools-extension&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并Reducers</span></span><br><span class="line"><span class="keyword">const</span> allReducers = combineReducers(&#123;</span><br><span class="line">  <span class="attr">countReducer</span>: CountReducer,</span><br><span class="line">  <span class="attr">personReducer</span>: PersonReducer</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 暴露store并使其能够异步操作</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore(allReducers, composeWithDevTools(applyMiddleware(thunk)))</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以进行开发者工具的使用了</p>
+<h1 id="第十章-打包运行"><a href="#第十章-打包运行" class="headerlink" title="第十章 打包运行"></a>第十章 打包运行</h1><ul>
+<li><p>输入指令：npm run build</p>
+</li>
+<li><p>输入之后，会产生一个build文件夹，这个文件夹都是存粹的html和js</p>
+</li>
+<li><p>接下来就是把文件部署到服务器上面</p>
+<ul>
+<li>用node手写服务器</li>
+<li>用serve服务（适用于自行查看效果）<ul>
+<li>全局安装：npm i serve -g</li>
+<li>命令行输入：serve build：以build为入口打开</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2021/08/20/redux/">http://example.com/2021/08/20/redux/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/09/03/ajax/">ajax技术</a>
+            
+            
+            <a class="next" rel="next" href="/2020/10/20/JavaScript/">JavaScript</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

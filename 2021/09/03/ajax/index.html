@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="John Doe">
+
+
+
+
+
+<title>ajax技术 | Hexo</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Bentham&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Bentham&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ajax技术</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">John Doe</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 3, 2021&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>简介：Ajax即<strong>A</strong>synchronous <strong>J</strong>avascript <strong>A</strong>nd <strong>X</strong>ML在 2005年被Jesse James Garrett提出的新术语…</p>
+<span id="more"></span>
+
+<h1 id="第一章-HTTP协议"><a href="#第一章-HTTP协议" class="headerlink" title="第一章 HTTP协议"></a>第一章 HTTP协议</h1><p>HTTP协议：超文本传输协议，协议详细规定了浏览器和万维网服务器之间互相通信的规则</p>
+<h2 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h2><p>从上到下为：</p>
+<ul>
+<li>请求行：你的url + 协议版本</li>
+<li>请求头：要访问的域名</li>
+<li>空行</li>
+<li>请求体：表单数据等等</li>
+</ul>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/s?ie=utf-8&amp;rsv_enter=1&amp;rsv_dl=tb</span>  <span class="string">HTTP/1.1</span></span><br><span class="line"><span class="string">Host:</span> www.baidu.com</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>name=guigu</span><br><span class="line"><span class="attribute">Content-type</span><span class="punctuation">: </span>application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>chrome 83</span><br><span class="line"></span><br><span class="line"><span class="pgsql">username=<span class="keyword">admin</span>&amp;<span class="keyword">password</span>=<span class="keyword">admin</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h2><p>从上到下为：</p>
+<ul>
+<li>行：协议版本 + 响应状态码 + 响应字符串</li>
+<li>头：对响应体内容做一些描述</li>
+<li>空行</li>
+<li>体：具体html代码</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span>  <span class="number">200</span>  OK</span><br><span class="line">Content-Type: text/html;charset=utf-<span class="number">8</span></span><br><span class="line">Content-length: <span class="number">2048</span></span><br><span class="line">Content-encoding: gzip</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第二章-原生Ajax"><a href="#第二章-原生Ajax" class="headerlink" title="第二章 原生Ajax"></a>第二章 原生Ajax</h1><h2 id="Ajax简介"><a href="#Ajax简介" class="headerlink" title="Ajax简介"></a>Ajax简介</h2><ul>
+<li><p>Ajax：异步的js和XML</p>
+</li>
+<li><p>通过Ajax可以<strong>在浏览器中间服务器</strong>发送异步请求，最大的优势：无刷新获取数据</p>
+</li>
+<li><p>Ajax不是一门新的语言，而是一种将现有的标准组合在一起使用的新方式</p>
+</li>
+</ul>
+<h2 id="XML简介"><a href="#XML简介" class="headerlink" title="XML简介"></a>XML简介</h2><ul>
+<li><p>XML:可扩展标记语言</p>
+</li>
+<li><p>XML被设计用来<strong>传输和存储数据</strong></p>
+</li>
+<li><p>XML和HTML类似，不同的是HTML都是预定义标签，而XML没有预定义标签，全部都是自定义标签，用来表示一些数据</p>
+</li>
+<li><p>现在一般都用json替代了</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">student</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>孙悟空<span class="tag">&lt;<span class="name">name</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">age</span>&gt;</span>18<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gender</span>&gt;</span>男<span class="tag">&lt;/<span class="name">gender</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">student</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    name:<span class="string">&quot;孙悟空&quot;</span>,</span><br><span class="line">    age: <span class="number">18</span>,</span><br><span class="line">    gender: 男</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  两者的作用是相同的</p>
+</li>
+</ul>
+<h2 id="Ajax的特点"><a href="#Ajax的特点" class="headerlink" title="Ajax的特点"></a>Ajax的特点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>可以无需刷新页面与服务器端进行通信</li>
+<li>允许你根据用户触发的事件来更新部分页面内容</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>没有浏览历史，不能回退</li>
+<li>存在跨域问题</li>
+<li>SEO不友好<ul>
+<li>SEO：搜索引擎优化</li>
+</ul>
+</li>
+</ul>
+<h2 id="Ajax的简单使用"><a href="#Ajax的简单使用" class="headerlink" title="Ajax的简单使用"></a>Ajax的简单使用</h2><h3 id="GET型"><a href="#GET型" class="headerlink" title="GET型"></a>GET型</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to send request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 获取btn元素</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> btn = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;button&#x27;</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> result = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;result&#x27;</span>)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 创建ajax对象</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 初始化，设置请求方法和url</span></span></span><br><span class="line"><span class="javascript">      xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;http://127.0.0.1:8000/example&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 发送</span></span></span><br><span class="line"><span class="javascript">      xhr.send()</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 事件绑定，处理服务器端返回的结果</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// on  when 当...时候</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// readystate是xhr对象的属性：表示状态：</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// 0未初始化 1open调用完毕 2send调用完毕 3服务端返回的部分结果 4服务端返回的所有结果</span></span></span><br><span class="line"><span class="javascript">      xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 判断服务端返回所有结果</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// 判断响应状态码：200 404...</span></span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>)&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 处理结果 行 头 空行 体</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.status)<span class="comment">//状态码</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.statusText)<span class="comment">//状态字符串</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.getAllResponseHeaders())<span class="comment">//响应头</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.response)<span class="comment">//响应体</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 获得响应体</span></span></span><br><span class="line"><span class="javascript">            result.innerHTML = xhr.response</span></span><br><span class="line"><span class="javascript">          &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 处理结果 行 头 空行 体</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.status)<span class="comment">//状态码</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.statusText)<span class="comment">//状态字符串</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.getAllResponseHeaders())<span class="comment">//响应头</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.response)<span class="comment">//响应体</span></span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;    </span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里的服务端为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建应用对象</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">&#x27;/example&#x27;</span>,<span class="function">(<span class="params">request, response</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// 设置响应头，设置为允许跨域</span></span><br><span class="line">  response.setHeader(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  response.send(<span class="string">&#x27;message&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">8000</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;http://127.0.0.1:8000&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以观察得知：在html页面获取请求，然后再根据服务端发送过来的response来进行重新渲染</p>
+<h3 id="POST型"><a href="#POST型" class="headerlink" title="POST型"></a>POST型</h3><p>我们需要先安装pody-parse</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">npm</span> init -y</span><br><span class="line">npm i -S body-parser</span><br></pre></td></tr></table></figure>
+
+<p>下面是代码部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to send request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> result = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;result&#x27;</span>)</span></span><br><span class="line"><span class="javascript">    result.addEventListener(<span class="string">&#x27;mouseover&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span></span><br><span class="line"><span class="javascript">      xhr.open(<span class="string">&#x27;POST&#x27;</span>, <span class="string">&#x27;http://127.0.0.1:8000/example&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 设置请求头：请求体类型 + 参数类型</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// 一般会将身份信息放在请求头</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// xhr.setRequestHeader(&#x27;name&#x27;,&#x27;baidu&#x27;)也是合法的，不过需要后端来改动</span></span></span><br><span class="line"><span class="javascript">      xhr.setRequestHeader(<span class="string">&#x27;Content-type&#x27;</span>,<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 发送</span></span></span><br><span class="line"><span class="javascript">      xhr.send(<span class="string">&#x27;a=100&amp;b=200&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      xhr.onreadystatechange = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>)&#123;</span></span><br><span class="line"><span class="javascript">            result.innerHTML = xhr.response</span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.post(&#x27;/example&#x27;,(request, response)=&gt;&#123;</span><br><span class="line">  response.setHeader(&#x27;Access-Control-Allow-Origin&#x27;,&#x27;*&#x27;)</span><br><span class="line"></span><br><span class="line">  response.send(&#x27;message post&#x27;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第三章-Ajax与json格式数据"><a href="#第三章-Ajax与json格式数据" class="headerlink" title="第三章 Ajax与json格式数据"></a>第三章 Ajax与json格式数据</h1><h2 id="js文件部分"><a href="#js文件部分" class="headerlink" title="js文件部分"></a>js文件部分</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建应用对象</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.all(<span class="string">&#x27;/json-server&#x27;</span>,<span class="function">(<span class="params">request, response</span>)=&gt;</span>&#123;</span><br><span class="line">  response.setHeader(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Linkaidi&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> str = <span class="built_in">JSON</span>.stringify(data)</span><br><span class="line">  response.send(str)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">9000</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;http://127.0.0.1:9000&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在此，我们可以开设另一个js文件来存放数据，或者我们可以使用mongoose</p>
+<h2 id="HTML文件部分"><a href="#HTML文件部分" class="headerlink" title="HTML文件部分"></a>HTML文件部分</h2><p>就只是普通的文件，多了一点转换json格式的API</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to send request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onkeydown = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> result = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;result&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      xhr.responseType = <span class="string">&#x27;json&#x27;</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;http://127.0.0.1:9000/json-server&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      xhr.send()</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>)&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 手动转换</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// let data = JSON.parse(xhr.response)</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// console.log(data)</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 自动转换，因为有了上面的：xhr.responseType = &#x27;json&#x27;</span></span></span><br><span class="line"><span class="javascript">            result.innerHTML = xhr.response.name</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(xhr.response)</span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第四章-超时和网络异常"><a href="#第四章-超时和网络异常" class="headerlink" title="第四章 超时和网络异常"></a>第四章 超时和网络异常</h1><h2 id="自动取消资源获取"><a href="#自动取消资源获取" class="headerlink" title="自动取消资源获取"></a>自动取消资源获取</h2><p>有时候我们不会立刻获取到服务器的数据，这时候我们需要设置一个超时机制，超时就让用户自行检查网络</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to send request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> btn = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;button&#x27;</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> result = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;result&#x27;</span>)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    btn.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//-------------------------------------------------//</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// 设置请求到的数据，延时底线为2s</span></span></span><br><span class="line"><span class="javascript">      xhr.timeout = <span class="number">2000</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// 超时回调</span></span></span><br><span class="line"><span class="javascript">      xhr.ontimeout = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">&#x27;请求超时&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">// 没有网络</span></span></span><br><span class="line"><span class="javascript">      xhr.onerror = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">&#x27;没有网络！请重试！&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//-------------------------------------------------//</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;http://127.0.0.1:9000/delay&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      xhr.send()</span></span><br><span class="line"><span class="javascript">      xhr.onreadystatechange = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>)&#123;</span></span><br><span class="line"><span class="javascript">            result.innerHTML = xhr.response</span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建应用对象</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.all(<span class="string">&#x27;/delay&#x27;</span>,<span class="function">(<span class="params">request, response</span>)=&gt;</span>&#123;</span><br><span class="line">  response.setHeader(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    response.send(<span class="string">&#x27;delay&#x27;</span>)</span><br><span class="line">  &#125;, <span class="number">5000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">9000</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;http://127.0.0.1:9000&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在该例子中，我们可以明白，服务端的 ‘delay’ 字符串是发送不过去的，因为超时了。</p>
+</li>
+<li><p>在浏览器查看超时的情况：</p>
+<ul>
+<li>offine：设置无网络连接，当然也可以在此设置各个形式的网络连接</li>
+<li>status：查看request的状态，是否传输成功</li>
+</ul>
+</li>
+</ul>
+<p><img src="C:\Users\Drama\Desktop\myNote\Pic\ajax\网络异常.png" alt="网络异常"></p>
+<h2 id="手动取消"><a href="#手动取消" class="headerlink" title="手动取消"></a>手动取消</h2><p>我们只需要在另一个组件绑定xhr.abort()函数就好</p>
+<p>注意事项：</p>
+<ul>
+<li><p>当然，需要在请求发送之前才能使用！！！</p>
+</li>
+<li><p>发送和取消发送的XMLHttpRequest()都必须是同一个，因此写的时候要放到函数的外面做全局</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to send request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to cancel request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> btn = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;button&#x27;</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> btn1 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;button&#x27;</span>)[<span class="number">1</span>]</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> result = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;result&#x27;</span>)</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> xhr = <span class="literal">null</span></span></span><br><span class="line"><span class="javascript">    </span></span><br><span class="line"><span class="javascript">    btn1.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      xhr.abort()</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="第五章-请求重复发送"><a href="#第五章-请求重复发送" class="headerlink" title="第五章 请求重复发送"></a>第五章 请求重复发送</h1><p>请求重复发送时会造成一些延迟问题，如果有设置超时那么可能会产生丢失数据</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to send time over request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to cancel request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me to send request<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> btn2 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;button&#x27;</span>)[<span class="number">2</span>]</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> xhr = <span class="literal">null</span></span></span><br><span class="line"><span class="javascript">  </span></span><br><span class="line"><span class="javascript">    btn2.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span></span><br><span class="line"><span class="javascript">      xhr.timeout = <span class="number">2000</span></span></span><br><span class="line"><span class="javascript">      xhr.ontimeout = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">&#x27;请求超时了&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">      xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;http://127.0.0.1:9000/server&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      xhr.send()</span></span><br><span class="line"><span class="javascript">      xhr.onreadystatechange = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>)&#123;</span></span><br><span class="line"><span class="javascript">            result.innerHTML = xhr.response</span></span><br><span class="line"><span class="javascript">          &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建应用对象</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.all(<span class="string">&#x27;/server&#x27;</span>,<span class="function">(<span class="params">request,response</span>)=&gt;</span>&#123;</span><br><span class="line">  response.setHeader(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    response.send(<span class="string">&#x27;延时发送&#x27;</span>)</span><br><span class="line">  &#125;, <span class="number">3000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">9000</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;http://127.0.0.1:9000&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>由于js的单线程性质，会导致请求丢失：</p>
+<p><img src="C:\Users\Drama\Desktop\myNote\Pic\ajax\请求重复发送问题.png" alt="请求重复发送问题"></p>
+<p>我们的解决方案：设置一个参数作为标识变量，如果已经发过该请求，就自行取消其他的请求，直到该请求发送成功</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">btn2.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 如果已经发送，那么自动取消其他的</span></span><br><span class="line">  <span class="keyword">if</span>(isSending)&#123;</span><br><span class="line">    xhr.abort()</span><br><span class="line">  &#125;</span><br><span class="line">  xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">  isSending = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  xhr.timeout = <span class="number">2000</span></span><br><span class="line">  xhr.ontimeout = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    alert(<span class="string">&#x27;请求超时了&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  xhr.open(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;http://127.0.0.1:9000/server&#x27;</span>)</span><br><span class="line">  xhr.send()</span><br><span class="line">  xhr.onreadystatechange = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span><br><span class="line">      <span class="comment">// 发送成功，状态重置</span></span><br><span class="line">      isSending = <span class="literal">false</span></span><br><span class="line">      </span><br><span class="line">      <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">        result.innerHTML = xhr.response</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在此需要有几点要注意的：</p>
+<ul>
+<li>不管按多少次按钮，所有的XMLHttpRequest都必须是同一个，才可以取消，不然就是一直在进行创建导致重复</li>
+<li>状态的处理需要自行理解</li>
+<li>不同的请求我们最好在不同的js文件里面写，这样XMLHttpRequest就不会公用<strong>导致另一边的请求被取消</strong></li>
+</ul>
+<h1 id="第六章-jQuery发送Ajax请求"><a href="#第六章-jQuery发送Ajax请求" class="headerlink" title="第六章 jQuery发送Ajax请求"></a>第六章 jQuery发送Ajax请求</h1><h2 id="jQuery的引入"><a href="#jQuery的引入" class="headerlink" title="jQuery的引入"></a>jQuery的引入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="jQuery的部分使用"><a href="#jQuery的部分使用" class="headerlink" title="jQuery的部分使用"></a>jQuery的部分使用</h2><ul>
+<li><p>get的使用及参数说明：</p>
+<ul>
+<li>第一个参数：url地址</li>
+<li>第二个参数：传入的表单数据，对象形式包装，与之前的send(‘a=100&amp;b=200’)是一样的</li>
+<li>第三个参数：回调函数，用于写执行get成功之后会发生的事情，通常有从服务端获取到的数据data</li>
+<li>第四个参数：决定data为什么格式</li>
+</ul>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  $(&#x27;button&#x27;).eq(0).click(() =&gt; &#123;</span><br><span class="line">    $.get(&#x27;http://127.0.0.1:9000/server&#x27;,&#123;a: 100, b: 200&#125;, (data) =&gt; &#123;</span><br><span class="line">      console.log(data)</span><br><span class="line">    &#125;, &#x27;json&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>post也是同理</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  // 这是获取到的数据转换成json格式</span><br><span class="line">  $(&#x27;button&#x27;).eq(0).click(() =&gt; &#123;</span><br><span class="line">    $.post(&#x27;http://127.0.0.1:9000/server&#x27;,&#123;a: 100, b: 200&#125;, (data) =&gt; &#123;</span><br><span class="line">      console.log(data)</span><br><span class="line">    &#125;, &#x27;json&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="jQuery的通用方法发送Ajax请求"><a href="#jQuery的通用方法发送Ajax请求" class="headerlink" title="jQuery的通用方法发送Ajax请求"></a>jQuery的通用方法发送Ajax请求</h2><p>直接将要获取的数据封装成一个对象来进行ajax请求</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;button&#x27;</span>).eq(<span class="number">1</span>).click(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://127.0.0.1:9000/server&#x27;</span>,</span><br><span class="line">    <span class="comment">// 传输格式</span></span><br><span class="line">    <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    <span class="comment">// 传输数据</span></span><br><span class="line">    <span class="attr">data</span>: &#123;<span class="attr">a</span>: <span class="number">100</span>, <span class="attr">b</span>: <span class="number">200</span>&#125;,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="comment">// 成功回调</span></span><br><span class="line">    <span class="attr">success</span>: <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(data)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 失败回调</span></span><br><span class="line">    <span class="attr">error</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;出错了&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 时长</span></span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">2000</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123;<span class="attr">c</span>: <span class="number">300</span>, <span class="attr">d</span>: <span class="number">400</span>&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="第七章-Axios工具包"><a href="#第七章-Axios工具包" class="headerlink" title="第七章 Axios工具包"></a>第七章 Axios工具包</h1><h2 id="安装引入Axios"><a href="#安装引入Axios" class="headerlink" title="安装引入Axios"></a>安装引入Axios</h2><ul>
+<li>npm</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">npm</span> i axios</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>yarn</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add axios</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CDN引入</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Axios示例"><a href="#使用Axios示例" class="headerlink" title="使用Axios示例"></a>使用Axios示例</h2><h3 id="使用GET请求"><a href="#使用GET请求" class="headerlink" title="使用GET请求"></a>使用GET请求</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>GET<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>POST<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>AJAX<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;button&#x27;</span>)</span></span><br><span class="line"><span class="javascript">    axios.defaults.baseURL = <span class="string">&#x27;http://127.0.0.1:9000&#x27;</span></span></span><br><span class="line"><span class="javascript">    btns[<span class="number">0</span>].onclick = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      axios.get(<span class="string">&#x27;/server&#x27;</span>,&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// url参数，类似于jquery的传参</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// data: &#123;a: 100, b: 200&#125;</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">params</span>: &#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">id</span>: <span class="number">100</span>,</span></span><br><span class="line"><span class="javascript">          <span class="attr">vip</span>: <span class="number">7</span></span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 请求行</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">header</span>: &#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">c</span>: <span class="number">300</span>,</span></span><br><span class="line"><span class="javascript">          <span class="attr">d</span>: <span class="number">400</span></span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">      &#125;).then(<span class="function">(<span class="params">value</span>)=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(value)</span></span><br><span class="line"><span class="javascript">      &#125;)</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>好处就是能将URL简化，也像jQuery一样操作 </p>
+<h3 id="使用fetch函数发送请求"><a href="#使用fetch函数发送请求" class="headerlink" title="使用fetch函数发送请求"></a>使用fetch函数发送请求</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fetch(&#x27;http://127.0.0.1:9000/server&#x27;, &#123;</span><br><span class="line">  // 请求方法</span><br><span class="line">  method: &#x27;POST&#x27;,</span><br><span class="line">  headers: &#123;</span><br><span class="line">    c: 300,</span><br><span class="line">    d: 400</span><br><span class="line">  &#125;,</span><br><span class="line">  body: &#x27;id=100&amp;vip=7&#x27;</span><br><span class="line">&#125;).then(response =&gt; &#123;</span><br><span class="line">  return response.json()</span><br><span class="line">&#125;).then(response =&gt; &#123;</span><br><span class="line">  console.log(response)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>我们需要获取后台数据，就要使用then</p>
+<p>我们可以发现在发送POST请求时会首先发送一个OPTION请求？</p>
+<ul>
+<li>一般而言就是因为跨域请求</li>
+</ul>
+<h1 id="第八章-跨域"><a href="#第八章-跨域" class="headerlink" title="第八章 跨域"></a>第八章 跨域</h1><h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略最早是一种安全策略</p>
+<p>同源：协议、域名、端口号三者必须保持一致</p>
+<p>违背同源策略就会发生跨域</p>
+<h2 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h2><h3 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h3><ul>
+<li><p>jsonp是一个非官方的跨域解决方案，只支持get请求</p>
+</li>
+<li><p>jsonp的工作原理：页面一些 标签具有跨域能力：script，img，link，ifame。jsonp就是借助script</p>
+</li>
+<li><p>具体操作：服务端发送的是函数调用即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.all(<span class="string">&#x27;/jsonp&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Once&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> FAQ = <span class="built_in">JSON</span>.stringify(data)</span><br><span class="line">  response.end(<span class="string">`handle(<span class="subst">$&#123;FAQ&#125;</span>)`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;result&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    handle = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> result = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;result&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      result.innerHTML = data.name</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://127.0.0.1:9000/jsonp&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：在这里必须得是json格式，不然会报错的</p>
+<p>下面是一个小案例：在文本框输入并让文本框变色，再取出服务器的数据渲染到html页面上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> input = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;input&#x27;</span>)</span></span><br><span class="line"><span class="javascript">  </span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> handle = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    input.style.border = <span class="string">&quot;solid 1px red&quot;</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> p = <span class="built_in">document</span>.createElement(<span class="string">&#x27;p&#x27;</span>)</span></span><br><span class="line"><span class="javascript">    p.innerHTML = data.msg</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.body.appendChild(p)</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">  </span></span><br><span class="line"><span class="javascript">  input.onblur = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 获取文本框内容</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> username = <span class="built_in">this</span>.value</span></span><br><span class="line"><span class="javascript">  </span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>)</span></span><br><span class="line"><span class="javascript">    script.src = <span class="string">&#x27;http://127.0.0.1:9000/UC1&#x27;</span></span></span><br><span class="line"><span class="javascript">  </span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.body.appendChild(script)</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.all(<span class="string">&#x27;/UC1&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;用户名已经存在&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> str = <span class="built_in">JSON</span>.stringify(data)</span><br><span class="line">  response.end(<span class="string">`handle(<span class="subst">$&#123;str&#125;</span>)`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h3><p> jQuery部分，活用的是callback</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  $(<span class="string">&#x27;button&#x27;</span>).eq(<span class="number">0</span>).click(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// callback参数的固定写法</span></span></span><br><span class="line"><span class="javascript">    $.getJSON(<span class="string">&#x27;http://127.0.0.1:9000/jquery-server?callback=?&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      $(<span class="string">&#x27;#result&#x27;</span>).html(<span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="javascript">        名称: <span class="subst">$&#123;data.name&#125;</span>,</span></span></span><br><span class="line"><span class="string"><span class="javascript">        地址: <span class="subst">$&#123;data.city&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="javascript">      `</span>)</span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">  &#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app.all(<span class="string">&#x27;/jquery-server&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> data = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;lkd&#x27;</span>,</span><br><span class="line">    <span class="attr">city</span>: [<span class="string">&#x27;北京&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>,<span class="string">&#x27;深圳&#x27;</span>]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> str = <span class="built_in">JSON</span>.stringify(data)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> cb = request.query.callback</span><br><span class="line">  response.end(<span class="string">`<span class="subst">$&#123;cb&#125;</span>(<span class="subst">$&#123;str&#125;</span>)`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>CORS：跨域资源共享，为官方的解决方案</p>
+<ul>
+<li>特点：不需要在客户端做任何特殊的操作，完全在服务器处理</li>
+<li>工作原理：通过设置一个响应头来告诉浏览器，该请求允许跨域，浏览器收到该响应，以后就会对响应放行</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置为允许跨域</span></span><br><span class="line"><span class="comment">// 后面的 * 应该是一个url地址，表示能跨域访问的地址</span></span><br><span class="line">response.setHeader(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="string">&quot;*&quot;</span>)</span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Method&quot;</span>, <span class="string">&quot;POST&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>John Doe</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2021/09/03/ajax/">http://example.com/2021/09/03/ajax/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/09/04/%E5%B0%8F%E7%9B%AE%E6%A0%87/">这学期的目标</a>
+            
+            
+            <a class="next" rel="next" href="/2021/08/20/redux/">redux与react-redux</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© John Doe | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

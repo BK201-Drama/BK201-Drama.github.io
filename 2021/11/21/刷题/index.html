@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="BK201-Drama">
+
+
+
+
+
+<title>react源码 | BK201-Drama</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">⬅ home page</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">⬅ home page</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">react源码</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">BK201-Drama</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十一月 21, 2021&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/job-wanted/">job wanted</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><ul>
+<li><h4 id="1920-基于排列构建数组"><a href="#1920-基于排列构建数组" class="headerlink" title="1920. 基于排列构建数组"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/build-array-from-permutation/">1920. 基于排列构建数组</a></h4></li>
+<li><h4 id="1929-数组串联"><a href="#1929-数组串联" class="headerlink" title="1929. 数组串联"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/concatenation-of-array/">1929. 数组串联</a></h4></li>
+<li><h4 id="1828-统计一个圆中点的数目"><a href="#1828-统计一个圆中点的数目" class="headerlink" title="1828. 统计一个圆中点的数目"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/queries-on-number-of-points-inside-a-circle/">1828. 统计一个圆中点的数目</a></h4></li>
+<li><h4 id="1480-一维数组的动态和"><a href="#1480-一维数组的动态和" class="headerlink" title="1480. 一维数组的动态和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/running-sum-of-1d-array/">1480. 一维数组的动态和</a></h4></li>
+<li><h4 id="1720-解码异或后的数组"><a href="#1720-解码异或后的数组" class="headerlink" title="1720. 解码异或后的数组"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/decode-xored-array/">1720. 解码异或后的数组</a></h4></li>
+<li><h4 id="1689-十-二进制数的最少数目"><a href="#1689-十-二进制数的最少数目" class="headerlink" title="1689. 十-二进制数的最少数目"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers/">1689. 十-二进制数的最少数目</a></h4></li>
+<li><h4 id="27-移除元素"><a href="#27-移除元素" class="headerlink" title="27. 移除元素"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-element/">27. 移除元素</a></h4></li>
+<li><h4 id="977-有序数组的平方"><a href="#977-有序数组的平方" class="headerlink" title="977. 有序数组的平方"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/">977. 有序数组的平方</a></h4></li>
+<li><h4 id="209-长度最小的子数组"><a href="#209-长度最小的子数组" class="headerlink" title="209. 长度最小的子数组"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/">209. 长度最小的子数组</a></h4></li>
+<li><h4 id="59-螺旋矩阵-II"><a href="#59-螺旋矩阵-II" class="headerlink" title="59. 螺旋矩阵 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/spiral-matrix-ii/">59. 螺旋矩阵 II</a></h4></li>
+</ul>
+<hr>
+<h2 id="1920-基于排列构建数组-1"><a href="#1920-基于排列构建数组-1" class="headerlink" title="1920. 基于排列构建数组"></a>1920. 基于排列构建数组</h2><p>考点：数组的遍历</p>
+<p>在这里，我们得使用map函数，可以大量节省空间，而像c++单项遍历是不可取的</p>
+<p>注意：<strong>这里不能返回nums数组，因为使用map本质也算是创建了一个新数组</strong>，故我们返回num数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> buildArray = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> nums.map(<span class="function">(<span class="params">num,index</span>)=&gt;</span>(</span><br><span class="line">        nums[nums[index]]</span><br><span class="line">    ))</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1929-数组串联-1"><a href="#1929-数组串联-1" class="headerlink" title="1929.数组串联"></a>1929.数组串联</h2><p>考点：数组的拼接</p>
+<p>在这里，我们要使用concat()来进行数组的拼接，节省时间和空间</p>
+<p>不要过多的依赖push和pop</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getConcatenation = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> nums.concat(nums)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1828-统计一个圆中点的数目-1"><a href="#1828-统计一个圆中点的数目-1" class="headerlink" title="1828. 统计一个圆中点的数目"></a>1828. 统计一个圆中点的数目</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isIn = <span class="function"><span class="keyword">function</span>(<span class="params">point, query</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (point[<span class="number">0</span>] - query[<span class="number">0</span>]) ** <span class="number">2</span> + (point[<span class="number">1</span>] - query[<span class="number">1</span>]) ** <span class="number">2</span> &lt;= query[<span class="number">2</span>] ** <span class="number">2</span> ? <span class="number">1</span> : <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> countPointsWithOneCircle = <span class="function"><span class="keyword">function</span>(<span class="params">points, circle</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; points.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(isIn(points[i], circle))count++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> countPoints = <span class="function"><span class="keyword">function</span>(<span class="params">points, queries</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> queries)&#123;</span><br><span class="line">        arr.push(countPointsWithOneCircle(points, queries[i]))</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1480-一维数组的动态和-1"><a href="#1480-一维数组的动态和-1" class="headerlink" title="1480. 一维数组的动态和"></a>1480. 一维数组的动态和</h2><p>考点：动态规划</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> runningSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        nums[i] += nums[i - <span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1720-解码异或后的数组-1"><a href="#1720-解码异或后的数组-1" class="headerlink" title="1720. 解码异或后的数组"></a>1720. 解码异或后的数组</h2><p>考点：动态规划、异或问题</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 回旋</span><br><span class="line">a ^ b ^ b = a</span><br><span class="line">若：a ^ b = c，则：</span><br><span class="line">a = c ^ b</span><br><span class="line">b = c ^ a </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> decode = <span class="function"><span class="keyword">function</span>(<span class="params">encoded, first</span>) </span>&#123;</span><br><span class="line">    encoded.unshift(first)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; encoded.length; i++)&#123;</span><br><span class="line">        encoded[i] ^= encoded[i - <span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> encoded</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1689-十-二进制数的最少数目-1"><a href="#1689-十-二进制数的最少数目-1" class="headerlink" title="1689.十-二进制数的最少数目"></a>1689.十-二进制数的最少数目</h2><p>考点：…符号的使用，可以让字符串解构</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> minPartitions = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> num = <span class="built_in">parseInt</span>(n)</span><br><span class="line">    <span class="keyword">while</span>(num !== <span class="number">0</span>)&#123;</span><br><span class="line">        max = max &gt; num % <span class="number">10</span> ? max : (num % <span class="number">10</span>)</span><br><span class="line">        num = <span class="built_in">parseInt</span>(num / <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="27-移除元素-1"><a href="#27-移除元素-1" class="headerlink" title="27.移除元素"></a>27.移除元素</h2><p>考点：双指针法：当指到需要移除的元素时，慢指针停一格，然后用快指针的数据赋值给慢指针的数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removeElement = <span class="function"><span class="keyword">function</span>(<span class="params">nums, val</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 慢指针</span></span><br><span class="line">    <span class="keyword">var</span> k = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] !== val)&#123;</span><br><span class="line">           nums[k++] =  nums[i]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> k</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="977-有序数组的平方-1"><a href="#977-有序数组的平方-1" class="headerlink" title="977. 有序数组的平方"></a>977. 有序数组的平方</h2><p>考点：双指针法，当指到的元素函数值较小时，就将函数值拿出来推进新数组，然后指针移动</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sortedSquares = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> j = nums.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(i &lt;= j)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] ** <span class="number">2</span> &lt;= nums[j] ** <span class="number">2</span>)&#123;</span><br><span class="line">            arr.unshift(nums[j] ** <span class="number">2</span>)</span><br><span class="line">            j--</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            arr.unshift(nums[i] ** <span class="number">2</span>)</span><br><span class="line">            i++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="209-长度最小的子数组-1"><a href="#209-长度最小的子数组-1" class="headerlink" title="209. 长度最小的子数组"></a>209. 长度最小的子数组</h2><p>考点：双指针法，制造一个滑动窗口</p>
+<p>有点类似于栈和队列</p>
+<p>当滑动窗口满条件时，就往外出队列</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> minSubArrayLen = <span class="function"><span class="keyword">function</span>(<span class="params">target, nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fast = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> low = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> length = nums.length</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> res = length + <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(fast &lt; length + <span class="number">1</span>)&#123;</span><br><span class="line">        sum += nums[fast]</span><br><span class="line">        fast++</span><br><span class="line">        <span class="keyword">while</span>(sum &gt;= target)&#123;</span><br><span class="line">            res = res &lt; fast - low ? res : fast - low</span><br><span class="line">            sum -= nums[low]</span><br><span class="line">            low++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res &gt; length ? <span class="number">0</span> : res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="59-螺旋矩阵-II-1"><a href="#59-螺旋矩阵-II-1" class="headerlink" title="59. 螺旋矩阵 II"></a>59. 螺旋矩阵 II</h2><p>考点：边界条件的判断</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> generateMatrix = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 创建n * n二维数组</span></span><br><span class="line">    <span class="keyword">const</span> res = <span class="built_in">Array</span>.from(&#123;<span class="attr">length</span>: n&#125;).map(<span class="function">()=&gt;</span><span class="keyword">new</span> <span class="built_in">Array</span>(n))</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">0</span>,</span><br><span class="line">        y = <span class="number">0</span>,</span><br><span class="line">        i = <span class="number">0</span>,</span><br><span class="line">        count = <span class="number">1</span>,</span><br><span class="line">        loop = n &gt;&gt; <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(loop &gt;= ++i)&#123;</span><br><span class="line">        <span class="keyword">var</span> X = x,</span><br><span class="line">            Y = y</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(X &lt; n - i)&#123;</span><br><span class="line">            res[Y][X++] = count++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(Y &lt; n - i)&#123;</span><br><span class="line">            res[Y++][X] = count++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(X &gt; x)&#123;</span><br><span class="line">            res[Y][X--] = count++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(Y &gt; y)&#123;</span><br><span class="line">            res[Y--][X] = count++</span><br><span class="line">        &#125;</span><br><span class="line">        y++</span><br><span class="line">        x++</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">123</span> &amp; <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n &amp; <span class="number">1</span>)&#123;</span><br><span class="line">        res[y][x] = count</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><ul>
+<li><h4 id="203-移除链表元素"><a href="#203-移除链表元素" class="headerlink" title="203. 移除链表元素"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-linked-list-elements/">203. 移除链表元素</a></h4></li>
+<li><h4 id="707-设计链表"><a href="#707-设计链表" class="headerlink" title="707. 设计链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-linked-list/">707. 设计链表</a></h4></li>
+<li><h4 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a></h4></li>
+<li><h4 id="19-删除链表的倒数第-N-个结点"><a href="#19-删除链表的倒数第-N-个结点" class="headerlink" title="19. 删除链表的倒数第 N 个结点"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点</a></h4></li>
+</ul>
+<h2 id="203-移除链表元素-1"><a href="#203-移除链表元素-1" class="headerlink" title="203. 移除链表元素"></a>203. 移除链表元素</h2><p>考点：对于头节点的处理</p>
+<p>方法：往往使用虚拟结点法，在头节点之前设置一个节点virtual，之后给出一个返回值virtual.next即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removeElements = <span class="function"><span class="keyword">function</span>(<span class="params">head, val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> virtualHead = <span class="keyword">new</span> ListNode(<span class="number">0</span>, head)</span><br><span class="line">    <span class="keyword">var</span> tmp = virtualHead</span><br><span class="line">    <span class="keyword">while</span>(tmp.next)&#123;</span><br><span class="line">        <span class="keyword">if</span>(tmp.next.val === val)&#123;</span><br><span class="line">            tmp.next = tmp.next.next</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        tmp = tmp.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> virtualHead.next</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="707-设计链表-1"><a href="#707-设计链表-1" class="headerlink" title="707. 设计链表"></a>707. 设计链表</h2><p> 思路：我们需要在链表类里面有一个长度，这样书写链表的增删查改时比较容易</p>
+<p>此外，善用虚拟头结点</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Initialize your data structure here.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> MyLinkedList = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.head = <span class="literal">null</span></span><br><span class="line">    <span class="built_in">this</span>.length = <span class="number">0</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">node</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">val, next</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val</span><br><span class="line">        <span class="built_in">this</span>.next = next</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Get the value of the index-th node in the linked list. If the index is invalid, return -1. </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">index</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyLinkedList.prototype.get = <span class="function"><span class="keyword">function</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> temp = <span class="keyword">new</span> node(<span class="number">0</span>, <span class="built_in">this</span>.head)</span><br><span class="line">    <span class="keyword">if</span>(index &lt; <span class="number">0</span> || index &gt;= <span class="built_in">this</span>.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; index; i++)&#123;</span><br><span class="line">        temp = temp.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp.next.val</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">val</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyLinkedList.prototype.addAtHead = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.addAtIndex(<span class="number">0</span>, val)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Append a node of value val to the last element of the linked list. </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">val</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyLinkedList.prototype.addAtTail = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.addAtIndex(<span class="built_in">this</span>.length, val)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>index </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">val</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyLinkedList.prototype.addAtIndex = <span class="function"><span class="keyword">function</span>(<span class="params">index, val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(index &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> virtual = <span class="keyword">new</span> node(<span class="number">0</span>, <span class="built_in">this</span>.head)</span><br><span class="line">    <span class="keyword">var</span> temp = virtual</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; index &amp;&amp; i &lt; <span class="built_in">this</span>.length; i++)&#123;</span><br><span class="line">        temp = temp.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> insert = <span class="keyword">new</span> node(val)</span><br><span class="line">    insert.next = temp.next</span><br><span class="line">    temp.next = insert</span><br><span class="line">    <span class="built_in">this</span>.head = virtual.next</span><br><span class="line">    <span class="built_in">this</span>.length++</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Delete the index-th node in the linked list, if the index is valid. </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">index</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">MyLinkedList.prototype.deleteAtIndex = <span class="function"><span class="keyword">function</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> virtualH = <span class="keyword">new</span> node(<span class="number">0</span>, <span class="built_in">this</span>.head)</span><br><span class="line">    <span class="keyword">var</span> temp = virtualH</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(index &lt; <span class="number">0</span> || <span class="built_in">this</span>.length &lt;= index)&#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; index; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!temp.next)&#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        temp = temp.next</span><br><span class="line">    &#125;</span><br><span class="line">    temp.next = temp.next.next</span><br><span class="line">    <span class="built_in">this</span>.head = virtualH.next</span><br><span class="line">    <span class="built_in">this</span>.length--</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="206-反转链表-1"><a href="#206-反转链表-1" class="headerlink" title="206. 反转链表"></a>206. 反转链表</h2><p>考点：双指针法，不过要着重理清楚链表的指向关系</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseList = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aft = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> pre = head</span><br><span class="line">    <span class="keyword">while</span>(pre)&#123;</span><br><span class="line">        <span class="keyword">var</span> change = pre</span><br><span class="line">        pre = pre.next</span><br><span class="line">        change.next = aft</span><br><span class="line"></span><br><span class="line">        aft = change</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> aft</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="19-删除链表的倒数第-N-个结点-1"><a href="#19-删除链表的倒数第-N-个结点-1" class="headerlink" title="19. 删除链表的倒数第 N 个结点"></a>19. 删除链表的倒数第 N 个结点</h2><p>考点：因为特殊值的原因，最好设置虚拟节点</p>
+<p>找倒数的第N个结点，又要一次遍历结束，我们就使用两个指针，相隔为N - 1就可以了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removeNthFromEnd = <span class="function"><span class="keyword">function</span>(<span class="params">head, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> virtual = <span class="keyword">new</span> ListNode(<span class="number">0</span>, head)</span><br><span class="line">    <span class="keyword">var</span> slow = fast = virtual</span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        fast = fast.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!fast)&#123;</span><br><span class="line">        <span class="keyword">return</span> virtual.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(fast.next)&#123;</span><br><span class="line">        fast = fast.next</span><br><span class="line">        slow = slow.next</span><br><span class="line">    &#125;</span><br><span class="line">    slow.next = slow.next.next</span><br><span class="line">    <span class="keyword">return</span> virtual.next</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h1><ul>
+<li><h4 id="242-有效的字母异位词"><a href="#242-有效的字母异位词" class="headerlink" title="242. 有效的字母异位词"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-anagram/">242. 有效的字母异位词</a></h4></li>
+<li><h4 id="1002-查找常用字符"><a href="#1002-查找常用字符" class="headerlink" title="1002. 查找常用字符"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-common-characters/">1002. 查找常用字符</a></h4></li>
+<li><h4 id="349-两个数组的交集"><a href="#349-两个数组的交集" class="headerlink" title="349. 两个数组的交集"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intersection-of-two-arrays/">349. 两个数组的交集</a></h4></li>
+<li><h4 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202. 快乐数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/happy-number/">202. 快乐数</a></h4></li>
+<li><h4 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">1. 两数之和</a></h4></li>
+<li><h4 id="454-四数相加-II"><a href="#454-四数相加-II" class="headerlink" title="454. 四数相加 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/4sum-ii/">454. 四数相加 II</a></h4></li>
+</ul>
+<hr>
+<h2 id="242-有效的字母异位词-1"><a href="#242-有效的字母异位词-1" class="headerlink" title="242. 有效的字母异位词"></a>242. 有效的字母异位词</h2><p>考点：构建26位的哈希表，用空间换取时间</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isAnagram = <span class="function"><span class="keyword">function</span>(<span class="params">s, t</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.length !== t.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="built_in">Array</span>(<span class="number">26</span>).fill(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">const</span> base = <span class="string">&#x27;a&#x27;</span>.charCodeAt()</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">of</span> s)&#123;</span><br><span class="line">        arr[i.charCodeAt() - base]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">of</span> t)&#123;</span><br><span class="line">        arr[i.charCodeAt() - base]--</span><br><span class="line">        <span class="keyword">if</span>(arr[i.charCodeAt() - base] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1002-查找常用字符-1"><a href="#1002-查找常用字符-1" class="headerlink" title="1002. 查找常用字符"></a>1002. 查找常用字符</h2><p>考点：也是构建哈希表，对每一个词语都构建一个26长度的哈希表，然后新数组是哈希表对应位置的最小值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> commonChars = <span class="function"><span class="keyword">function</span>(<span class="params">words</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> base = <span class="string">&#x27;a&#x27;</span>.charCodeAt()</span><br><span class="line">  <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> words)&#123;</span><br><span class="line">      arr[i] = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">26</span>).fill(<span class="number">0</span>)</span><br><span class="line">      <span class="keyword">var</span> str2 = [...words[i]].join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> j <span class="keyword">in</span> str2)&#123;</span><br><span class="line">          arr[i][str2[j].charCodeAt() - base]++</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> res = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">26</span>).fill(<span class="number">100</span>)</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> words)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; <span class="number">26</span>; j++)&#123;</span><br><span class="line">          res[j] = res[j] &lt; arr[i][j] ? res[j] : arr[i][j]</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">String</span>.fromCharCode(<span class="number">3</span> + base))</span><br><span class="line">  <span class="keyword">var</span> outprint = <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(res[i] === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">while</span>(res[i]--)&#123;</span><br><span class="line">        outprint.push(<span class="built_in">String</span>.fromCharCode(i + base))</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> outprint</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="349-两个数组的交集-1"><a href="#349-两个数组的交集-1" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h2><p>考点：set函数【可以用于数组去重】，并且该数据结构可以和数组之间相互转化</p>
+<p>对一个数据进行去重，然后再逐项检查就好</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 相互转化</span></span><br><span class="line"><span class="keyword">const</span> setArr = <span class="keyword">new</span> <span class="built_in">Set</span>(arr)</span><br><span class="line">arr = <span class="built_in">Array</span>.from(setArr)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 往结构里面添加x，会去重</span></span><br><span class="line">setArr.add(x)</span><br><span class="line"><span class="comment">// 判断是否有这个元素x</span></span><br><span class="line">setArr.has(x)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> intersection = <span class="function"><span class="keyword">function</span>(<span class="params">nums1, nums2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums1.length &lt; nums2.length)&#123;</span><br><span class="line">        <span class="keyword">const</span> temp = nums2</span><br><span class="line">        nums2 = nums1</span><br><span class="line">        nums1 = temp</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> setNums1 = <span class="keyword">new</span> <span class="built_in">Set</span>(nums1)</span><br><span class="line">    <span class="keyword">var</span> setNums2 = <span class="keyword">new</span> <span class="built_in">Set</span>()</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; nums2.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(setNums1.has(nums2[i]))&#123;</span><br><span class="line">            setNums2.add(nums2[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.from(setNums2)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="202-快乐数-1"><a href="#202-快乐数-1" class="headerlink" title="202. 快乐数"></a>202. 快乐数</h2><p>思路：不是快乐数的话，那么产生的步骤会有一个数值的loop，如果找到两次数值一样那么就不是快乐数</p>
+<p>当然，在这里我们要熟练使用Set的判断是否在里面和添加数据这两个API</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getSum = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span>(n) &#123;</span><br><span class="line">        sum += (n % <span class="number">10</span>) ** <span class="number">2</span></span><br><span class="line">        n = <span class="built_in">parseInt</span>(n / <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> isHappy = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>()</span><br><span class="line">    <span class="keyword">var</span> nowData = getSum(n)</span><br><span class="line">    <span class="keyword">while</span>(!set.has(nowData))&#123;</span><br><span class="line">        set.add(nowData)</span><br><span class="line">        nowData = getSum(nowData)</span><br><span class="line">        <span class="keyword">if</span>(nowData === <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-两数之和-1"><a href="#1-两数之和-1" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h2><p>思路：使用hash来拿出索引（下标）</p>
+<p>同样的，hash也是需要推入索引下标的</p>
+<p>典型的空间换时间</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> hash = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(hash[target - nums[i]] !== <span class="literal">undefined</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> [i, hash[target - nums[i]]]</span><br><span class="line">        &#125;</span><br><span class="line">        hash[nums[i]] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="454-四数相加-II-1"><a href="#454-四数相加-II-1" class="headerlink" title="454. 四数相加 II"></a>454. 四数相加 II</h2><p>思路：两两数组求和，再对和使用哈希表</p>
+<p>Map的使用特别灵活，如果只是使用数组可能会出现两数之和为负数，这样根本无法定位</p>
+<p>Map的使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">const</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line"><span class="comment">// 设置键值对，用于表示两者的映射关系</span></span><br><span class="line">myMap.set(number1, number2)</span><br><span class="line"><span class="comment">// 获取对应的映射(number2)</span></span><br><span class="line">myMap.get(number1)</span><br></pre></td></tr></table></figure>
+
+<p>题解：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fourSumCount = <span class="function"><span class="keyword">function</span>(<span class="params">nums1, nums2, nums3, nums4</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">    <span class="keyword">let</span> cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> n1 <span class="keyword">of</span> nums1)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">const</span> n2 <span class="keyword">of</span> nums2)&#123;</span><br><span class="line">            myMap.set(n1 + n2, (myMap.get(n1 + n2) || <span class="number">0</span>) + <span class="number">1</span>) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> n3 <span class="keyword">of</span> nums3)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">const</span> n4 <span class="keyword">of</span> nums4)&#123;</span><br><span class="line">            cnt += myMap.get((<span class="number">0</span> - n3 - n4)) || <span class="number">0</span> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>BK201-Drama</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2021/11/21/%E5%88%B7%E9%A2%98/">http://example.com/2021/11/21/%E5%88%B7%E9%A2%98/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E9%A2%98%E5%BA%93/"># 题库</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/12/11/%E5%BE%AE%E5%89%8D%E7%AB%AF/">微前端</a>
+            
+            
+            <a class="next" rel="next" href="/2021/11/21/react%E6%BA%90%E7%A0%81/">react源码</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© BK201-Drama | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

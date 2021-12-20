@@ -283,6 +283,55 @@
 <li>HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。</li>
 <li>验证码：防止脚本冒充用户提交危险操作。</li>
 </ul>
+<h1 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h1><h2 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a>什么是CSRF</h2><p>CSRF（Cross-site request forgery）跨站请求伪造：攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的</p>
+<h2 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h2><ul>
+<li>受害者登录着a.com，并且保留着登录凭证Cookies</li>
+<li>攻击者诱导受害者访问b.com</li>
+<li>b.com对a.com发送请求：a.com/act=xx</li>
+<li>a.com接收请求后，对请求进行验证，并确认是受害者的凭证，误以为是受害者发出的请求</li>
+<li>a.com以受害者的名义执行了act=xx</li>
+<li>攻击完成，以窃取用户登录信息</li>
+</ul>
+<h2 id="CSRF分类"><a href="#CSRF分类" class="headerlink" title="CSRF分类"></a>CSRF分类</h2><h3 id="GET类型"><a href="#GET类型" class="headerlink" title="GET类型"></a>GET类型</h3><p>较为简单，只需要一个HTTP请求</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://bank.example/withdraw?amount=10000&amp;for=hacker&quot;</span> &gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>受害者访问到了带有这个图片的页面后，浏览器会自动向<code>http://bank.example/withdraw?amount=10000&amp;for=hacker</code>发出一次HTTP请求，<code>bank.example</code>就会收到包含受害者登录信息的一次跨域请求</p>
+<h3 id="POST类型"><a href="#POST类型" class="headerlink" title="POST类型"></a>POST类型</h3><p>通常使用表单，自动获取用户数据并自动提交用户敏感信息</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://bank.example/withdraw&quot;</span> <span class="attr">method</span>=<span class="string">POST</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;account&quot;</span> <span class="attr">value</span>=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;amount&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10000&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;for&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hacker&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"> <span class="built_in">document</span>.forms[<span class="number">0</span>].submit(); </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>访问该页面后，就会提交表单【与此同时你根本看不到这些元素，不知道信息被窃取】</p>
+<p><strong>因此后端接口不能将安全寄托在仅允许POST上面</strong></p>
+<h3 id="链接类型"><a href="#链接类型" class="headerlink" title="链接类型"></a>链接类型</h3><p>需要用户点击恶意链接、恶意图片才会触发</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> <span class="attr">taget</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">img</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>由于用户登录了信任的网站A，并且保存登录状态，只要用户点击主动访问上面的页面，则表示攻击成功</p>
+<h2 id="CSRF攻击特点"><a href="#CSRF攻击特点" class="headerlink" title="CSRF攻击特点"></a>CSRF攻击特点</h2><ul>
+<li>攻击一般发起在第三方网站，因此被攻击的网站无法防止攻击发生</li>
+<li>攻击利用受害者在被攻击网站的登录凭证，冒充受害者提交操作，而并非直接窃取数据</li>
+<li>整个过程攻击者并不能获取到受害者的登录凭证，而只是冒用</li>
+<li>跨站请求可以使用各种方式，比如图片URL，超链接，CORS，Form提交等。部分请求方式可以直接嵌入在第三方的论坛和文章中，难以进行追踪</li>
+</ul>
+<p>CSRF通常为跨域的，因为外域更容易被攻击者掌控；但是本域下有容易被利用的功能，比如可以发图片链接，则攻击可以直接在本域下进行，并且攻击更加危险。</p>
+<p>攻击者无法直接窃取到用户的信息（Cookie，Header，网站内容等），仅仅是冒用Cookie中的信息。</p>
+<h2 id="防护策略"><a href="#防护策略" class="headerlink" title="防护策略"></a>防护策略</h2><p>只能增加自己网站针对CSRF的防护能力和本域CSRF攻击的预防能力</p>
+<h3 id="增加防护能力"><a href="#增加防护能力" class="headerlink" title="增加防护能力"></a>增加防护能力</h3><ul>
+<li>阻止不明外域的访问<ul>
+<li>同源检测</li>
+<li>Samesite Cookies</li>
+</ul>
+</li>
+<li>提交时要求附加本域才能获取的信息<ul>
+<li>CSRF Token</li>
+<li>双重Cookies验证：要求AJAX和表单请求携带一个Cookies【这个Cookies用来安全认证，另一个用来保存个人信息】</li>
+</ul>
+</li>
+</ul>
+<h3 id="增加预防能力"><a href="#增加预防能力" class="headerlink" title="增加预防能力"></a>增加预防能力</h3><ul>
+<li>严格管理所有的上传接口，防止任何预期之外的上传内容</li>
+<li>添加Header<code>X-Content-Type-Options: nosniff</code>防止黑客上传HTML内容的资源被解析成网页</li>
+<li>对于用户上传的图片进行转存或者校验，不要直接使用用户填写的图片链接</li>
+<li>打开其他链接时，提前告知打开有风险</li>
+</ul>
 
         </div>
 

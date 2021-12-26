@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="BK201-Drama">
+
+
+
+
+
+<title>编译原理复习 | BK201-Drama</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">⬅ home page</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">⬅ home page</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">编译原理复习</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">BK201-Drama</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 25, 2021&nbsp;&nbsp;00:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="题型介绍"><a href="#题型介绍" class="headerlink" title="题型介绍"></a>题型介绍</h1><ul>
+<li>单项选择题：(每题2分，10题，共20分)</li>
+<li>小的简单解答题：(每题约5-10分，2-3题)</li>
+<li>大的综合解答题： (每题约12-20分，3-4题)<ul>
+<li>两种解答题共6题</li>
+</ul>
+</li>
+</ul>
+<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>理解：什么是编译器</p>
+<p>掌握：编译器的几个阶段</p>
+<p>您应该熟悉编译器的每个阶段，并用图形或文本描述整个过程。</p>
+<p>前端：语言</p>
+<p>中间：IR与编辑器优化技术</p>
+<p>后端：目标平台（指令集，芯片）的可执行代码</p>
+<h2 id="什么是编译器？"><a href="#什么是编译器？" class="headerlink" title="什么是编译器？"></a>什么是编译器？</h2><p>编译器是将程序从一种语言翻译成另一种语言的计算机程序</p>
+<p>前端：语言</p>
+<p>中间：IR与编辑器优化技术</p>
+<p>后端：目标平台（指令集，芯片）的可执行代码</p>
+<h2 id="从描述到实现"><a href="#从描述到实现" class="headerlink" title="从描述到实现"></a>从描述到实现</h2><ul>
+<li>Lexcal analysis(Scanning)【词法分析】：识别描述的逻辑部分【产生token】</li>
+<li>Syntax analysis(Parsing)【语法分析】：确定这些片段之间的关系【产生语法树】</li>
+<li>Semantic analysis【语义分析】：确定整体结构的含义，主要做类型检查【产生注释分析树】</li>
+<li>IR Generation【IR生成】：设计一种可能的结构【中间代码生成】</li>
+<li>IR Optimization【IR优化】：简化预期结构【中间代码优化】</li>
+<li>Generation：生成目标代码</li>
+<li>Optimization：优化目标代码</li>
+</ul>
+<p>前四个为Front End，后三个为Back End</p>
+<p><strong>符号表管理：</strong>编译器的重要功能之一是记录源程序中使用变量的名字，并收集每个名字的各种属性有关的信息，用于快速存放和快速获取记录数据</p>
+<p><strong>将多个步骤组合成趟：</strong>多个步骤的活动可以组合成一趟（pass）比如前四个步骤为<strong>前端趟</strong>。</p>
+<h2 id="解释器和编译器的区别"><a href="#解释器和编译器的区别" class="headerlink" title="解释器和编译器的区别"></a>解释器和编译器的区别</h2><ul>
+<li>解释器：解释器在翻译过程中执行源程序【词法分析，语法分析，语义分析之后就开始执行代码了，不需要转化为目标代码】</li>
+<li>编译器：在转化过程中执行目标代码</li>
+</ul>
+<p>相同点：他们都是语言实现系统</p>
+<hr>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>理解：正则表达式概念，NFA,DFA</p>
+<p>要求掌握：写正则表达式，NFA，DFA，DFA最小生成树，词法分析器的生成</p>
+<p>熟悉R.E.的表达，了解R.E.和C.F.G.的区别，能相互翻译。在给定R.E时，知道如何绘制NFA和DFA，以及如何最小化它。</p>
+<h2 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h2><ul>
+<li>扫描</li>
+<li>正则</li>
+<li>NFA和DFA</li>
+<li>RE to NFA</li>
+<li>from NFA to DFA</li>
+<li>最小化DFA</li>
+</ul>
+<h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p><strong>词素【lexemes】</strong></p>
+<ul>
+<li>我们制作token的原始程序片段成为词素（lexeme），然后和某个词法单元的模式匹配</li>
+<li>while就是一个词素，和词法单元<code>while</code>模式匹配</li>
+<li>有时候我们也会丢弃一个词素，而不是存储起来以后使用，比如<strong>空格和注释</strong>，它和源程序的意义无关</li>
+</ul>
+<p><strong>词法单元【token】</strong></p>
+<ul>
+<li><p>我们可以视为一个枚举类型，表示我们从源代码中读取的逻辑实体，一般一个token对应一个模式</p>
+</li>
+<li><p>某些词法单元<strong>可以具有存储额外数据的属性【当然也可以没有】</strong>，比如下面代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">137</span> &lt; i)&#123;</span><br><span class="line">    ++i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们肯定是需要找一个词法单元来表示137，因此我们使用<code>T_Int</code>来作为词法单元，然后137为词法单元的属性</p>
+</li>
+</ul>
+<p><strong>词素集【set of lexemes】</strong></p>
+<ul>
+<li>将一组词素与每个标记关联起来<ul>
+<li>我们可以将<code>Number</code>和集合<code>&#123;0, 1, 2..., 12&#125;</code>直接关联</li>
+<li>我们可以将<code>String</code>和集合<code>&#123;“sqfq”, &quot;fnsod&quot;&#125;</code>直接关联</li>
+</ul>
+</li>
+</ul>
+<p><strong>解析器parser【语法分析之前的部分】</strong></p>
+<ul>
+<li>解析器可以使用词法单元序列【token】来恢复程序结构</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E5%99%A8%E5%92%8C%E8%A7%A3%E6%9E%90%E5%99%A8.png"></p>
+<p>解析器使用词法单元序列来恢复程序结构</p>
+<h2 id="词法分析的目的"><a href="#词法分析的目的" class="headerlink" title="词法分析的目的"></a>词法分析的目的</h2><ul>
+<li>将程序转化为词法单元序列</li>
+<li>每一个词法单元表示源文件的一个逻辑判断、关键字、或者变量名称等</li>
+<li>表示特定的字符模式，比如<strong>标识符</strong>必须以字母开头等等<ul>
+<li>标识符是一个字符串，通常由字母和数字构成</li>
+<li>比如<code>a &gt; b</code>，a为一个词素，然后经过词法分析器变成词法单元时，作为标识符</li>
+</ul>
+</li>
+<li>都与一个词素相关联</li>
+<li>每个词法分析单元都可以具有可选属性</li>
+<li>词法分析单元序列将会被用于解析器进行语法分析，恢复程序结构</li>
+</ul>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="形式语言【formal-languages】"><a href="#形式语言【formal-languages】" class="headerlink" title="形式语言【formal languages】"></a>形式语言【formal languages】</h3><p><strong>用于描述与每种token相关联的词素集</strong></p>
+<p>形式语言是一组字符串</p>
+<p>许多无限语言都有有限描述</p>
+<ul>
+<li>automation【使用自动机定义】</li>
+<li>grammar【使用语法定义】</li>
+<li>regular expression【使用正则表达式定义】</li>
+</ul>
+<h3 id="字符串和语言"><a href="#字符串和语言" class="headerlink" title="字符串和语言"></a>字符串和语言</h3><ul>
+<li><p>Alphabet：任何有限的符号集，比如：{‘a’, ‘b’, ‘c’}</p>
+</li>
+<li><p>String：某些字符串基于Alphabet组成的有限序列，比如：”acacb”【集合为{‘a’, ‘b’, ‘c’}】</p>
+<ul>
+<li>注意：空字符串不属于空字符集。</li>
+</ul>
+</li>
+<li><p>Language：基于Alphabet组成的有限序列的字符串的集合<br>$$<br>\epsilon记为空字符，{ \epsilon }为Language，但并非与\Phi({})相等，但两者也为Language<br>$$</p>
+</li>
+</ul>
+<h3 id="正则表达式相关"><a href="#正则表达式相关" class="headerlink" title="正则表达式相关"></a>正则表达式相关</h3><ul>
+<li><p>定义：是一类可以捕获语言某个特定字段的描述，通常十分简洁易读</p>
+</li>
+<li><p>原子正则表达式【atomic regular expressions】：任何符号仅与自己相同的字符来匹配</p>
+</li>
+<li><p>复合正则表达式【Compound Regular Expressions】：</p>
+<ul>
+<li>concatenation【串联】：R1R2</li>
+<li>union【组合并联】：R1|R2</li>
+<li> Kleene closure【Kleene闭包】：R*【表示所有由R字符表构成的串的集合，包括空串】</li>
+<li>closure【正闭包】：<code>R_+</code>【和Kleene closure只相差R_0】，如果空串不属于R*，那么空串一定不属于<code>R_+</code></li>
+<li>same：(R)</li>
+</ul>
+</li>
+<li><p>运算符优先级：() &gt; * &gt; concatenation &gt; union</p>
+<ul>
+<li><p>{}：表示重复次数<code>(a | b)(a | b) = (a | b)&#123;2&#125;</code></p>
+</li>
+<li><p>?：表示可以有或者可以没有<code>(0 | \epsilon) = 0?</code></p>
+</li>
+<li><p>[]：表示范围<code>[a-z] = a | b | c ... | z</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="NFA-gt-DFA"><a href="#NFA-gt-DFA" class="headerlink" title="NFA-&gt;DFA"></a>NFA-&gt;DFA</h2><p>正则表达式主要用有限自动机来实现</p>
+<p>NFAs：非确定有限自动机【可以有多个转换】</p>
+<p>DFAs：确定性有限自动机【只能有一个转换】</p>
+<p>对于长度为m的字符串和具有n个状态的自动机，NFA为<code>O(mn^2)</code>，DFA为<code>O(m)</code></p>
+<h2 id="RE-to-NFA-【正则转化成NFA】"><a href="#RE-to-NFA-【正则转化成NFA】" class="headerlink" title="RE to NFA 【正则转化成NFA】"></a>RE to NFA 【正则转化成NFA】</h2><p>使用归纳法：【Inductive method】</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/NFA.png"></p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/NFA2.png"></p>
+<p>NFA转换为DFA，重要的一点就是需要DFA来模拟NFA</p>
+<p>我们需要做的，就是消除<code>\epsilon</code>跃迁</p>
+<ul>
+<li>closure与move的计算，得到X个状态，再进行配置重排<ul>
+<li>closure：计算该点下一个目标为空字符串的集合【包括自己】</li>
+<li>move(I, a)：计算点集I中，指向为a的结果点集</li>
+</ul>
+</li>
+<li>判断是否为Accept点，只需看最后得到的DFA中的重构结点，有没有NFA之前的尾节点</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/NFA%E5%88%B0DFA.png"></p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/NFA%E5%88%B0DFA2.png"></p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/NFA%E5%88%B0DFA3.png"></p>
+<h2 id="最小化DFA"><a href="#最小化DFA" class="headerlink" title="最小化DFA"></a>最小化DFA</h2><p>就是求出等价的最小DFA,下图就是一个最小化DFA的过程</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E6%9C%80%E5%B0%8F%E5%8C%96DFA.png"></p>
+<p>可以采用分割法来求：</p>
+<p>以<code>NFA-&gt;DFA</code>为例：</p>
+<p>0123分为一个集合A，4分为一个集合B</p>
+<p>0a1A 1a1A 2a1A 3a1A</p>
+<p>0b2A 1b3A 2b2A <strong>3b4B</strong></p>
+<p>因此第一次，将3划分出去</p>
+<p>{012} = C {3} = D </p>
+<p>0a1C 1a1C 2a1C</p>
+<p>0b2C <strong>1b3D</strong> 2b2C</p>
+<p>因此第二次，将1划分出去</p>
+<p>{02} = E {1} = F</p>
+<p>0a1F 2a1F</p>
+<p>0b2E 2b2E</p>
+<p>因此02不可再分，两个是同一个状态，可以合并</p>
+<h2 id="词法歧义【Lexing-Ambiguities】"><a href="#词法歧义【Lexing-Ambiguities】" class="headerlink" title="词法歧义【Lexing Ambiguities】"></a>词法歧义【Lexing Ambiguities】</h2><p>使用NFA/DFA即可</p>
+<p>当应用两个正则表达式时，请选择“优先级”较高的正则表达式</p>
+<p>一般，会添加一个任何字符匹配的【全部捕获规则】并报告错误</p>
+<hr>
+<h1 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h1><p>理解：上下文无关语法，派生，解析树，抽象语法树，歧义语法</p>
+<p>熟悉C.F.G的语法，知道如何进行最左/最右的派生。给定一组语法和一个表达式，可以画出解析树和抽象语法树。</p>
+<h2 id="大纲-1"><a href="#大纲-1" class="headerlink" title="大纲"></a>大纲</h2><ul>
+<li>语法分析的形式<ul>
+<li>上下文无关文法【Context-Free Grammars，也称作CFG】</li>
+<li>CFG和语法</li>
+<li>派生【Derivations】</li>
+<li>具体和抽象语法树【Concrete and Abstract Syntax Trees】</li>
+<li>歧义【Ambiguity】</li>
+</ul>
+</li>
+<li>解析算法<ul>
+<li>自顶向下Derivations</li>
+<li>自下而上Reductions</li>
+</ul>
+</li>
+</ul>
+<h2 id="什么是语法分析"><a href="#什么是语法分析" class="headerlink" title="什么是语法分析"></a>什么是语法分析</h2><ul>
+<li>在词法分析之后，我们有一token序列</li>
+<li>在语法分析【或者解析】中，我门需要解释这些token的含义</li>
+<li>恢复token序列描述的结构</li>
+<li>如果这些标记没有正确的编码结构就会报错</li>
+</ul>
+<p>输入：解析器调用scanner过程来获取下一个令牌</p>
+<p>输出：需要构造显式或隐式语法树。语法树的每个节点都包含编译过程其余部分所需的属性</p>
+<h2 id="形式语言"><a href="#形式语言" class="headerlink" title="形式语言"></a>形式语言</h2><ul>
+<li>字母表【alphabet】：字母表是一组构成字符串最小粒度的字符集，我们记为<code>\Sigma</code></li>
+<li>语言【language】：是字母表内部符号构成的一组字符串</li>
+</ul>
+<h2 id="上下文无关文法"><a href="#上下文无关文法" class="headerlink" title="上下文无关文法"></a>上下文无关文法</h2><h3 id="语言的定义"><a href="#语言的定义" class="headerlink" title="语言的定义"></a>语言的定义</h3><p>$$<br>如果S\Rightarrow^<em>\alpha,\alpha\in(V_T\cup V_N)^</em>,则称\alpha是G的一个句型<br>$$</p>
+<ul>
+<li>一个句型既可以包含终结符，也可以包含非终结符，<strong>也可能是空串</strong></li>
+</ul>
+<p>$$<br>如果S\Rightarrow^<em>\alpha,\alpha\in(V_T)^</em>,则称\alpha是文法G的一个句子，我们可以定义为L(G)<br>$$</p>
+<ul>
+<li>句子是不包含非终结符的句型</li>
+<li>语言的运算</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97.png"></p>
+<h3 id="产生式的定义"><a href="#产生式的定义" class="headerlink" title="产生式的定义"></a>产生式的定义</h3><p>$$<br>G = (V_{T}, V_{N}, P, S)<br>$$</p>
+<ul>
+<li>V_{T}为终结符号【比如<code>&lt;apple&gt;</code>】</li>
+<li>V_{N}为非终结符号【比如&lt;动词&gt;&lt;名词&gt;&lt;形容词&gt;】</li>
+<li>P为产生式【a-&gt;b读作a定义为b】：<code>&lt;名词短语&gt; -&gt; &lt;形容词&gt;&lt;名词短语&gt;</code></li>
+<li>S为开始符号，表示的是该文法中最大的语法成分</li>
+</ul>
+<p>其中这里面，满足：<br>$$<br>V_{N} \cap V_{T} = \varnothing<br>$$</p>
+<p>$$<br>当产生式满足:\forall\alpha\rightarrow\beta,\alpha\in V_{N},\beta\in(V_N\cup V_T)^*<br>$$</p>
+<p>则为<strong>上下文无关文法(CFG)</strong></p>
+<h3 id="文法的分类"><a href="#文法的分类" class="headerlink" title="文法的分类"></a>文法的分类</h3><ul>
+<li>unrestricted</li>
+<li>CSG</li>
+<li>CFG</li>
+<li>regular</li>
+</ul>
+<h3 id="一些限制"><a href="#一些限制" class="headerlink" title="一些限制"></a>一些限制</h3><p>不可以使用正则表达式的方法来定义文法，我们要不断解构来定义文法<br>$$<br>S\rightarrow a(b|c^*)~~~~~~~(×)<br>$$</p>
+<p>$$<br>S\rightarrow aX<br>$$ {$$}</p>
+<p>$$<br>X\rightarrow b|C<br>$$</p>
+<p>$$<br>C\rightarrow Cc|\epsilon~~~~(√)<br>$$</p>
+<h2 id="解析树"><a href="#解析树" class="headerlink" title="解析树"></a>解析树</h2><h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><ul>
+<li>是token字符串结构的有用表示形式</li>
+<li>解析树直观的表示派生</li>
+</ul>
+<h3 id="构造和特点"><a href="#构造和特点" class="headerlink" title="构造和特点"></a>构造和特点</h3><ul>
+<li>表示终结符号的叶子节点</li>
+<li>表示非终结符号的中间节点</li>
+<li>叶子从左往右遍历是原始输入</li>
+<li>一个解析树对应许多派生</li>
+<li>派生并不唯一的表示它们构造的字符串的结构，而解析树唯一表示</li>
+<li>解析树表示其提取派生的基本特征，同时按顺序分解表面差异</li>
+</ul>
+<h3 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h3><ul>
+<li>Leftmost derivation：优先替换最左边，对应前序遍历</li>
+<li>Rightmost derivation：优先替换最右边，对应镜像的后序遍历</li>
+</ul>
+<p>最左派生和最右派生对于他们构造的字符串是唯一的，它们与解析树唯一关联</p>
+<h2 id="抽象语法树"><a href="#抽象语法树" class="headerlink" title="抽象语法树"></a>抽象语法树</h2><p>【Abstract Syntax Trees，简称AST】</p>
+<h3 id="为什么需要抽象语法树？"><a href="#为什么需要抽象语法树？" class="headerlink" title="为什么需要抽象语法树？"></a>为什么需要抽象语法树？</h3><p>因为解析树的信息比编译器生成可执行代码所需的信息要多得多</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>抽象语法树表示实际源代码token序列的抽象</p>
+<p>解析器将完成解析树表示的所有步骤，但通常只需要构造抽象语法树</p>
+<h2 id="Ambiguity【歧义】"><a href="#Ambiguity【歧义】" class="headerlink" title="Ambiguity【歧义】"></a>Ambiguity【歧义】</h2><p>某些语法可能导致了有多个解析树</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(int - int) - int</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>如果存在字符串w，则语法G使得w有不同的解析树，这时我们称为Ambiguity。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li><p>Disambiguity rule【消歧规则】：主动添加规则，比如添加优先级<code>* &gt; -</code></p>
+<ul>
+<li>不改变语法</li>
+<li>语言的语法结构不再仅仅由语法给出</li>
+</ul>
+</li>
+<li><p>Rewriting the grammar【改写语法】</p>
+<ul>
+<li>将语法更改为强制构造正确解析树的形式</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E6%94%B9%E5%86%99%E8%AF%AD%E6%B3%95.png"></p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E6%94%B9%E5%86%99%E8%AF%AD%E6%B3%952.png"></p>
+</li>
+</ul>
+<hr>
+<h1 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h1><p>掌握：LL（1）语法，递归下降解析的构造，LL（1）解析，计算第一集和跟随集</p>
+<p>给定C.F.G，知道左因子和左递归移除，知道如何计算它的第一个/跟随集，知道判断它是否是LL（1）语法，知道构造解析表。</p>
+<p>Top-Down Parsing：自顶向下分析</p>
+<h3 id="推导方式"><a href="#推导方式" class="headerlink" title="推导方式"></a>推导方式</h3><ul>
+<li>自顶向下：最左非终结符替换</li>
+<li>自底向上：最右非终结符规约</li>
+</ul>
+<h3 id="计算机自顶向下语法分析的通用形式"><a href="#计算机自顶向下语法分析的通用形式" class="headerlink" title="计算机自顶向下语法分析的通用形式"></a>计算机自顶向下语法分析的通用形式</h3><ul>
+<li><p>递归下降分析【Recursive-Descent Parsing】</p>
+<ul>
+<li>由一组过程组成，每个过程对应一个非终结符</li>
+<li>从文法开始符号S对应的过程开始，其中递归调用文法中其他非终结符对应的过程。如果S对应的过程恰好扫描了整个输入串，则成功完成语法分析</li>
+<li>但是可能需要回溯，会导致效率较低</li>
+</ul>
+</li>
+<li><p>预测分析【Predictive Parsing】</p>
+<ul>
+<li><p>预测分析是递归下降分析技术的一个特例，通过在输入中向前看固定个数符号来选择正确的产生式</p>
+</li>
+<li><p>预测分析不需要回溯，是一种确定的自顶向下分析方法</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="文法转换"><a href="#文法转换" class="headerlink" title="文法转换"></a>文法转换</h2><h3 id="左递归"><a href="#左递归" class="headerlink" title="左递归"></a>左递归</h3><p>$$<br>A\rightarrow A\alpha<br>$$</p>
+<ol>
+<li><p>有该形式产生式的文法称为是直接左递归【immediate left recursive】</p>
+</li>
+<li><p>如果一个文法中有一个非终结符A使得对某个串a有：</p>
+</li>
+</ol>
+<p>$$<br>A\Rightarrow^+Aa<br>$$</p>
+<p>​        那么这个文法就是左递归的</p>
+<ol start="3">
+<li>经过两步及以上的推导产生的左递归叫间接左递归</li>
+<li>会使递归下降分析器进入无限循环</li>
+</ol>
+<h3 id="消除直接左递归"><a href="#消除直接左递归" class="headerlink" title="消除直接左递归"></a>消除直接左递归</h3><p>例子：<br>$$<br>A\rightarrow A\alpha|\beta<br>$$<br>正则表达式：<br>$$<br>    r=\beta \alpha^*<br>$$<br>我们可以根据正则表达式转化：<br>$$<br>A=\beta R<br>$$</p>
+<p>$$<br>R\rightarrow \alpha R<del>|</del>\epsilon<br>$$</p>
+<p>这样，我们就将左递归转化成了右递归</p>
+<p>当然，消除左递归是需要付出代价的，代价就是引进了一些非终结符和空串产生式</p>
+<h3 id="消除直接左递归的一般形式"><a href="#消除直接左递归的一般形式" class="headerlink" title="消除直接左递归的一般形式"></a>消除直接左递归的一般形式</h3><p>$$<br>A\rightarrow A\alpha_{1}<del>|</del>A\alpha_{2}<del>|</del>…|<del>A\alpha_{n}</del>|<del>\beta_{1}</del>|<del>\beta_{2}</del>|<del>…|</del>\beta_{n}~|<br>$$</p>
+<p>消除，则：<br>$$<br>A\rightarrow \beta_{1}G<del>|</del>\beta_{2}G<del>|</del>…|\beta_{n}G<br>$$</p>
+<p>$$<br>G\rightarrow \alpha_{1}G<del>|</del>\alpha_{2}G<del>|</del>…|<del>\alpha_{n}G</del><br>$$</p>
+<h2 id="LL-1-文法"><a href="#LL-1-文法" class="headerlink" title="LL(1)文法"></a>LL(1)文法</h2><h3 id="非终结符的后继字符集"><a href="#非终结符的后继字符集" class="headerlink" title="非终结符的后继字符集"></a>非终结符的后继字符集</h3><p>FOLLOW(A)为一个集合，为非终结符A之后会跟的终结符的集合</p>
+<p>注意，A之前必须要有一个终结符<br>$$<br>A\rightarrow aBC<br>$$</p>
+<p>$$<br>C\rightarrow d<br>$$</p>
+<p>则<code>FOLLOW(A) = &#123;d&#125;</code></p>
+<h3 id="产生式的可选集"><a href="#产生式的可选集" class="headerlink" title="产生式的可选集"></a>产生式的可选集</h3><p>定义：我们要选用哪一条文法，就必须要对应哪一个字符集，比如输入$a$字符集，就可以对应$A\rightarrow a\beta$，可以书写为：<br>$$<br>SELECT(A\rightarrow a\beta) = {<del>a</del>}<br>$$</p>
+<p>$$<br>SELECT(A\rightarrow\epsilon) = FOLLOW(A)<br>$$</p>
+<h3 id="q-文法"><a href="#q-文法" class="headerlink" title="q_文法"></a>q_文法</h3><ul>
+<li>每个产生式的右部可能为$\epsilon$，或者以终结符开始</li>
+<li>具有相同左部的产生式有不相交的可选集</li>
+</ul>
+<p>【因此，q_文法不含右部以非终结符打头的产生式】</p>
+<h3 id="串首终结符"><a href="#串首终结符" class="headerlink" title="串首终结符"></a>串首终结符</h3><ul>
+<li>定义：串首第一个符号，并且是终结符</li>
+<li>给定一个文法符号串a，a的串首终结符集$FIRST(\alpha)$</li>
+</ul>
+<h3 id="LL-1-文法的定义"><a href="#LL-1-文法的定义" class="headerlink" title="$LL(1)$文法的定义"></a>$LL(1)$文法的定义</h3><p>文法$G$为$LL(1)$的，当且仅当$G$的任意两个具有相同左半部分的产生式$A\rightarrow \alpha<del>|</del>\beta$满足下面条件</p>
+<ul>
+<li>给定一个文法符号串a，a的串首终结符集FIRST($\alpha$)被定义为<ul>
+<li>可以从$\alpha$推导出的所有串首终结符构成的集合。如果$\alpha \Rightarrow^*\epsilon$，那么$\epsilon$也会在$FIRST(\alpha)\cap FIRST(\beta)=\Phi$中</li>
+<li>$\alpha$和$\beta$至多有一个能推导出$\epsilon$</li>
+<li>如果$\beta\Rightarrow^<em>\epsilon$或$\alpha\Rightarrow^</em>\epsilon$，则$FIRST(\alpha)\cap FOLLOW(A)=\Phi$</li>
+</ul>
+</li>
+</ul>
+<p>这三个条件是为了保证同一非终结符的各个产生式的可选集互不相交</p>
+<h2 id="FIRST和FOLLOW的计算"><a href="#FIRST和FOLLOW的计算" class="headerlink" title="FIRST和FOLLOW的计算"></a>FIRST和FOLLOW的计算</h2><h3 id="FIRST的计算"><a href="#FIRST的计算" class="headerlink" title="FIRST的计算"></a>FIRST的计算</h3><p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/FIRST.png"></p>
+<h3 id="FOLLOW的计算"><a href="#FOLLOW的计算" class="headerlink" title="FOLLOW的计算"></a>FOLLOW的计算</h3><ul>
+<li>如果A是某个句型的最右符号，则将结束符号$添加到FOLLOW(A)中</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/FOLLOW2.png"></p>
+<h3 id="LL-1-的判断"><a href="#LL-1-的判断" class="headerlink" title="LL(1)的判断"></a>LL(1)的判断</h3><p>计算出所有式子的SELECT集，然后有相同左部分的SELECT集是不相交的，就是LL(1)    </p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/LL1%E5%88%A4%E6%96%AD.png"></p>
+<h3 id="预测分析表"><a href="#预测分析表" class="headerlink" title="预测分析表"></a>预测分析表</h3><p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90%E8%A1%A8.png"></p>
+<hr>
+<h1 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h1><p>掌握：$LR(0)$解析，$SLR(1)$解析</p>
+<p>理解：正确的句子形式，可行的前缀，句柄</p>
+<p>你一定很容易写出给定C.F.G和表达式的正确句子形式，并找出变量前缀和句柄。了解LR（0）和SLR（1）的区别。知道什么时候会出现歧义。更重要的是，给定C.F.G，能够写出其LR（0）项，绘制DFA，构造SLR（1）解析表，并知道如何根据它在堆栈表中逐步解析表达式。</p>
+<h2 id="自底向上分析"><a href="#自底向上分析" class="headerlink" title="自底向上分析"></a>自底向上分析</h2><ul>
+<li>从分析树的底部向顶部方向构造分析树</li>
+<li>可以看成是将输入串$\omega$规约为文法开始符号S的过程</li>
+<li>自顶向下的语法分析采用最左推导方式，自底向上的语法分析采用最左规约方式</li>
+<li>自底向上的语法分析的通用框架：移入—规约分析【shift-Reduce Parsing】</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E7%A7%BB%E5%85%A5-%E8%A7%84%E7%BA%A6%E5%88%86%E6%9E%90.png"></p>
+<p>每次规约的符号串称为【句柄】</p>
+<p><strong>关键问题</strong>：移入-规约分析中容易错误识别句柄</p>
+<p>四个动作</p>
+<ul>
+<li>移入：将下一个输入符号移动到栈顶</li>
+<li>归约：被归约的符号串的右端必然处于栈顶。语法分析器在栈中确定这个串的左端，并决定用哪个终结符来替换这个串</li>
+<li>接收：宣布语法分析规程全部完成</li>
+<li>报错：发现语法错误并调用错误恢复子例程</li>
+</ul>
+<h2 id="LR-0-分析"><a href="#LR-0-分析" class="headerlink" title="$LR(0)$分析"></a>$LR(0)$分析</h2><ul>
+<li>L：对输入进行从左到右的扫描</li>
+<li>R：反向构造出一个最右推导序列</li>
+</ul>
+<p>LR分析器通过自动机来进行归约分析</p>
+<h3 id="一些概念-1"><a href="#一些概念-1" class="headerlink" title="一些概念"></a>一些概念</h3><ul>
+<li>sn：将符号a，状态n压入栈中</li>
+<li>rn：用第n个文法的产生式进行归约</li>
+</ul>
+<h3 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h3><p>右部某位置标有圆点的产生式称为响应文法的一个LR(0)项目【简称为项目】<br>$$<br>S\rightarrow b·BB<br>$$<br>产生式$A\rightarrow\epsilon$只生成一个项目$A\rightarrow·$</p>
+<h3 id="增广文法【Augmented-Grammar】"><a href="#增广文法【Augmented-Grammar】" class="headerlink" title="增广文法【Augmented Grammar】"></a>增广文法【Augmented Grammar】</h3><p>如果G是一个以为开始符号的文法，则G的增广文法$G’$就是在G中加上新开始符号$S’$和产生式$S’\rightarrow S$得到的文法</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E5%A2%9E%E5%B9%BF%E6%96%87%E6%B3%95.png"></p>
+<p>引入该新的开始产生式的目的是使得文法开始符号只有一个在产生式的左边，从而使得分析器只有一个接收状态</p>
+<h3 id="后继项目"><a href="#后继项目" class="headerlink" title="后继项目"></a>后继项目</h3><p>$A\rightarrow\alpha·X\beta$的后继项目为$A\rightarrow\alpha X·\beta$</p>
+<h3 id="LR-0-自动机"><a href="#LR-0-自动机" class="headerlink" title="LR(0)自动机"></a>LR(0)自动机</h3><p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/LR(0)%E8%87%AA%E5%8A%A8%E6%9C%BA.png"></p>
+<ul>
+<li>LR(0)容易出现移进-归约冲突【指项目集有归约项目和归约中的项目，填表的时候不知是用rn归约选式子还是用下一个项目集合】</li>
+<li>LR(0)容易出现归约-归约冲突【指项目集中的项目不知道先归约哪一个】</li>
+</ul>
+<p>例如下面的$B\rightarrow·$和$T\rightarrow·$。如果有空串，不知道先归约哪一个</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/%E5%BD%92%E7%BA%A6-%E5%BD%92%E7%BA%A6%E5%86%B2%E7%AA%81.png"></p>
+<h2 id="SLR分析"><a href="#SLR分析" class="headerlink" title="SLR分析"></a>SLR分析</h2><p> 与$LR(0)$是类似的，唯一不同的地方是对归约项目的处理上</p>
+<p>我们需要计算$FOLLOW(A)$的值，然后再用哪个式子归约来进行一个判断</p>
+<p>缺点：无法进行移进-冲突归约的解决</p>
+<hr>
+<h1 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h1><p>掌握：依赖图，属性计算算法</p>
+<p>了解：属性语法、合成属性和继承属性</p>
+<p>了解语义分析的任务及其实现方法。知道如何通过给定的方程式计算属性值。了解如何绘制依赖关系图，以及如何标记解析图的属性或值。</p>
+<hr>
+<h1 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h1><p>掌握：基本结构的中间代码生成：三地址代码；TAC表示控制结构，TAC表示表达式</p>
+<p>给定上下文无关语法和属性语法，可以通过SDT（语法定向翻译）将源代码翻译成TAC</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>BK201-Drama</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/other/"># other</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/12/18/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">前端安全相关——XSS攻击与CSRF攻击</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© BK201-Drama | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

@@ -368,6 +368,39 @@
 <li><p>坏处：编码为base64，就会使照片变得更大，文件请求速度变得更慢</p>
 </li>
 </ul>
+<h2 id="打包其他资源"><a href="#打包其他资源" class="headerlink" title="打包其他资源"></a>打包其他资源</h2><p>我们想要打包除了css，js，html以外的其它资源</p>
+<p>我们采用<code>file-loader</code>来进行打包其他资源</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">exclude</span>: <span class="regexp">/\.(css|js|html)$/</span>,</span><br><span class="line">    loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">    <span class="attr">options</span>: &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;[hash:10].[ext]&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比如说：阿里云的图标文件，这些就是可以算作是我们可以打包的其他资源</p>
+<p>在这里我们控制了hash的位数，可以一定程度上简化打包操作</p>
+<h1 id="devServer"><a href="#devServer" class="headerlink" title="devServer"></a>devServer</h1><ul>
+<li>启动devServer指令：webpack-dev-server</li>
+</ul>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>自动化【自动编译，自动打包，自动打开浏览器，自动刷新浏览器等等】</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>它只会在内存中编译打包，不会有任何的输出</p>
+<p>也就是说，你把build删了，你也不会重新产生build！都是在localhost实时更新给你看的！</p>
+<h2 id="下载devServer"><a href="#下载devServer" class="headerlink" title="下载devServer"></a>下载devServer</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack-dev-server -D</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置devServer"><a href="#配置devServer" class="headerlink" title="配置devServer"></a>配置devServer</h2><p>注意：一些版本中，static需要替换成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">contentBase: resolve(__dirname, &#x27;build&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>在此我们也进行一些其他的配置，配置如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">    <span class="attr">static</span>: <span class="string">&#x27;./build&#x27;</span>,</span><br><span class="line">    <span class="comment">// 启动gzip压缩</span></span><br><span class="line">    <span class="attr">compress</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 配置端口号</span></span><br><span class="line">    <span class="attr">port</span>: <span class="number">3000</span>,</span><br><span class="line">    <span class="attr">open</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置package-json"><a href="#配置package-json" class="headerlink" title="配置package.json"></a>配置package.json</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">  <span class="attr">&quot;build&quot;</span>: <span class="string">&quot;webpack&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;dev&quot;</span>: <span class="string">&quot;webpack-dev-server --inline --content-base&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;test&quot;</span>: <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="启动devServer"><a href="#启动devServer" class="headerlink" title="启动devServer"></a>启动devServer</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx webpack-dev-server</span><br></pre></td></tr></table></figure>
+
+<p>我们就可以得到一个实时更新打包文件的开发环境了！</p>
+<p><img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/webpack/%E5%AE%9E%E6%97%B6%E6%89%93%E5%8C%85.png"></p>
+<p>在这里，如果我们更新了代码，就会在localhost:3000这个网址实时更新，无需每次重复打包了</p>
 
         </div>
 

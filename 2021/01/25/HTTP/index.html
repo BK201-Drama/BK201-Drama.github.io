@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="BK201-Drama">
+
+
+
+
+
+<title>HTTP | BK201-Drama</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">⬅ home page</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">⬅ home page</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">HTTP</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">BK201-Drama</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">一月 25, 2021&nbsp;&nbsp;00:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/frontend/">frontend</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="HTTP实用指南"><a href="#HTTP实用指南" class="headerlink" title="HTTP实用指南"></a>HTTP实用指南</h1><h2 id="七层模型或五层模型"><a href="#七层模型或五层模型" class="headerlink" title="七层模型或五层模型"></a>七层模型或五层模型</h2><h3 id="七层模型"><a href="#七层模型" class="headerlink" title="七层模型"></a>七层模型</h3><p> OSI七层模型：应用层，表示层，连接层，传输层，网络层，数据链路层，物理层</p>
+<h3 id="五层模型"><a href="#五层模型" class="headerlink" title="五层模型"></a>五层模型</h3><p>TCP/IP概念模型：应用层，传输层，网络层，数据链路层，物理层</p>
+<h2 id="什么是HTTP"><a href="#什么是HTTP" class="headerlink" title="什么是HTTP"></a>什么是HTTP</h2><ul>
+<li>超文本传输协议</li>
+<li>应用层协议，并基于TCP协议</li>
+<li>有请求和响应</li>
+<li>简单可扩展</li>
+<li>无状态：每一个请求都是孤立的，不知道每一个请求之前会携带什么信息的</li>
+</ul>
+<h2 id="协议分析"><a href="#协议分析" class="headerlink" title="协议分析"></a>协议分析</h2><h3 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP/1.0"></a>HTTP/1.0</h3><h4 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h4><ul>
+<li>GET: 请求一个指定资源的表示形式，使用该请求最好只用于获取数据</li>
+<li>POST: 最好用于提交数据到指定资源，通常导致在服务器上的状态变化或者副作用</li>
+<li>PUT: 用请求有效载荷替换目标资源的所有当前表示</li>
+<li>DELETE: 删除指定的资源</li>
+<li>HEAD: 请求一个与GET响应相同的响应但是没有响应体</li>
+<li>CONNECT: 建立一个由目标资源标识的服务器的隧道</li>
+<li>OPTIONS: 用于描述目标资源的通信选项</li>
+<li>TRACE: 沿着到目标资源的路径执行一个消息环回测试</li>
+<li>PATCH: 用于对资源应用部分修改</li>
+</ul>
+<p>安全的：GET HEAD OPTIONS 不会修改服务器的数据的方法</p>
+<p>幂等的: GET HEAD OPTIONS PUT DELETE 同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的，所有安全的方法都是幂等的</p>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><ul>
+<li>200：客户端请求成功</li>
+<li>301：资源被永久转移到其他URL</li>
+<li>302：临时跳转</li>
+<li>401：请求未经授权</li>
+<li>404：请求资源不存在</li>
+<li>500：服务器内部发生错误</li>
+<li>504：网关或者代理服务器无法在规定的时间内获得想要的响应</li>
+</ul>
+<h4 id="报文"><a href="#报文" class="headerlink" title="报文"></a>报文</h4><p>RESTful API: 一种API设计风格</p>
+<ul>
+<li>每一个URL代表一种资源</li>
+<li>客户端和服务器之间传递这种资源的某种表现层</li>
+<li>客户端通过HTTP method，对服务器端资源进行操作，实现表现层的状态转化</li>
+</ul>
+<h4 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h4><ul>
+<li>Accept: 接受类型，表示浏览器支持的MIME类型</li>
+<li>Content-Type: 客户端发送出去实体内容的类型</li>
+<li>Cache-Control: 指定请求和响应遵循的缓存机制，比如’no-cache’</li>
+<li>If-Modified-Since: 对应服务端的Last-Modified，用于匹配看文件是否变动，只能精确到1s之内</li>
+<li>Expires: 缓存控制，在这个时间内不会请求，直接使用缓存，服务端时间</li>
+<li>Max-age: 代表资源在本地缓存多少秒，有效时间内不会请求，而是使用缓存</li>
+<li>If-None-Match: 对应服务端的ETag，用来匹配文件内容是否改变</li>
+<li>Cookie: 有Cookie并且<code>同域</code>访问的时候会自动带上</li>
+<li>Referer: 该页面的来源URL[CSRF拦截常用于这个字段]</li>
+<li>Origin: 最初的请求是从哪里发起的[精确到端口]，比Referer更尊重隐私</li>
+<li>User-Agent: 用户客户端的一些必要信息，比如UA头部</li>
+</ul>
+<h4 id="响应头"><a href="#响应头" class="headerlink" title="响应头"></a>响应头</h4><ul>
+<li>Content-Type: 服务端返回的实体内容的类型</li>
+<li>Cache-Control: 指定请求和响应遵循的缓存机制，比如’no-cache’</li>
+<li>Last-Modified: 请求资源的最后修改时间</li>
+<li>Expires: 应该在什么时候认为文档已经过期从而不再缓存它</li>
+<li>Max-age: 代表客户端在本地缓存多少秒，开启Cache-Control后有效</li>
+<li>ETag: 资源的特定版本的标识符，类似于指纹</li>
+<li>Set-Cookie: 设置和页面关联的cookie，服务器通过这个头部把cookie传给客户端</li>
+<li>Server: 服务器的一些相关信息</li>
+<li>Access-Control-Allow-Origin: 服务器端允许的请求Origin头部</li>
+</ul>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>HTTPS经过了TSL/SSL加密</p>
+<h2 id="场景分析"><a href="#场景分析" class="headerlink" title="场景分析"></a>场景分析</h2><h3 id="login"><a href="#login" class="headerlink" title="login"></a>login</h3><h4 id="OPTIONS请求"><a href="#OPTIONS请求" class="headerlink" title="OPTIONS请求"></a>OPTIONS请求</h4><p>预检：获知服务端是否允许该跨域请求[它是一种复杂请求]</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>BK201-Drama</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E7%BD%91%E7%BB%9C/"># 网络</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/08/20/redux/">redux与react-redux</a>
+            
+            
+            <a class="next" rel="next" href="/2020/10/20/JavaScript/">JavaScript</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© BK201-Drama | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

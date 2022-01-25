@@ -13,7 +13,7 @@
 
 
 
-<title>前端安全相关——XSS攻击与CSRF攻击 | BK201-Drama</title>
+<title>前端安全相关 | BK201-Drama</title>
 
 
 
@@ -193,7 +193,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">前端安全相关——XSS攻击与CSRF攻击</h1>
+            <h1 class="post-title">前端安全相关</h1>
             
                 <div class="post-meta">
                     
@@ -331,6 +331,62 @@
 <li>添加Header<code>X-Content-Type-Options: nosniff</code>防止黑客上传HTML内容的资源被解析成网页</li>
 <li>对于用户上传的图片进行转存或者校验，不要直接使用用户填写的图片链接</li>
 <li>打开其他链接时，提前告知打开有风险</li>
+</ul>
+<h1 id="SSRF攻击"><a href="#SSRF攻击" class="headerlink" title="SSRF攻击"></a>SSRF攻击</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>SSRF，被称为：服务器端伪造请求</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>下面为例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">async</span> convertVideo (ctx) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; video, options &#125; = ctx.request.body</span><br><span class="line">    exec(<span class="string">`convert-cli <span class="subst">$&#123;video&#125;</span> -o <span class="subst">$&#123;options&#125;</span>`</span>)</span><br><span class="line">    ctx.body = <span class="string">&#x27;OK&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>攻击者可以在<code>options</code>中传入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fetch (<span class="string">&#x27;/api&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="attr">body</span>: <span class="built_in">JSON</span>.stringfy(&#123;</span><br><span class="line">        <span class="attr">options</span>: <span class="string">`&#x27; &amp;&amp; rm -rf xxx`</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样就执行了<code>rm -rf</code>，十分可怕，对服务器的文件进行删除！</p>
+<p>当然，还有其他的攻击，比如暴露文件，或者更改代理去流量攻击目标网站</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
+<li>最小权限原则，不允许给root权限</li>
+<li>对每一个用户给一个相应白名单</li>
+<li>对URL类型参数进行协议、域名、ip限制</li>
+</ul>
+<h1 id="DoS攻击"><a href="#DoS攻击" class="headerlink" title="DoS攻击"></a>DoS攻击</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p>通过某种方式【构造特定请求】，导致服务器资源被显著消耗，来不及响应更多请求，导致请求挤压造成雪崩效应</p>
+<h2 id="一些攻击方法"><a href="#一些攻击方法" class="headerlink" title="一些攻击方法"></a>一些攻击方法</h2><h3 id="ReDoS：基于正则表达式的DoS"><a href="#ReDoS：基于正则表达式的DoS" class="headerlink" title="ReDoS：基于正则表达式的DoS"></a>ReDoS：基于正则表达式的DoS</h3><p>利用了正则表达式的贪心匹配，进行大规模数据试错，服务器不能及时完成全部请求，导致请求堆积进而崩溃</p>
+<h3 id="DDoS"><a href="#DDoS" class="headerlink" title="DDoS"></a>DDoS</h3><p>短时间内，来自大量僵尸设备的请求浏览，服务器不能及时完成全部请求，导致请求堆积进而崩溃</p>
+<p>攻击特点：</p>
+<ul>
+<li>直接访问IP</li>
+<li>任意API</li>
+<li>消耗大量带宽【通常都耗尽了】</li>
+</ul>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="Regex-DoS"><a href="#Regex-DoS" class="headerlink" title="Regex DoS"></a>Regex DoS</h3><ul>
+<li>代码检查，不允许贪婪匹配</li>
+<li>代码扫描并做正则性能测试</li>
+<li>不允许使用用户提供的正则</li>
+</ul>
+<h3 id="DDoS-1"><a href="#DDoS-1" class="headerlink" title="DDoS"></a>DDoS</h3><ul>
+<li>过滤<ul>
+<li>负载均衡</li>
+<li>API网关</li>
+</ul>
+</li>
+<li>抗量<ul>
+<li>CDN证书</li>
+<li>快速自动扩容</li>
+<li>非核心服务降级</li>
+</ul>
+</li>
+</ul>
+<h1 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h1><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><p>在浏览器和服务器之间有一个中间人，每次浏览器和服务器交互数据，都会经过中间人，中间人可以获取隐私信息，甚至是传输恶意信息</p>
+<h2 id="一般特点"><a href="#一般特点" class="headerlink" title="一般特点"></a>一般特点</h2><ul>
+<li>明文传输</li>
+<li>信息篡改不可知</li>
+<li>对方身份未验证</li>
+</ul>
+<h2 id="措施"><a href="#措施" class="headerlink" title="措施"></a>措施</h2><ul>
+<li>使用数字签名【加密】<ul>
+<li>CA证书等</li>
+</ul>
+</li>
+<li>将HTTP升级为HTTPS协议</li>
 </ul>
 
         </div>

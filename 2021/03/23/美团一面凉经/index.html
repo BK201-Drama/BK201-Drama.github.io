@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="BK201-Drama">
+
+
+
+
+
+<title>美团一面凉经 | BK201-Drama</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">⬅ home page</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">⬅ home page</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">美团一面凉经</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">BK201-Drama</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">三月 23, 2021&nbsp;&nbsp;00:00:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>一面：70min，直接干碎了我</p>
+<p>准备这次面试之前，几乎全在看虚拟dom还有react方面的内容，html和css真的一点都没看，真菜</p>
+<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><ul>
+<li>什么是行盒和块盒<ul>
+<li>说了行盒是没有宽高，行盒之间不会换行排列，而是直接排列在一起</li>
+<li>说了块和是可以独立设置宽高，并且展示是换行的一种盒模型</li>
+</ul>
+</li>
+<li>常见的行盒和块盒<ul>
+<li>行盒说了：span，p，strong等</li>
+<li>块盒就说了div，不过面试官也不打算继续深问下去</li>
+</ul>
+</li>
+<li>img是行盒还是块盒<ul>
+<li>干沉默了</li>
+</ul>
+</li>
+</ul>
+<p><em>img属于行内元素，但是可以设置宽高</em></p>
+<ul>
+<li>a标签的属性<ul>
+<li>只说了herf属性</li>
+</ul>
+</li>
+<li>Edge点开a标签，就会打开新页面；而chrome点开a标签则为刷新跳转，是什么属性控制的？<ul>
+<li>干沉默了，后面问面试官才知道，是有target属性来控制的</li>
+</ul>
+</li>
+</ul>
+<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><ul>
+<li><p>如何变成行盒或者块盒</p>
+<ul>
+<li>说了用display: inline-block | inline | block</li>
+</ul>
+</li>
+<li><p>行盒，除了不能设置宽高外，还不能设置什么？</p>
+<ul>
+<li>干沉默了，css真的太菜了</li>
+<li>设置margin和padding是无效的</li>
+</ul>
+</li>
+<li><p>说一下flex布局的几个属性</p>
+<ul>
+<li>说了六个属性：flex-direction、flex-wrap、flex-flow、justify-content、align-items、align-content</li>
+</ul>
+</li>
+<li><p>请写一个骰子五点布局</p>
+<ul>
+<li>我是傻逼，我沉默了，写错了</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dot&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dot&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dot&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dot&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dot&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.container</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="css">    <span class="comment">/* background-color: aliceblue; */</span></span></span><br><span class="line"><span class="css">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">    <span class="comment">/* background-color:beige; */</span></span></span><br><span class="line"><span class="css">    <span class="comment">/* border: 1px solid #000; */</span></span></span><br><span class="line"><span class="css">    <span class="attribute">flex-wrap</span>: wrap-reverse;</span></span><br><span class="line"><span class="css">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">div</span><span class="selector-class">.dot</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">    <span class="attribute">background-color</span>: aqua;</span></span><br><span class="line"><span class="css">    <span class="comment">/* border: 1px solid #000; */</span></span></span><br><span class="line"><span class="css">    <span class="attribute">flex-wrap</span>: wrap-reverse;</span></span><br><span class="line"><span class="css">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="css">  &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><ul>
+<li>写一个数组去重：不准用set，用了includes来去重</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// input: arr</span></span><br><span class="line"><span class="comment">// output: res</span></span><br><span class="line"><span class="keyword">let</span> res = [arr[<span class="number">0</span>]]</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> arr) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!res.includes(item)) &#123;</span><br><span class="line">        res.push(item)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>如果我只想写一行，我该如何去重？<ul>
+<li>后面她说用filter，结果还是写成了includes的方法来去重了</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> res = arr.filter(<span class="function">(<span class="params">item, index, arrID</span>) =&gt;</span> &#123;</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>找出链表的中间节点<ul>
+<li>用快慢指针法【当时口误，说成了双指针】只写思路，一些边界条件就不在这里细讨论了</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// input head</span></span><br><span class="line"><span class="comment">// output point</span></span><br><span class="line"><span class="keyword">let</span> point = head;</span><br><span class="line"><span class="keyword">let</span> doublePoint = head;</span><br><span class="line"><span class="keyword">while</span> (doublePoint.next &amp;&amp; doublePoint.next.next) &#123;</span><br><span class="line">    point = point.next;</span><br><span class="line">    doublePoint = doublePoint.next.next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>找出第k个最大的数<ul>
+<li>当时我说用排序来写，她说不行，就实在是不会了</li>
+</ul>
+</li>
+</ul>
+<p><em>应该用快速查找</em>【可是本质还是排序算法啊？】</p>
+<ul>
+<li>我看她好像还想考我对象数组的去重，那就是得自己去写一个判断是否两个对象堆内存的数值是否相同的函数来判断，但是因为这个时候时间太晚了，就没有问我</li>
+</ul>
+<h1 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h1><ul>
+<li>浏览器缓存：说一下localStorage，sessionStorage和cookie的区别<ul>
+<li>讲到了localStorage，sessionStorage必须得要在同源页面上才能拿到存储的数据，否则获取不到。</li>
+<li>讲到了sessionStorage被页面关闭了之后，就会立刻被销毁，但是忘记说出可以设置时间自己销毁。</li>
+<li>cookie支支吾吾的，太紧张就忘记了，只说了是通过请求头发送给后端，也断片了</li>
+</ul>
+</li>
+</ul>
+<p><em>cookie是客户端的一种早期解决HTTP无状态问题的一种解决方案，它是服务器发送到web浏览器上面的一小块数据，大小限制通常在4kb</em></p>
+<p><em>cookie是一个在服务器和客户端之间来回传输文本的机制，当服务器接收到客户端发出的HTTP请求的时候，服务器会发送带有响应的Set-Cookie标头，然后将cookie和HTTP请求头一起发送</em></p>
+<ul>
+<li>如果我一个ip绑定了两个域名，协议相同，那么这两个之间的localStorage可以被相互访问吗？<ul>
+<li>不能，因为同源指的是协议域名端口相同，而不是ip地址相同。一个ip是可以用于部署多个前端页面供人访问的</li>
+</ul>
+</li>
+<li>cookie如果请求头为不能被修改，请问是前端不能被修改还是前后端都不能被修改？<ul>
+<li>直接不知道，真的又被干沉默了</li>
+</ul>
+<em>其实是前端不能修改，为了防止XSS攻击，后端还是可以修改的</em></li>
+<li>强缓存和协商缓存<ul>
+<li>讲到了强缓存是客户端发给服务器的时候，命中了缓存，然后就直接向客户端发送了强缓存的缓存数据，并返回了200状态码</li>
+<li>强缓存和协商缓存这块个人觉得讲的特别不好，说着说着自己脑袋就断片了，已经不知道自己讲什么了</li>
+</ul>
+</li>
+</ul>
+<p>看过全忘了可还行：</p>
+<p><em>强缓存：利用http的Expires和Cache-Control两个字段来控制的，一般用Cache-Control来控制，因为Expires有一些时间延迟的缺点</em></p>
+<p><em>协商缓存：Cache-Control的值为no-Cache的时候，就会进入协商缓存，在协商缓存的机制下，客户端需要向服务器询问缓存信息，进而判断是否重新下载完全响应，还是直接使用本地缓存</em></p>
+<p><em>协商缓存的表示在响应头中返回给浏览器，Last-Modified和Etag</em></p>
+<p><em>一般协商缓存是根据Last-Modified来判断的，就是根据文件的最后修改时间，如果文件修改了，那么就不能协商缓存，但是有可能文件不修改也会导致Last-Modified改变，因此使用Etag来精准的判断是否真正改变了文件，进而判断是否需要缓存，不过这需要服务器去额外维护开销</em></p>
+<h1 id="面试官：你有什么问我的吗？"><a href="#面试官：你有什么问我的吗？" class="headerlink" title="面试官：你有什么问我的吗？"></a>面试官：你有什么问我的吗？</h1><ul>
+<li>对本人的评价：还行，技术广度很广，但是深度可能对于一些CSS的还有浏览器方面的知识不是很充分【究极套话，凉了】</li>
+<li>用的什么框架比较多？<ul>
+<li>用react多</li>
+<li>用什么框架不重要，本质都是一样的</li>
+<li>就算只会vue不会react也不会影响</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>BK201-Drama</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%85%B6%E4%BB%96/"># 其他</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/08/20/redux/">redux与react-redux</a>
+            
+            
+            <a class="next" rel="next" href="/2021/01/25/HTTP/">HTTP</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© BK201-Drama | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

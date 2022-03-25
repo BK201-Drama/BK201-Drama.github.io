@@ -1442,8 +1442,8 @@
 <ul>
 <li>Name和Value：键值对，Name为cookie名称，Value为cookie值</li>
 <li>Domain：决定了cookie在哪个域是有效的</li>
-<li>path：是cookie的有效路径，决定了cookie在一个域里的哪个路径是有效的</li>
-<li>Expires / Max-Age：两个均为cookie的有效期，Expire是该Cookie被删除时的时间戳，格式为GMT。若设置成以前的时间，则该Cookie被立刻删除。而Max-Age是Cookie的有效期，表示几秒之后就i立刻失效</li>
+<li>path：是cookie的有效路径，决定了cookie在一个域里的哪个路径是有效的 【子能访问父】</li>
+<li>Expires / Max-Age：两个均为cookie的有效期，Expire是该Cookie被删除时的时间戳，格式为GMT。若设置成以前的时间，则该Cookie被立刻删除。而Max-Age是Cookie的有效期，表示几秒之后就立刻失效</li>
 <li>Size：Cookie的大小。在所有浏览器中，任何cookie大小超过限制都会被忽略，且永远不会被设置。</li>
 <li>HttpOnly：如果为true，则不允许通过脚本document.cookie去更改这个值，这个值在document.cookie中也不可见，但请求时依旧会发送。一般用于防止XSS攻击。</li>
 <li>Secure：为Cookie的安全属性，若设置为true，则浏览器只会在HTTPS和SSL等安全协议中传输Cookie，不会在不安全的HTTP协议传输Cookie</li>

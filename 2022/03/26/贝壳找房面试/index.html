@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="BK201-Drama">
+
+
+
+
+
+<title>贝壳找房面试 | BK201-Drama</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">⬅ home page</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">⬅ home page</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">贝壳找房面试</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">BK201-Drama</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">三月 26, 2022&nbsp;&nbsp;00:00:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>总体来说比较顺利吧，除了hr的问我优点是什么，我没好意思答上来之外，其他的全部回答了，自我感觉也不错</p>
+<h1 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h1><h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><ul>
+<li>你在项目里面的角色，你在里面是怎么做的？<ul>
+<li>做前端开发人员和后端开发人员</li>
+<li>讲述了项目的背景</li>
+<li>讲述了自己项目遇到的难点，比如大量数据的渲染问题</li>
+<li>讲述了自己在分工合作中的角色</li>
+</ul>
+</li>
+<li>用过vue吗？<ul>
+<li>用过，不过是查文档使用的</li>
+</ul>
+</li>
+</ul>
+<h2 id="react相关"><a href="#react相关" class="headerlink" title="react相关"></a>react相关</h2><h3 id="虚拟diff讲一下，还有class组件和function组件的区别"><a href="#虚拟diff讲一下，还有class组件和function组件的区别" class="headerlink" title="虚拟diff讲一下，还有class组件和function组件的区别"></a>虚拟diff讲一下，还有class组件和function组件的区别</h3><ul>
+<li><p>虚拟diff是基于虚拟dom的一个算法。虚拟dom是react自己维护的一个对象，这个对象可以和真实dom的元素一一对应。react可以基于虚拟dom的变化来改变真实dom，并且尽量进行更少的操作。虚拟diff算法就是用于快速找出和上一次的虚拟dom的异同，并基于上一次的dom进行高效的修改操作。</p>
+<p>虚拟diff算法是这样实现的：虚拟diff是让新旧虚拟dom对象进行同层遍历，一旦发现节点不同，则将对整个节点及其后面的子节点全部删除，并重新添加。哪怕你只是跨层级的交换对象，也会导致后面的元素删除。</p>
+<p>当然，这样是有一定的弊端的，如果在同层节点上面，只进行节点的顺序修改，但按照上述发现不同就立刻删除的操作，是不合适的。因此引入了一个key机制，key机制就可以用于发现同层之间是否只是节点的顺序改变，进而不直接删除和添加</p>
+</li>
+<li><p>class组件和function组件的区别，在前期，class组件和function组件之间的区别是class组件是有状态和有生命周期的，因此class组件的功能性是很强大的，而function组件仅仅只是用于展示。但是呢，class组件有一个缺点，那就是代码量较重，而且不便于维护，因此在选择组件的时候，通常都是在业务上判断该组件是否需要状态，如果不需要状态，就选用函数组件。但是随着业务的发展，函数组件可能真的需要状态和生命周期了，这个时候要改换class组件是不便于维护的，因此这时候就有了hooks的诞生。hooks让函数组件也有了像类组件一样的状态和周期，而且代码量少，便于维护</p>
+</li>
+</ul>
+<h3 id="setState的工作机制讲一下"><a href="#setState的工作机制讲一下" class="headerlink" title="setState的工作机制讲一下"></a>setState的工作机制讲一下</h3><ul>
+<li>讲到了异步机制</li>
+<li>讲到了有两种方法传入，一种是直接传入，一种是函数回调传入，函数回调的变量就是之前的状态</li>
+</ul>
+<h2 id="讲一下数组的方法"><a href="#讲一下数组的方法" class="headerlink" title="讲一下数组的方法"></a>讲一下数组的方法</h2><ul>
+<li>数组的方法有，map，forEach，filter，splice，pop，push，shift，unshift，includes等</li>
+<li>用过reduce吗？回答了少用，但是大概知道是怎么做的，它是根据里面一个回调函数，以前一个元素和后一个元素作为变量传入，返回一个数，这样就会不断减少数组里面的个数</li>
+</ul>
+<h2 id="讲一下ES6里面常用的方法"><a href="#讲一下ES6里面常用的方法" class="headerlink" title="讲一下ES6里面常用的方法"></a>讲一下ES6里面常用的方法</h2><ul>
+<li>提到了解构赋值还有箭头函数的this</li>
+<li>面试官就开始问了箭头函数的this和普通函数的this有何区别：箭头函数是没有自己的this的，箭头函数的this取决于它所在的作用域，因此，这是不可以this换绑的，另外，箭头函数的this因为没有换绑的方法，所以导致了它不可以使用构造函数</li>
+</ul>
+<p>在这里，给面试官扩展了一下，在react中用了箭头函数的好处：在react中，如果我想要写一个点击触发事件，如果这个事件在函数内部不是箭头函数的话，那么就需要进行换绑操作，这样是较为繁琐的，当事件越来越多，越来越复杂的时候就不是很好了，但是用了箭头函数就可以轻松解决换绑的问题，因为箭头函数的this始终指向着它的函数内部的this，因此不用换绑，可以减少将近一倍的操作</p>
+<h2 id="写一下url转化对象"><a href="#写一下url转化对象" class="headerlink" title="写一下url转化对象"></a>写一下url转化对象</h2><p>面试官对这里很满意，因为在这里，<code>?a=1&amp;a=2&amp;b=3</code>也可以变成<code>&#123;a: [1, 2], b: 3&#125;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">format_</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> query = url.split(<span class="string">&#x27;?&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">let</span> object_ = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> keyAndValueArray = query.split(<span class="string">&#x27;&amp;&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> keyAndValueArray) &#123;</span><br><span class="line">        <span class="keyword">let</span> keyAndValue = item.split(<span class="string">&#x27;=&#x27;</span>);</span><br><span class="line">        <span class="keyword">let</span> key = keyAndValue[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">let</span> value = keyAndValue[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (object_[key]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (object_[key] <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">                object_[key].push(value)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                object_ = &#123;</span><br><span class="line">                    ...object_,</span><br><span class="line">                    [key]: [object_[key], value]; </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            object_ = &#123;</span><br><span class="line">                ...object,</span><br><span class="line">                [key]: value</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="面试官：你有什么问我的吗？"><a href="#面试官：你有什么问我的吗？" class="headerlink" title="面试官：你有什么问我的吗？"></a>面试官：你有什么问我的吗？</h2><ul>
+<li>对本人的评价：还行，技术扎实，项目经验丰富，代码书写也十分规范，除了语言表达需要加强之外没有任何问题</li>
+<li>公司用的什么框架比较多：用react多【那问我vue干嘛？】</li>
+</ul>
+<h1 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h1><h2 id="讲一下虚拟dom的机制"><a href="#讲一下虚拟dom的机制" class="headerlink" title="讲一下虚拟dom的机制"></a>讲一下虚拟dom的机制</h2><ul>
+<li><p>讲到了虚拟dom是js维护的一个对象，和真实dom上的元素节点有着一一对应的关系</p>
+</li>
+<li><p>虚拟dom是通过diff算法，来判断是否进行对该节点的变化渲染</p>
+</li>
+<li><p>虚拟dom并不比直接操作真实dom快，但是它将一个文档对象用了一个js对象来描述，本质上可以利用这个js对象，来实现一些跨平台的功能</p>
+</li>
+</ul>
+<h2 id="讲一下计算机网络的7个层"><a href="#讲一下计算机网络的7个层" class="headerlink" title="讲一下计算机网络的7个层"></a>讲一下计算机网络的7个层</h2><ul>
+<li>被我万象天引，引到http了</li>
+<li>讲了http1.0 1.1 2.0 3.0 之间的区别</li>
+</ul>
+<h2 id="写两道题，金额变换和url转化对象【带哈希】"><a href="#写两道题，金额变换和url转化对象【带哈希】" class="headerlink" title="写两道题，金额变换和url转化对象【带哈希】"></a>写两道题，金额变换和url转化对象【带哈希】</h2><p>比较简单，就不多赘述了</p>
+<h1 id="hr面"><a href="#hr面" class="headerlink" title="hr面"></a>hr面</h1><p>简要介绍一下你的项目：注意，她当时想要的是非技术讲解，也就是业务介绍</p>
+<p>全程聊天一样，问的比较多的就是对工作地点是怎么考虑的。</p>
+<p>还有会问你，你的优点和缺点是什么</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>BK201-Drama</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%85%B6%E4%BB%96/"># 其他</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/03/23/%E7%BE%8E%E5%9B%A2%E4%B8%80%E9%9D%A2%E5%87%89%E7%BB%8F/">美团一面凉经</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© BK201-Drama | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

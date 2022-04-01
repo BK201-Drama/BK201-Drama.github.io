@@ -211,8 +211,8 @@
         </header>
 
         <div class="post-content">
-            <h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>面试官您好，我名字叫林凯迪，来自华南理工大学软件学院。在IHCI实验室和导师做开发将近半年多的时间。</p>
-<p>本人抗压能力较好，并且学习能力较强，在跟做老师的项目的时候，有时候业务方频繁更换需求的时候，可以及时跟进项目进度，协助老师做项目管理，并有针对性快速展开工作。让我对前端的整个开发流程更加熟悉，熟悉了react的使用，熟悉了hooks编程，也对js等的学习有更加深入的认识。这个岗位也和我的职业发展规划和兴趣十分相符，希望有机会加入成为XX的一员，谢谢。</p>
+            <h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>面试官您好，我名字叫林凯迪，来自华南理工大学大学软件学院。在IHCI实验室和导师做开发将近半年多的时间。</p>
+<p>本人抗压能力较好，并且学习能力较强，在跟做老师的项目的时候，有时候业务方频繁更换需求的时候，可以及时跟进项目进度，协助老师做项目管理，并有针对性快速展开工作。让我对前端的整个开发流程更加熟悉，熟悉了react的使用，熟悉了hooks编程，也对js等的学习有更加深入的认识。希望面试官能给一次表现的机会，谢谢。</p>
 <h1 id="职业规划"><a href="#职业规划" class="headerlink" title="职业规划"></a>职业规划</h1><h2 id="你的职业规划"><a href="#你的职业规划" class="headerlink" title="你的职业规划"></a>你的职业规划</h2><p>我的计划是能在前端开发这个行业里面做好，多学一些组件插件，接触一些新技术，新业务。然后再来接触深入学习一门后端语言，比如Java，Python的Django框架等，以便于入职后能更好的适应工作节奏，能更好在工作中被人需要。另外能多跟人沟通，锻炼自己的个人协作能力。</p>
 <h2 id="为什么选择前端"><a href="#为什么选择前端" class="headerlink" title="为什么选择前端"></a>为什么选择前端</h2><p>前端写出来就可以立刻看到，更有成就感。</p>
 <p>js这门语言写前端和后端都是比较容易的，可以用js进行全栈开发，非常方便，技术栈不会太复杂，学生团队做项目学习成本不会太高。</p>
@@ -818,7 +818,9 @@
 <li>可达性：从window开始向下搜索子节点，当一个对象被搜索到了，那么这个对象就是可达的，就是活动对象，反之就是非活动对象</li>
 </ul>
 </li>
-<li>老生代：Mark-Sweep算法和Mark-Compact算法</li>
+</ul>
+</li>
+<li>老生代：Mark-Sweep算法和Mark-Compact算法<ul>
 <li>为什么不能用新生代的垃圾回收算法？因为老生代的内存空间很大，使用新生代的方法将会造成将近一半的内存浪费</li>
 <li>对老生代对象进行扫描，判断可达性，然后再进行删除非活动对象</li>
 <li>与新生代垃圾回收不同的地方在于不需要进行复制清理，只要进行判断可达性，并标记，就可以清理非活动对象了</li>
@@ -1041,7 +1043,7 @@
 
 
 <h2 id="33-手写Promise-race"><a href="#33-手写Promise-race" class="headerlink" title="33 手写Promise.race"></a>33 手写Promise.race</h2><p>Promise也是接收一个数组，数组里面可以有常量值，也可以有Promise值。race方法返回的是第一个执行出来的resolve或者reject方法的数据，谁先输出，race方法就是谁。在这里，我们只处理Promise数组</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PromiseRace</span> (<span class="params">PromiseArr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PromiseRace</span> (<span class="params">PromiseArr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(PromiseArr)) &#123;</span><br><span class="line">            reject(<span class="string">&quot;不是数组呢&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> p <span class="keyword">of</span> PromiseArr) &#123;</span><br><span class="line">            <span class="built_in">Promise</span>.resolve(p).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                resolve(res);</span><br><span class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                reject(err);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -1082,6 +1084,28 @@
 <li>ES Module导入模块在严格模式下</li>
 <li>ES Module的动态加载可以使用懒加载</li>
 </ul>
+<h2 id="35-let和const"><a href="#35-let和const" class="headerlink" title="35 let和const"></a>35 let和const</h2><p>let和const都是只在声明的块级作用域有效</p>
+<p>但是，let是可以进行变量值的修改的，而const是不可以进行变量的栈地址的值的修改，也就是说，普通类型的数值是不可以被修改的，但是引用类型，比如数组，可以采用push等方式改变数组，因为这样子栈地址并没有改变</p>
+<p>如果想让堆地址的数值也不发生改变的话，可以采用object.freeze(obj)进行冻结，这样堆地址的也不可以进行了。</p>
+<p>let和const比起var，也添加了一个暂时性死区的特性。在var中，变量在声明前调用，会被视为undefined，而使用let和const的时候，这样的操作是非法的，会报错，这就叫做暂时性死区</p>
+<h2 id="36-懒加载"><a href="#36-懒加载" class="headerlink" title="36 懒加载"></a>36 懒加载</h2><p>懒加载就是延时加载，通常在用户想要继续往下浏览时，触发某个事件再来进行按需加载的方法就叫懒加载</p>
+<h2 id="37-洗牌函数"><a href="#37-洗牌函数" class="headerlink" title="37 洗牌函数"></a>37 洗牌函数</h2><p>可以说一个加分点：用网上的文章洗牌函数都是有问题的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> shuffle = <span class="function">(<span class="params">array</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> res = [];</span><br><span class="line">    <span class="keyword">while</span> (array.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> index = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * array.length);</span><br><span class="line">        array = array.filter(<span class="function">(<span class="params">item, index_</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> index === index_;</span><br><span class="line">        &#125;);</span><br><span class="line">        res.push(array[index]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shuffle</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    arr.sort(<span class="function">() =&gt;</span> <span class="built_in">Math</span>.random() - <span class="number">0.5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="38-一些正则"><a href="#38-一些正则" class="headerlink" title="38 一些正则"></a>38 一些正则</h2><ul>
+<li>千分位：<code>/(?!^)(?=(\d&#123;3&#125;+$))/g</code></li>
+<li>邮箱：<code>^[a-zA-Z0-9_-]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9_-]+)+$</code></li>
+</ul>
+<h2 id="39-数组去重"><a href="#39-数组去重" class="headerlink" title="39 数组去重"></a>39 数组去重</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr = arr.filter(<span class="function">(<span class="params">item, index, array</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> array.indexOf(item) === index;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="40-JS中如何展示大量数据呢？"><a href="#40-JS中如何展示大量数据呢？" class="headerlink" title="40 JS中如何展示大量数据呢？"></a>40 JS中如何展示大量数据呢？</h2><p>第一个办法：只发第一页，然后需要继续向下看数据，就继续请求</p>
+<p>第二个办法：利用setTimeout和setInterval的特性来做，将大量数据分组，然后再放到微任务，几乎一起同步执行，不过这个的缺点就在于你必须要保证是按照顺序来加载，不然容易出现大量数据的乱序问题</p>
 <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="1-说说对React的理解，有哪些特性"><a href="#1-说说对React的理解，有哪些特性" class="headerlink" title="1 说说对React的理解，有哪些特性"></a>1 说说对React的理解，有哪些特性</h2><h3 id="什么是react"><a href="#什么是react" class="headerlink" title="什么是react"></a>什么是react</h3><p>react是一个构建用户界面的js库，只提供了UI层面的解决方案</p>
 <p>它遵循了组件的设计模式，声明式的编程范式和函数式编程概念，使前端应用程序更加高效</p>
 <p>使用的虚拟DOM操控真实DOM，遵循高阶组件到低阶组件的单向数据流</p>
@@ -1209,7 +1233,17 @@
 <li><p>useEffect：让函数组件也能拥有类似于生命周期的特性，比如能在组件初始加载的时候执行一些任务，也可以来做一些数据的监听，该数据改变，就可以触发一些事件的执行</p>
 </li>
 </ul>
-<h2 id="10-Redux的理解与工作原理"><a href="#10-Redux的理解与工作原理" class="headerlink" title="10 Redux的理解与工作原理"></a>10 Redux的理解与工作原理</h2><h2 id="11-说说对React-Router的理解"><a href="#11-说说对React-Router的理解" class="headerlink" title="11 说说对React Router的理解"></a>11 说说对React Router的理解</h2><h2 id="12-React-Router有几种模式？实现原理"><a href="#12-React-Router有几种模式？实现原理" class="headerlink" title="12 React Router有几种模式？实现原理"></a>12 React Router有几种模式？实现原理</h2><ul>
+<h2 id="10-Redux的理解与工作原理"><a href="#10-Redux的理解与工作原理" class="headerlink" title="10 Redux的理解与工作原理"></a>10 Redux的理解与工作原理</h2><h2 id="11-说说对React-Router的理解"><a href="#11-说说对React-Router的理解" class="headerlink" title="11 说说对React Router的理解"></a>11 说说对React Router的理解</h2><p>react-router和前端路由的原理大致是相同的，可以实现无刷新条件下切换显示不同的页面</p>
+<p>路由的本质就是页面的URL发生改变的时候，页面的显示结果可以根据URL的变化而变化，但URL不会刷新</p>
+<p>因此是可以通过前端路由来实现单页SPA引用</p>
+<p>一些常见的组件来使用：</p>
+<ul>
+<li>HashRouter和BrowerRouter：表明路由在浏览器中是history模式还是hash模式</li>
+<li>Routes：当适配到第一个组件的时候，后面的组件将不再继续适配</li>
+<li>Route：用于路径的匹配，然后进行组件的渲染，内部的属性有：path、还有element、exact等【exact表达的是精准匹配路由】</li>
+<li>redirect：用于路由的重定向</li>
+</ul>
+<h2 id="12-React-Router有几种模式？实现原理"><a href="#12-React-Router有几种模式？实现原理" class="headerlink" title="12 React Router有几种模式？实现原理"></a>12 React Router有几种模式？实现原理</h2><ul>
 <li>hash模式：url有锚点</li>
 <li>history模式：url没有锚点，允许操作浏览器的曾经在标签页或者框架里访问的会话历史记录</li>
 </ul>
@@ -1265,7 +1299,18 @@
 <li>createElement函数对key和ref等特殊props进行处理，并获取defaultProps对默认props进行赋值，并且对传入的孩子节点进行处理，最终构造成一个虚拟DOM</li>
 <li>ReactDOM.render将生成好的虚拟DOM渲染到指定容器上，其中采用了批处理、事务等机制并且对特定浏览器进行了性能优化，最终转化为真实DOM</li>
 </ul>
-<h2 id="19-React性能优化的手段有哪些"><a href="#19-React性能优化的手段有哪些" class="headerlink" title="19 React性能优化的手段有哪些"></a>19 React性能优化的手段有哪些</h2><h2 id="20-说说React的服务端渲染怎么做，原理是什么"><a href="#20-说说React的服务端渲染怎么做，原理是什么" class="headerlink" title="20 说说React的服务端渲染怎么做，原理是什么"></a>20 说说React的服务端渲染怎么做，原理是什么</h2><p>如果要使用React做服务端渲染，那么有两种方案：</p>
+<h2 id="19-React性能优化的手段有哪些"><a href="#19-React性能优化的手段有哪些" class="headerlink" title="19 React性能优化的手段有哪些"></a>19 React性能优化的手段有哪些</h2><ul>
+<li>React.memo：用于props仅仅只是栈地址的内容不相符而导致的粗暴render</li>
+<li>避免使用内联函数：如果直接使用内联函数，这样会存在render时，会重新创建这个函数，这样对性能是无益的。因此需要在组件内部创建这个函数，再将事件绑定这个函数，这样就不会因为render导致的函数的重新构建<ul>
+<li>当然的，也避免使用非箭头函数的创建，因为这样，你在render中使用时，需要进行bind函数进行换绑操作，是影响性能的，因为每次都需要进行一次bind操作</li>
+</ul>
+</li>
+<li>可以使用React.Fragments来避免额外标记</li>
+<li>使用Immutable，可以让很多数据共享某些堆地址的数据，进而减少数据大幅度的改动，从而达到减少数据渲染的目的</li>
+<li>懒加载：在前端页面运行时再来进行动态加载</li>
+<li>服务端渲染，也可以更快看到渲染页面。不过这里需要将自己编写的react组件给重新读取成html</li>
+</ul>
+<h2 id="20-说说React的服务端渲染怎么做，原理是什么"><a href="#20-说说React的服务端渲染怎么做，原理是什么" class="headerlink" title="20 说说React的服务端渲染怎么做，原理是什么"></a>20 说说React的服务端渲染怎么做，原理是什么</h2><p>如果要使用React做服务端渲染，那么有两种方案：</p>
 <ul>
 <li>使用next.js</li>
 <li>自己手动搭建一个SSR框架</li>
@@ -1278,7 +1323,35 @@
 <p>此外，key不推荐使用index来赋予，因为如果是数组的头插的话，会导致所有数组的index变化，反而对react的性能优化会更加不利</p>
 <p>key也要避免用随机数来使用，不然也是不利于性能优化</p>
 <p>设置key，是为了不通过diff算法，让组件有一个更加简单的更新真实DOM的机制</p>
-<h2 id="23-说说refs的理解，应用场景"><a href="#23-说说refs的理解，应用场景" class="headerlink" title="23 说说refs的理解，应用场景"></a>23 说说refs的理解，应用场景</h2><h2 id="24-类组件与函数组件的理解与区别"><a href="#24-类组件与函数组件的理解与区别" class="headerlink" title="24 类组件与函数组件的理解与区别"></a>24 类组件与函数组件的理解与区别</h2><h2 id="25-高阶组件的理解与应用场景"><a href="#25-高阶组件的理解与应用场景" class="headerlink" title="25 高阶组件的理解与应用场景"></a>25 高阶组件的理解与应用场景</h2><h2 id="26-react引入css的方式"><a href="#26-react引入css的方式" class="headerlink" title="26 react引入css的方式"></a>26 react引入css的方式</h2><h2 id="27-react生命周期"><a href="#27-react生命周期" class="headerlink" title="27 react生命周期"></a>27 react生命周期</h2><h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="1-HTTP和HTTPS的区别"><a href="#1-HTTP和HTTPS的区别" class="headerlink" title="1 HTTP和HTTPS的区别"></a>1 HTTP和HTTPS的区别</h2><p>虽然HTTP和HTTPS之间只差了SSL/TLS，但是HTTPS的通信安全得到了极大保障</p>
+<h2 id="23-说说refs的理解，应用场景"><a href="#23-说说refs的理解，应用场景" class="headerlink" title="23 说说refs的理解，应用场景"></a>23 说说refs的理解，应用场景</h2><h2 id="24-类组件与函数组件的理解与区别"><a href="#24-类组件与函数组件的理解与区别" class="headerlink" title="24 类组件与函数组件的理解与区别"></a>24 类组件与函数组件的理解与区别</h2><h2 id="25-高阶组件的理解与应用场景"><a href="#25-高阶组件的理解与应用场景" class="headerlink" title="25 高阶组件的理解与应用场景"></a>25 高阶组件的理解与应用场景</h2><h2 id="26-react引入css的方式"><a href="#26-react引入css的方式" class="headerlink" title="26 react引入css的方式"></a>26 react引入css的方式</h2><h2 id="27-受控组件和非受控组件"><a href="#27-受控组件和非受控组件" class="headerlink" title="27 受控组件和非受控组件"></a>27 受控组件和非受控组件</h2><p>在传统的html中，表单元素的标签input等的值通常是根据用户的输入来进行更新的</p>
+<h3 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h3><p>在react中，可变状态都放在state中来管理，并且只能使用setState来进行更新，而呈现表单的react组件，有人为输入的时候，react会控制表单元素进而改变其值的方式，称为受控组件。受控组件依赖于react的状态，更新依赖于react的事件处理，并通过state来实时反应元素的情况</p>
+<h3 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h3><p>指表单数据由DOM本身来处理，就是不受setState的限制，与传统的html表单输入相似，input的值为显示最新值</p>
+<p>在非受控组件里面，通常用ref来获取里面的值。非受控组件通常是自己内部维护了这个状态，这样用户输入任何值都会反应到元素上面</p>
+<h3 id="区别-1"><a href="#区别-1" class="headerlink" title="区别"></a>区别</h3><table>
+<thead>
+<tr>
+<th>受控组件</th>
+<th>非受控组件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>依赖于状态</td>
+<td>不受状态控制</td>
+</tr>
+<tr>
+<td>数据都在state进行管理，修改值是通过state的修改来映射</td>
+<td>获取数据相当于操作DOM，从ref中获取</td>
+</tr>
+<tr>
+<td>只有继承React.Component或者使用hooks才可以使用受控组件</td>
+<td>更容易与第三方结合，更容易集成React和非React部分的代码</td>
+</tr>
+<tr>
+<td>一般用于有初始值时的情况</td>
+<td>一般用于没有初始值的情况</td>
+</tr>
+</tbody></table>
+<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="1-HTTP和HTTPS的区别"><a href="#1-HTTP和HTTPS的区别" class="headerlink" title="1 HTTP和HTTPS的区别"></a>1 HTTP和HTTPS的区别</h2><p>虽然HTTP和HTTPS之间只差了SSL/TLS，但是HTTPS的通信安全得到了极大保障</p>
 <ul>
 <li>HTTP：超文本传输协议，特点如下：<ul>
 <li>支持：客户端 - 服务器模式</li>
@@ -1602,10 +1675,10 @@
 </ul>
 <h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>它允许访问一个Document的对象storage，存储的数据将永久保存到浏览器会话中，除非用户手动删除</p>
 <h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage属性允许访问一个对应当前源的sessionStorage对象。与localStorage相似，但是它有过期会话设置，一单关闭会话或者会话过期，该数据将会自行删除</p>
-<p>localStorage和sessionStorage都是用来存储客户端临时信息的对象，并且只能存储字符串对象。</p>
+<p>localStorage和sessionStorage都是用来存储客户端临时信息的对象，并且只能存储字符串对象，能存储的大小为5MB。</p>
 <p>不同的浏览器是不会共享Storage的信息的。相同浏览器的不同页面共享localStorage，但不会共享sessionStorage</p>
 <p>localStorage的生命周期是永久，除非用户手动清除，而sessionStorage的生命周期为当前窗口，一旦关闭，就销毁sessionStorage</p>
-<h2 id="17-跨域"><a href="#17-跨域" class="headerlink" title="17 跨域"></a>17 跨域</h2><p>跨域我目前只了解两种方式：JSONp和CORS方式：</p>
+<h2 id="17-跨域"><a href="#17-跨域" class="headerlink" title="17 跨域"></a>17 跨域</h2><p>跨域我目前只了解两种方式：jsonp和CORS方式：</p>
 <h3 id="为什么要跨域"><a href="#为什么要跨域" class="headerlink" title="为什么要跨域"></a>为什么要跨域</h3><p>在这里，浏览器有一个策略，叫同源策略。同样的协议域名端口才可以相互传输数据。如果不同源来请求数据，不做任何防范，就容易导致CSRF攻击。</p>
 <h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>跨站请求伪造，攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击的网站发送跨域请求。利用受害者在被攻击网站已经获取的注册凭证，比如session或者cookie，就可以绕过后台验证，达到冒充用户的目的，用用户的信息对被攻击网站执行某项操作。所以后面为了防范CSRF攻击，就不允许非同源的网站获取信息。但是这样也会造成很多麻烦，所以规定了CORS协议，以便于良性的跨域请求</p>
 <h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>现在的跨域都是基于CORS的标准来进行的，它允许浏览器向服务器发送XMLHttpRequest请求，从而克服Ajax只能同源使用的限制</p>
@@ -1690,6 +1763,21 @@
 <li>打开其他链接时提前告知有风险</li>
 </ul>
 </li>
+</ul>
+<h2 id="20-CDN"><a href="#20-CDN" class="headerlink" title="20 CDN"></a>20 CDN</h2><h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><p>通过在网络各处节点放置节点服务器所构成的在现有互联网的基础上的一层智能虚拟网络。</p>
+<p>CDN系统能够实时根据网络流量和各处节点的连接和负载状况以及到用户的距离和响应时间等综合信息，将用户的请求重新导向离用户最近的服务节点上，加快访问速度</p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>使用户可以就近取得所需内容，解决internet网络拥挤情况，提高网站的响应速度</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>CDN节点解决了跨运营商和跨地域访问的问题，访问延时大大降低</li>
+<li>大部分在CDN边缘节点完成，CDN起到了分流作用，减轻了源站的负载</li>
+</ul>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ul>
+<li>用户访问域名，先经过DNS解析，如果本地DNS命中，则直接返回给用户一个IP地址</li>
+<li>本地DNS如果没命中，则转发授权DNS查询</li>
+<li>网站授权DNS，返回域名CNAME来对应IP地址</li>
+<li>域名解析请求发送到DNS调度系统，DNS调度系统为请求分配最佳节点IP地址</li>
+<li>返回该IP地址给用户，用户对该缓存服务器发起请求</li>
+<li>如果本地DNS有缓存这个域名的解析结果，则直接响应用户的解析请求</li>
 </ul>
 <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p>进程是资源分配的最小单位，线程是CPU调度的最小单位</p>
 <ul>

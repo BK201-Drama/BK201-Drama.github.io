@@ -212,7 +212,7 @@
 
         <div class="post-content">
             <h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>面试官您好，我名字叫林凯迪，来自华南理工大学大学软件学院。在IHCI实验室和导师做开发将近半年多的时间。</p>
-<p>本人抗压能力较好，并且学习能力较强，在跟做老师的项目的时候，有时候业务方频繁更换需求的时候，可以及时跟进项目进度，协助老师做项目管理，并有针对性快速展开工作。让我对前端的整个开发流程更加熟悉，熟悉了react的使用，熟悉了hooks编程，也对js等的学习有更加深入的认识。希望面试官能给一次表现的机会，谢谢。</p>
+<p>本人抗压能力较好，并且学习能力较强，在跟做老师的项目的时候，有时候业务方频繁更换需求的时候，可以及时跟进项目进度，协助老师做项目管理，并有针对性快速展开工作。让我对前端的整个开发流程更加熟悉，熟悉了react的使用，熟悉hooks编程，也对js等的学习有更加深入的认识。最近也在开始学习HTTP相关的知识，我的讲话就到这里，谢谢。</p>
 <h1 id="职业规划"><a href="#职业规划" class="headerlink" title="职业规划"></a>职业规划</h1><h2 id="你的职业规划"><a href="#你的职业规划" class="headerlink" title="你的职业规划"></a>你的职业规划</h2><p>我的计划是能在前端开发这个行业里面做好，多学一些组件插件，接触一些新技术，新业务。然后再来接触深入学习一门后端语言，比如Java，Python的Django框架等，以便于入职后能更好的适应工作节奏，能更好在工作中被人需要。另外能多跟人沟通，锻炼自己的个人协作能力。</p>
 <h2 id="为什么选择前端"><a href="#为什么选择前端" class="headerlink" title="为什么选择前端"></a>为什么选择前端</h2><p>前端写出来就可以立刻看到，更有成就感。</p>
 <p>js这门语言写前端和后端都是比较容易的，可以用js进行全栈开发，非常方便，技术栈不会太复杂，学生团队做项目学习成本不会太高。</p>
@@ -235,6 +235,19 @@
 <ul>
 <li>因为客户端是基于点击跳转导航来确定事项的，所以规则是呈树形结构的，放在后端。但是基于事项有866个，所以这颗树子节点有866个，那么这棵树是很复杂的，如果是通过管理员端的创建规则来进行搜索下一级，那么会导致每一次的点击都直接访问接口，都会有十分明显的卡顿。后面经过分析，我们需要的是根本上减少请求的次数，直接一次性请求到前端，存储到state的一个属性中，前端再来做跳转的展示控制。</li>
 <li>另外，因为树形结构也是比较复杂的，项目初期讨论是否建立规则的树型数据结构，但是对于树的管理是很复杂的，特别是对于多叉树，而且子节点个数还是动态的【因为可以随时添加】，深度也随时可变，那么会变得极难管理，而且state也最好不要管理比较复杂的数据。而且，往往用户不需要导航到最后一级，出现了少数的事项，也可以甄别筛选自己需要的事项办理。后面讨论，采用”一事项一路径”的方法，类比文件管理器的路径，直接将规则项改为规则路径，也可以一定程度上模拟树形结构，根据规则正则来确定事项，结合上述一次性发送所有数据，数据也相比之前的树形结构变得扁平，这种数据处理会更加方便前端的控制展示。</li>
+</ul>
+<h2 id="5-简单讲一下自己独立实现的功能"><a href="#5-简单讲一下自己独立实现的功能" class="headerlink" title="5 简单讲一下自己独立实现的功能"></a>5 简单讲一下自己独立实现的功能</h2><p>我主要是负责server端的，前端的事项规则管理这部分我也有参与。</p>
+<p>在这里就着重讲一下事项的业务。在初期的时候</p>
+<h2 id="6-你是怎么实现登录功能的"><a href="#6-你是怎么实现登录功能的" class="headerlink" title="6 你是怎么实现登录功能的"></a>6 你是怎么实现登录功能的</h2><p>因为我不是主要负责这个方面的，所以我在登录功能中目前只是写前端。后端的实现部分是和同学对接的。</p>
+<ul>
+<li>用生成jwt的依赖包调用api来生成token。传入的是要加密的json和jwt的过期时间。我们设置了1小时之后就过期。就放到body传输</li>
+<li>我们也不仅放到请求体里面，也放到cookie里，然后前端第一次登录的时候，就在请求体拿到token来判断自己的登录状态</li>
+<li>然后使用redis，也还有一个token，这个token是用来刷新的，也就是说，当第一个token过期，而第二个token未过期时，则会将两个token更新，然后重新发给前端。</li>
+</ul>
+<h2 id="7-对于权限管理，你们是怎么控制的"><a href="#7-对于权限管理，你们是怎么控制的" class="headerlink" title="7 对于权限管理，你们是怎么控制的"></a>7 对于权限管理，你们是怎么控制的</h2><ul>
+<li>初步粒度，根据侧边栏控制。初期会在sessionStorage里面放一份对应的用户角色名称，然后要预渲染侧边栏组件的时候就开始请求含有侧边栏名称和侧边栏url的树形结构，用于递归渲染侧边栏及侧边栏的树型结构</li>
+<li>越权访问问题：跳转时，先拿取url，将url用来判断决定是否跳转，如果url在请求的树形结构找不到的话，那么就意味着越权访问，就会重定向到首页</li>
+<li>细粒度：比如一级审核员和二级审核员，他们是同样的侧边栏，能进入同样的页面。但是他们在《事项审核》这个页面中，是会显示不同的事项来供人审核，这个时候也是根据他们的字段名称来判断渲染的数据是什么。也就是说，每一次请求都需要携带这个字段。然后返回不同的数据供显示，供操作就可以了</li>
 </ul>
 <h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="1-标签嵌套"><a href="#1-标签嵌套" class="headerlink" title="1 标签嵌套"></a>1 标签嵌套</h2><ul>
 <li><p>ul&gt;li</p>
@@ -314,7 +327,8 @@
 <h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h2 id="1-选择器优先级"><a href="#1-选择器优先级" class="headerlink" title="1 选择器优先级"></a>1 选择器优先级</h2><p>判断优先级时，先判断一条属性声明是否有权重，也就是是否有：<code>!important</code>。如果加上权重，那么优先级最高，前提是没有相同优先级的声明。</p>
 <p>样式优先级从左到右为：行内样式，id选择器，class选择器，标签选择器</p>
 <p>一条规则优先级是从左到右的样式种类选择叠加而成的，注意，叠加不会产生进位，只是一个判定优先级的手段。叠加完毕之后，再从两条规则从左往右比较，谁的数大谁的优先级大。如果经过选择器比较，优先级仍然相同，那么后面的选择器的样式会覆盖前面的选择器的样式</p>
-<h2 id="2-盒子模型"><a href="#2-盒子模型" class="headerlink" title="2 盒子模型"></a>2 盒子模型</h2><p>盒模型有四个部分组成：margin，padding，content还有border</p>
+<h2 id="2-盒子模型"><a href="#2-盒子模型" class="headerlink" title="2 盒子模型"></a>2 盒子模型</h2><p>所有html元素都可以看作盒子</p>
+<p>盒模型有四个部分组成：margin，padding，content还有border</p>
 <p>盒子模型有两种，标准模型和怪异模型</p>
 <p>标准模型，是W3C的标准模型；怪异模型，是IE盒模型</p>
 <p>标准模型中，width和height只包含content的内容，不包含border和padding</p>
@@ -455,6 +469,17 @@
 </ul>
 <p>flex: 1是？</p>
 <p>flex-grow flex-shrink flex-basis 分别为1 1 0%</p>
+<h2 id="15-margin塌陷"><a href="#15-margin塌陷" class="headerlink" title="15 margin塌陷"></a>15 margin塌陷</h2><p>在标准文档流中，竖直方向的margin会出现叠加现象，较大的margin会覆盖掉较小的margin，竖直方向上的两个盒子中间只有一个较大的margin</p>
+<p>往往在兄弟和父子关系的元素会产生margin塌陷</p>
+<p>解决方法：</p>
+<ul>
+<li>为父盒子设置border</li>
+<li>为父盒子设定padding值，抵消掉子元素设置margin的方式</li>
+<li>父元素添加overflow: hidden</li>
+<li>父盒子添加position: fixed</li>
+<li>为父盒子添加 display：table</li>
+<li>利用伪元素给子元素的前面添加一个空元素。</li>
+</ul>
 <h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><h2 id="1-介绍js的基本数据类型"><a href="#1-介绍js的基本数据类型" class="headerlink" title="1 介绍js的基本数据类型"></a>1 介绍js的基本数据类型</h2><p>js的基本数据类型有<code>Number</code>，<code>undefined</code>，<code>null</code>，<code>String</code>，<code>Boolean</code></p>
 <p>ES6增加的数据类型为<code>Symbol</code></p>
 <ul>
@@ -463,7 +488,7 @@
 <li><p>轻易创建全局变量，可用于解决全局变量的冲突问题</p>
 </li>
 <li><p>使用symbol，定义类的私有属性/方法</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PASSWORD = <span class="built_in">Symbol</span>()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">username, password</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.username = username</span><br><span class="line">    <span class="built_in">this</span>[PASSWORD] = password</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  checkPassword (pwd) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>[PASSWORD] === pwd</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> login = <span class="keyword">new</span> Login(<span class="string">&#x27;admin&#x27;</span>, <span class="string">&#x27;123456&#x27;</span>)</span><br><span class="line">  </span><br><span class="line">login.checkPassword(<span class="string">&#x27;123456&#x27;</span>)  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line">login.PASSWORD  </span><br><span class="line">login[PASSWORD]</span><br><span class="line">login[<span class="string">&quot;PASSWORD&quot;</span>]</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PASSWORD = <span class="built_in">Symbol</span>()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">username, password</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.username = username</span><br><span class="line">    <span class="built_in">this</span>[PASSWORD] = password</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  checkPassword (pwd) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>[PASSWORD] === pwd</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> login = <span class="keyword">new</span> Login(<span class="string">&#x27;admin&#x27;</span>, <span class="string">&#x27;123456&#x27;</span>)</span><br><span class="line"></span><br><span class="line">login.checkPassword(<span class="string">&#x27;123456&#x27;</span>)  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line">login.PASSWORD  </span><br><span class="line">login[PASSWORD]</span><br><span class="line">login[<span class="string">&quot;PASSWORD&quot;</span>]</span><br></pre></td></tr></table></figure></li>
 <li><p>作为对象属性名，用于优雅展示不需要对外暴露的属性</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">   [<span class="built_in">Symbol</span>(<span class="string">&#x27;name&#x27;</span>)]: <span class="string">&#x27;一斤代码&#x27;</span>,</span><br><span class="line">   <span class="attr">age</span>: <span class="number">18</span>,</span><br><span class="line">   <span class="attr">title</span>: <span class="string">&#x27;Engineer&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(obj)   <span class="comment">// [&#x27;age&#x27;, &#x27;title&#x27;]</span></span><br></pre></td></tr></table></figure></li>
 <li><p>注册全局symbol对象用于联系</p>
@@ -736,6 +761,8 @@
 <ul>
 <li><p>isArray原理：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString().call(arr) === <span class="string">&#x27;[object Array]&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Object.prototype.toString.call()方法</p>
+</li>
 </ul>
 <h2 id="16-防抖与节流"><a href="#16-防抖与节流" class="headerlink" title="16 防抖与节流"></a>16 防抖与节流</h2><p>防抖：每一次的触发都要消除上一次的异步处理，如果最后没触发，将会实现【只执行高频最后一次动作】</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Debounce</span> (<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">    time = time || <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">            <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">            timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                fn.apply(<span class="built_in">this</span>, args)</span><br><span class="line">            &#125;, time)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1106,6 +1133,10 @@
 
 <h2 id="40-JS中如何展示大量数据呢？"><a href="#40-JS中如何展示大量数据呢？" class="headerlink" title="40 JS中如何展示大量数据呢？"></a>40 JS中如何展示大量数据呢？</h2><p>第一个办法：只发第一页，然后需要继续向下看数据，就继续请求</p>
 <p>第二个办法：利用setTimeout和setInterval的特性来做，将大量数据分组，然后再放到微任务，几乎一起同步执行，不过这个的缺点就在于你必须要保证是按照顺序来加载，不然容易出现大量数据的乱序问题</p>
+<h2 id="41-实现拖拽效果"><a href="#41-实现拖拽效果" class="headerlink" title="41 实现拖拽效果"></a>41 实现拖拽效果</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">div.onmousedown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> x = e.pageX;</span><br><span class="line">    <span class="keyword">const</span> y = e.pageY;</span><br><span class="line">    <span class="comment">// 得到元素视口位置</span></span><br><span class="line">    <span class="keyword">const</span> &#123;left, top&#125; = div.getBoundingClientRect();</span><br><span class="line">    <span class="built_in">window</span>.onmousemove = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> disX = e.pageX - x;</span><br><span class="line">        <span class="keyword">const</span> disY = e.pageY - y;</span><br><span class="line">        <span class="keyword">const</span> newLeft = left + disX;</span><br><span class="line">        <span class="keyword">const</span> newTop = top + disY;</span><br><span class="line">        div.style.left = newLeft + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">        div.style.top = newTop + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">div.onmouseup = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.onmousemove = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="1-说说对React的理解，有哪些特性"><a href="#1-说说对React的理解，有哪些特性" class="headerlink" title="1 说说对React的理解，有哪些特性"></a>1 说说对React的理解，有哪些特性</h2><h3 id="什么是react"><a href="#什么是react" class="headerlink" title="什么是react"></a>什么是react</h3><p>react是一个构建用户界面的js库，只提供了UI层面的解决方案</p>
 <p>它遵循了组件的设计模式，声明式的编程范式和函数式编程概念，使前端应用程序更加高效</p>
 <p>使用的虚拟DOM操控真实DOM，遵循高阶组件到低阶组件的单向数据流</p>
@@ -1244,9 +1275,16 @@
 <li>redirect：用于路由的重定向</li>
 </ul>
 <h2 id="12-React-Router有几种模式？实现原理"><a href="#12-React-Router有几种模式？实现原理" class="headerlink" title="12 React Router有几种模式？实现原理"></a>12 React Router有几种模式？实现原理</h2><ul>
-<li>hash模式：url有锚点</li>
-<li>history模式：url没有锚点，允许操作浏览器的曾经在标签页或者框架里访问的会话历史记录</li>
+<li>hash模式：url有锚点。对应的是HashRouter</li>
+<li>history模式：url没有锚点，允许操作浏览器的曾经在标签页或者框架里访问的会话历史记录。对应的是BrowserRouter</li>
 </ul>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>路由描述的是URL和UI之间的关系，这种映射是单向的，即URL的变化引起UI刷新</p>
+<ul>
+<li>BrowserRouter使用的是H5的history API，不兼容IE9以下的版本</li>
+<li>HashRouter使用的是URL的哈希值</li>
+</ul>
+<p>BrowserRouter本身是一个类组件，在内部创建一个全局的history对象用于监听整个路由的变化，并将history作为props传递给react-router的Router组件</p>
+<p>HashRouter只是一个容器，没有DOM结构，它渲染的就是子组件，并向下传递location，如果hash改变了，就会根据hash改变pathname的值</p>
 <h2 id="13-说说immutable的理解，如何应用到React项目中"><a href="#13-说说immutable的理解，如何应用到React项目中" class="headerlink" title="13 说说immutable的理解，如何应用到React项目中"></a>13 说说immutable的理解，如何应用到React项目中</h2><p>immutable，指一旦创建，就不能被更改的数据。除非用immutable的特定方式，API来修改。</p>
 <p>对Immutable对象的任何修改或添加删除操作都会返回一个新的Immutable对象</p>
 <p>Immutable的部分修改，会避免全部数据的修改，它使用了结构共享，如果一个对象树只改变了一个部分，只修改这个节点和受它影响的父节点，可以避免大量的修改。</p>
@@ -1264,7 +1302,24 @@
 <li>易于回退数据，可以用于做添加撤销功能，非常方便</li>
 <li>也可以与redux配合使用，来做状态管理</li>
 </ul>
-<h2 id="14-说说render方法的原理，在什么时候被触发"><a href="#14-说说render方法的原理，在什么时候被触发" class="headerlink" title="14 说说render方法的原理，在什么时候被触发"></a>14 说说render方法的原理，在什么时候被触发</h2><h2 id="15-如何提高组件的渲染效率？如何避免不必要的render？"><a href="#15-如何提高组件的渲染效率？如何避免不必要的render？" class="headerlink" title="15 如何提高组件的渲染效率？如何避免不必要的render？"></a>15 如何提高组件的渲染效率？如何避免不必要的render？</h2><h2 id="16-React-diff的原理是什么"><a href="#16-React-diff的原理是什么" class="headerlink" title="16 React diff的原理是什么"></a>16 React diff的原理是什么</h2><p>React引入了虚拟DOM的概念，虚拟DOM就是让React自己维护一个对象，这个对象能够跟真实DOM的元素能够抽象的一一对应。并且通过虚拟DOM的变化，来对真实DOM进行变化部分的重新渲染，而对其他部分不受影响</p>
+<h2 id="14-说说render方法的原理，在什么时候被触发"><a href="#14-说说render方法的原理，在什么时候被触发" class="headerlink" title="14 说说render方法的原理，在什么时候被触发"></a>14 说说render方法的原理，在什么时候被触发</h2><p>render方法有两种，在类组件中，指的是render方法，在函数组件中，指的是函数本身</p>
+<p>首先，会将JSX格式的虚拟DOM转化为createElement方法，再来转换为真实DOM。然后，在render的过程中，react将新调用的render函数返回的虚拟DOM树与旧版本进行diff算法比对，再来更新DOM树。</p>
+<p>在类组件中，只要执行了setState方法，就一定会导致render，但是函数组件使用useState更改状态不一定导致重新render</p>
+<p>组件的props改变了不一定触发render执行，但是props来自祖先的state时，这时候会因为state的变化导致重新render</p>
+<p>所以，在此，一旦执行了setState就一定会执行render方法，但是执行了useState会根据值是否改变再来执行render方法。一旦父组件发生了渲染，子组件也会渲染</p>
+<h2 id="15-如何提高组件的渲染效率？如何避免不必要的render？"><a href="#15-如何提高组件的渲染效率？如何避免不必要的render？" class="headerlink" title="15 如何提高组件的渲染效率？如何避免不必要的render？"></a>15 如何提高组件的渲染效率？如何避免不必要的render？</h2><ul>
+<li>shouldComponentUpdate方法，来比对state和props，如果该函数返回true，则重新render，否则则不render</li>
+<li>PureComponent方法：当组件更新的时候，如果组件的props和state都没有发生改变，那么则不会render，省去VDOM的生成和比对过程。不过PureComponent是基于浅比较的，所以还是会导致一些问题<ul>
+<li>PureComponent也有shouldComponentUpdate方法，会优先使用shouldComponentUpdate函数作为render依据，没有该生命周期时会使用PureComponent的内置方法来判断render</li>
+</ul>
+</li>
+<li>React.memo：只能用于函数组件，用于缓存组件的渲染，避免不必要的渲染。memo可以根据props的不同来判断是否进行render。但是它只是根据前后的props进行浅比较，如果是栈地址相同而堆内的数据不同，也会导致一些问题，或者是堆内数据相同而栈地址不同时，仍然粗暴render。因此往往会搭配immutable，或者直接传入第二个参数，该参数是一个返回值为bool值的函数，传入的参数为前后的props，比较的规则就是自己定的，这样也可以避免一些问题。（不过这样还要再来进行深比较一次，还是immutable会更好一些）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arePropsEqual</span>(<span class="params">prevProps, nextProps</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 自定义比较规则，返回bool值，来判断是否render</span></span><br><span class="line">  <span class="keyword">return</span> prevProps === nextProps;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> memo(Button, arePropsEqual);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="16-React-diff的原理是什么"><a href="#16-React-diff的原理是什么" class="headerlink" title="16 React diff的原理是什么"></a>16 React diff的原理是什么</h2><p>React引入了虚拟DOM的概念，虚拟DOM就是让React自己维护一个对象，这个对象能够跟真实DOM的元素能够抽象的一一对应。并且通过虚拟DOM的变化，来对真实DOM进行变化部分的重新渲染，而对其他部分不受影响</p>
 <p>diff算法就是高效的比较新的虚拟DOM和旧的虚拟DOM，并且找出两者的变化之处</p>
 <h3 id="diff的策略前提"><a href="#diff的策略前提" class="headerlink" title="diff的策略前提"></a>diff的策略前提</h3><ul>
 <li>DOM节点跨层级的移动操作特别少，可以忽略不计</li>
@@ -1323,7 +1378,19 @@
 <p>此外，key不推荐使用index来赋予，因为如果是数组的头插的话，会导致所有数组的index变化，反而对react的性能优化会更加不利</p>
 <p>key也要避免用随机数来使用，不然也是不利于性能优化</p>
 <p>设置key，是为了不通过diff算法，让组件有一个更加简单的更新真实DOM的机制</p>
-<h2 id="23-说说refs的理解，应用场景"><a href="#23-说说refs的理解，应用场景" class="headerlink" title="23 说说refs的理解，应用场景"></a>23 说说refs的理解，应用场景</h2><h2 id="24-类组件与函数组件的理解与区别"><a href="#24-类组件与函数组件的理解与区别" class="headerlink" title="24 类组件与函数组件的理解与区别"></a>24 类组件与函数组件的理解与区别</h2><h2 id="25-高阶组件的理解与应用场景"><a href="#25-高阶组件的理解与应用场景" class="headerlink" title="25 高阶组件的理解与应用场景"></a>25 高阶组件的理解与应用场景</h2><h2 id="26-react引入css的方式"><a href="#26-react引入css的方式" class="headerlink" title="26 react引入css的方式"></a>26 react引入css的方式</h2><h2 id="27-受控组件和非受控组件"><a href="#27-受控组件和非受控组件" class="headerlink" title="27 受控组件和非受控组件"></a>27 受控组件和非受控组件</h2><p>在传统的html中，表单元素的标签input等的值通常是根据用户的输入来进行更新的</p>
+<h2 id="23-说说refs的理解，应用场景"><a href="#23-说说refs的理解，应用场景" class="headerlink" title="23 说说refs的理解，应用场景"></a>23 说说refs的理解，应用场景</h2><h2 id="24-类组件与函数组件的理解与区别"><a href="#24-类组件与函数组件的理解与区别" class="headerlink" title="24 类组件与函数组件的理解与区别"></a>24 类组件与函数组件的理解与区别</h2><ul>
+<li>类组件：通过使用ES6类的编写形式去编写组件</li>
+<li>函数组件：通过函数编写的形式去实现一个React组件</li>
+</ul>
+<p>区别：</p>
+<ul>
+<li>类组件和函数组件的编写形式不同，类组件的JSX格式的组件写在render中，而函数组件写在自己的函数里面</li>
+<li>状态管理：类组件使用的是setState，而函数组件使用的是useState的hooks</li>
+<li>生命周期：类组件有着不同的生命周期，而函数组件全部都依赖着useEffect和钩子触发的变量来模拟</li>
+<li>调用方式：如果是类组件，就需要实例化，并且调用对象的render方法，而函数组件就可以直接调用本函数</li>
+<li>获取渲染的值：类组件中，需要大量的this指向来判断【因为this是可变的，因此可能每次props都是不相同的】，而函数组件不需要</li>
+</ul>
+<h2 id="25-高阶组件的理解与应用场景"><a href="#25-高阶组件的理解与应用场景" class="headerlink" title="25 高阶组件的理解与应用场景"></a>25 高阶组件的理解与应用场景</h2><h2 id="26-react引入css的方式"><a href="#26-react引入css的方式" class="headerlink" title="26 react引入css的方式"></a>26 react引入css的方式</h2><h2 id="27-受控组件和非受控组件"><a href="#27-受控组件和非受控组件" class="headerlink" title="27 受控组件和非受控组件"></a>27 受控组件和非受控组件</h2><p>在传统的html中，表单元素的标签input等的值通常是根据用户的输入来进行更新的</p>
 <h3 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h3><p>在react中，可变状态都放在state中来管理，并且只能使用setState来进行更新，而呈现表单的react组件，有人为输入的时候，react会控制表单元素进而改变其值的方式，称为受控组件。受控组件依赖于react的状态，更新依赖于react的事件处理，并通过state来实时反应元素的情况</p>
 <h3 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h3><p>指表单数据由DOM本身来处理，就是不受setState的限制，与传统的html表单输入相似，input的值为显示最新值</p>
 <p>在非受控组件里面，通常用ref来获取里面的值。非受控组件通常是自己内部维护了这个状态，这样用户输入任何值都会反应到元素上面</p>
@@ -1351,6 +1418,19 @@
 <td>一般用于没有初始值的情况</td>
 </tr>
 </tbody></table>
+<h2 id="28-类组件的生命周期"><a href="#28-类组件的生命周期" class="headerlink" title="28 类组件的生命周期"></a>28 类组件的生命周期</h2><p>组件的生命周期分为三个阶段：挂载，更新，卸载</p>
+<h3 id="挂载阶段"><a href="#挂载阶段" class="headerlink" title="挂载阶段"></a>挂载阶段</h3><ul>
+<li>constructor：初始化props，初始化state，也可以用来绑定事件</li>
+<li>shouldComponentUpdate：组件是否更新钩子，一般返回值为true或者false</li>
+<li>render：用于展示渲染</li>
+<li>componentDidMount：组件挂载完毕的钩子，用于挂载完毕执行某些项</li>
+</ul>
+<h3 id="更新阶段"><a href="#更新阶段" class="headerlink" title="更新阶段"></a>更新阶段</h3><ul>
+<li>componentDidUpdate：组件更新完毕的钩子，用于更新时执行某些项</li>
+</ul>
+<h3 id="卸载阶段"><a href="#卸载阶段" class="headerlink" title="卸载阶段"></a>卸载阶段</h3><ul>
+<li>componentWillUnmount：在组件即将被移除或者销毁后执行，一般用于清理定时器、取消网络请求等事件</li>
+</ul>
 <h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="1-HTTP和HTTPS的区别"><a href="#1-HTTP和HTTPS的区别" class="headerlink" title="1 HTTP和HTTPS的区别"></a>1 HTTP和HTTPS的区别</h2><p>虽然HTTP和HTTPS之间只差了SSL/TLS，但是HTTPS的通信安全得到了极大保障</p>
 <ul>
 <li>HTTP：超文本传输协议，特点如下：<ul>
@@ -1379,6 +1459,7 @@
 <ul>
 <li>混合加密：HTTPS通信过程中，采用对称加密和非对称加密，公钥私钥对对称密钥进行加解密。但是黑客可以伪造身份发布公钥，如果你获得了假的公钥，你的数据仍然是不安全的。因此，数据加密的基础上，还需要完整性和身份验证的特性来实现真正的安全</li>
 </ul>
+<p>​        这样就相当于你跟黑客通信了，数据不安全了</p>
 <img src="https://camo.githubusercontent.com/31677ec92cfdaad700f98b5030cdfb79bb6632bd471c294f1ad30d99d3151e6a/68747470733a2f2f7374617469632e7675652d6a732e636f6d2f66333735663239302d623266662d313165622d383566362d3666616337376330633962332e706e67">
 
 <ul>
@@ -1389,6 +1470,8 @@
 <ul>
 <li>数字签名【身份验证】：数字签名能够确认消息确实是发送方发出来的，别人仿造不了发送方的签名。签名和公钥一样，任何人都可以获取，但是签名只有用私钥对应的公钥才可以解开。验证成功之后就可以拿到摘要了。</li>
 </ul>
+<p>​        数字签名一般用于验证服务端是安全的，服务端发送给客户端的时候就使用数字签名，让客户端鉴别发送方</p>
+<p>​        一般，将明文压缩成固定长度的字符串，并私钥加密，就是数字签名了</p>
 <img src="https://camo.githubusercontent.com/8995c606939e79af9d26a660a10968f455796af32f432c1287dc5cd9d2a391d0/68747470733a2f2f7374617469632e7675652d6a732e636f6d2f32316161363838302d623330302d313165622d383566362d3666616337376330633962332e706e67">
 
 <ul>
@@ -1431,6 +1514,7 @@
 </li>
 </ul>
 <h3 id="发送HTTP请求"><a href="#发送HTTP请求" class="headerlink" title="发送HTTP请求"></a>发送HTTP请求</h3><p>发送HTTP协议的过程就是将HTTP的请求报文通过TCP协议发送到服务器指定端口。</p>
+<p>不过在这里，我觉得，应该先去请求静态资源。【也就是页面资源】</p>
 <h3 id="服务器处理响应请求并返回HTTP报文"><a href="#服务器处理响应请求并返回HTTP报文" class="headerlink" title="服务器处理响应请求并返回HTTP报文"></a>服务器处理响应请求并返回HTTP报文</h3><p>服务器会对TCP连接进行处理，并对收到的HTTP协议进行解析，并且按照报文格式进一步封装成HTTP Request对象供上层使用。</p>
 <h3 id="浏览器解析渲染页面"><a href="#浏览器解析渲染页面" class="headerlink" title="浏览器解析渲染页面"></a>浏览器解析渲染页面</h3><p>浏览器获取返回的HTTP报文资源之后，首先对资源进行解析。</p>
 <ul>
@@ -1454,7 +1538,7 @@
 </li>
 <li><p>HTTP 1.1</p>
 <ul>
-<li><p>在HTTP 1.0的基础上，传输数据完成不进行连接拆除，保持长连接。【通过增加Keep-Alive属性】如果客户端想要关闭HTTP连接，只需要在请求头携带<code>Connection: false</code>，服务器将会关闭连接</p>
+<li><p>在HTTP 1.0的基础上，传输数据完成不进行连接拆除，保持长连接。【通过增加Keep-Alive属性】如果客户端想要关闭HTTP连接，只需要在请求头携带<code>Connection: close</code>，服务器将会关闭连接</p>
 </li>
 <li><p>HTTP 1.1为了解决队头阻塞问题，弄了管道化运输。也就是可以不必等待上一个请求回来，下一个请求就可以发出，只不过是接收响应的时候，要按照请求的顺序。虽然它解决了队头阻塞造成的时间开销较大的问题，但是它还是无法解决队头阻塞的问题。因为服务器仍然还是要按照顺序逐个响应送回，也不允许存在两个并行的响应。而且很多浏览器并不支持管道化运输。</p>
 <p>后面，浏览器厂商采取了允许多个TCP会话，实现了真正的并行</p>
@@ -1469,21 +1553,34 @@
 </li>
 </ul>
 <h2 id="6-HTTP-2-0"><a href="#6-HTTP-2-0" class="headerlink" title="6 HTTP 2.0"></a>6 HTTP 2.0</h2><h3 id="二进制分帧"><a href="#二进制分帧" class="headerlink" title="二进制分帧"></a>二进制分帧</h3><p>HTTP 2.0 的出现是为了在1.x的基础上，改进传输性能，实现低延迟和高吞吐量</p>
-<p>HTTP 2.0通过在应用层和传输层之间增加了一个二进制分层帧，突破了HTTP 1.1的性能限制，改进了传输性能</p>
+<p>HTTP 2.0通过在应用层和传输层之间增加了一个二进制分层帧，在二进制分层帧上，HTTP 2.0将传输信息分成更小的帧，然后采用二进制格式编码，原HTTP 1.x的头部封装到Header帧，原HTTP 1.x的body封装到了Data帧中。突破了HTTP 1.1的性能限制，改进了传输性能</p>
 <p>因为是分帧传输，服务器接收的帧都是乱序的，然后再自行组合起来，这样的好处就是避免了HTTP队头阻塞问题。</p>
+<h4 id="什么是帧"><a href="#什么是帧" class="headerlink" title="什么是帧"></a>什么是帧</h4><p>HTTP 2.0通信的最小单位，所有的帧都共享着一个8字节的头部，其中包含帧的长度、类型、标志位和保留位，并且有标识当前帧所属的流的标识符</p>
+<h4 id="什么是消息"><a href="#什么是消息" class="headerlink" title="什么是消息"></a>什么是消息</h4><p>比帧大的通信单位，是指逻辑上的http消息，比如请求和响应，至少由一个帧构成</p>
+<h4 id="什么是流"><a href="#什么是流" class="headerlink" title="什么是流"></a>什么是流</h4><p>比消息大的通信单位。是TCP连接中的一个虚拟通道，可以承载双向的消息。每个流都有一个唯一的整数标识符</p>
+<p>HTTP 2.0中所有加强性能的核心是二进制传输，在HTTP 1.x中，是通过文本的方式传输数据，有很多缺陷，而且还要考虑文本文件的兼容性问题，而二进制传输只有01，健壮性很好。</p>
 <h3 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h3><p>所有的HTTP 2.0通信都在一个TCP链接上完成，可以承载任意流量的双向数据流。</p>
 <p>每个数据流以消息的形式发送，而消息由一个或多个帧组成。这些帧可以乱序发送，然后再根据每个帧头部的流标识符重新封装</p>
 <p>多路复用可能会导致关键字被阻塞，HTTP 2.0里每个数据流都可以设置优先级和依赖，优先级高的数据可以优先处理优先返回客户端，数据流还可以依赖其他的子数据流。</p>
 <p>HTTP 2.0实现了真正的并行传输，它能够在一个TCP上进行任意数量的HTTP请求</p>
-<h3 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h3><p>在HTTP 1.X中，头部元数据都是纯文本的形式发送的，通常会给每个请求增加很多字节的负荷。比如cookie，默认情况下都会将cookie放到请求头中发送给服务器。HTTP 2.0中，通讯双方还有一个缓存表，用于避免header重复传输。而且，HTTP 2.0使用了encoder压缩头部，减少请求头传输的数据包，从而降低延迟</p>
-<h3 id="服务器推送"><a href="#服务器推送" class="headerlink" title="服务器推送"></a>服务器推送</h3><p>除了服务器响应，服务器还可以向客户端额外推送资源，而无需客户端的明确需求。</p>
+<h3 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h3><p>在HTTP 1.X中，头部元数据都是纯文本的形式发送的，通常会给每个请求增加很多字节的负荷。比如cookie，默认情况下都会将cookie放到请求头中发送给服务器。HTTP 2.0中，通讯双方维护一个动态表和一个静态表。然后发送请求的时候只把请求头变化的部分加入到header帧中，然后响应请求时再来解压请求头，双方更新维护两个表，将新添加的部分添加到动态表里面。</p>
+<h3 id="服务器推送"><a href="#服务器推送" class="headerlink" title="服务器推送"></a>服务器推送</h3><p>除了服务器响应，服务器还可以向客户端额外推送资源，而无需客户端的明确需求。也就是说，可以一个请求多个响应。</p>
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>只解决了HTTP的队头阻塞问题，但是没有解决TCP的队头阻塞问题。如果某一个数据包没有按照顺序到达，那么接收端会一直等待这个数据包返回，这样会阻塞后续请求，发生了TCP的队头阻塞</p>
 <h2 id="7-HTTP-3-0之前HTTP的缺点"><a href="#7-HTTP-3-0之前HTTP的缺点" class="headerlink" title="7 HTTP 3.0之前HTTP的缺点"></a>7 HTTP 3.0之前HTTP的缺点</h2><h3 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP 1.0"></a>HTTP 1.0</h3><ul>
 <li>每次传输数据要做连接拆除，消耗RTT</li>
 <li>收到服务器的响应，才能继续发送请求，容易造成队头阻塞</li>
 </ul>
 <h3 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP 1.1"></a>HTTP 1.1</h3><ul>
-<li>做了管道运输，可以不必等上一个请求的响应才能发请求，可以连续发送请求，但是响应必须有序。而且管道通信并没有做到真正的并行响应，也没有真正解决队头阻塞问题</li>
+<li><p><code>Connection: keep-alive</code>，用于长连接，使其不会立刻做连接拆除</p>
+</li>
+<li><p>做了管道运输，可以不必等上一个请求的响应才能发请求，可以连续发送请求，但是响应必须有序。而且管道通信并没有做到真正的并行响应，也没有真正解决队头阻塞问题</p>
+</li>
+<li><p>后面也做了域名分片，使得这些二级域名都可以指向同样的服务器，然后能发送的请求更多了，也比较好解决队头阻塞的问题</p>
+</li>
+<li><p>需要检测服务器发送的消息的时候，只有通过轮询请求，会造成严重的性能问题</p>
+</li>
+<li><p>请求报文和响应报文头部信息冗余量大，数据未压缩，传输量也较大</p>
+</li>
 </ul>
 <h3 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP 2.0"></a>HTTP 2.0</h3><ul>
 <li>使用了二进制分帧来传输数据，数据包可以无序传输，但最后会依序拼接，解决了HTTP的队头阻塞问题。但是HTTP 1.1可以使用多个TCP，而2.0只有一个TCP，当数据包丢包，那么就会造成服务器一直在等待，就导致了TCP的队头阻塞。而且因为底层是TCP，如果丢包，会导致超时重传，一定程度上影响效率</li>
@@ -1501,6 +1598,7 @@
 <p>当然，如果丢失多个包，就不好找了</p>
 </li>
 </ul>
+<p>基于QUIC</p>
 <h2 id="8-get和post的区别"><a href="#8-get和post的区别" class="headerlink" title="8 get和post的区别"></a>8 get和post的区别</h2><p>直观的，就是语义上的区别</p>
 <p>从缓存的角度，get请求会被浏览器主动缓存下来，留下历史记录，而post默认不会</p>
 <p>从参数的角度，如果get使用一般情况，那么他的数据是直接暴露在url中的，并且浏览器是有url的长度限制的，因此只能在一般使用情况发送小批量数据，但是post放在请求体中【虽然也可以暴露在url】，一般用于放敏感信息</p>
@@ -1716,8 +1814,12 @@
 <li>第三次挥手：服务端发送一个FIN标记包，表示自己不用发数据了，此时的序列号为y</li>
 <li>第四次挥手：客户端发送ACK应答，应答结果为y+1，表示自己收到请求，不会再等待接收数据，服务端收到ACK包之后关闭连接</li>
 </ul>
-<p>为什么不三次挥手？</p>
+<h4 id="为什么第二次挥手和第三次挥手要有等待？"><a href="#为什么第二次挥手和第三次挥手要有等待？" class="headerlink" title="为什么第二次挥手和第三次挥手要有等待？"></a>为什么第二次挥手和第三次挥手要有等待？</h4><p>这意味着：为什么不三次挥手？</p>
 <p>只有三次挥手的话，意味着第二次和第三次是需要合并的，也就是ACK应答和FIN包一起发给客户端，这样会造成服务端还有数据没有发送完，就造成了数据的丢失。所以第二次和第三次的空档是为了等待服务器把剩下的数据发完</p>
+<h4 id="为什么最后服务器要等待2MSL？"><a href="#为什么最后服务器要等待2MSL？" class="headerlink" title="为什么最后服务器要等待2MSL？"></a>为什么最后服务器要等待2MSL？</h4><p>MSL: 最大报文生存时间</p>
+<p>这意味着考TIME_WAIT状态：</p>
+<p>如果直接关闭，而不等待2MSL的话。可能会有第四次挥手中，因为网络问题，服务端收不到客户端的ACK，导致服务端会不断发送FIN包的情况。这样就可能导致关闭连接之后还会有这些FIN包去不断干扰。</p>
+<p>另外，也是为了避免前次连接的包对下一次连接进行干扰，才设置2MSL让上一次连接的包失效</p>
 <h2 id="19-XSS和CSRF"><a href="#19-XSS和CSRF" class="headerlink" title="19 XSS和CSRF"></a>19 XSS和CSRF</h2><h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>跨站脚本攻击，攻击者通常在被攻击页面里面插入恶意script代码，当用户浏览该页的时候，嵌入里面的scipt代码会执行，从而达到攻击用户的目的。</p>
 <p>通常XSS有三种：存储型，反射型和DOM型</p>
 <ul>
@@ -1808,6 +1910,20 @@
 <li><p>修改已提交：amend</p>
 </li>
 </ul>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="1-观察者模式"><a href="#1-观察者模式" class="headerlink" title="1 观察者模式"></a>1 观察者模式</h2><p>观察者模式定义了对象之间的一对多的依赖关系，当一个对象的状态发生改变的时候，所有依赖于它的对象都将会基于观察者，得到通知并立刻更新</p>
+<img src="https://static.vue-js.com/d3a80020-3f7c-11ec-a752-75723a64e8f5.png">
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 观察者的容纳容器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">subject</span> </span>&#123;</span><br><span class="line">    <span class="title">constructor</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="built_in">this</span>.observerList = [];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    addObserver (observer) &#123;</span><br><span class="line">        <span class="built_in">this</span>.observerList.push(observer);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    deleteObserver (observer) &#123;</span><br><span class="line">        <span class="keyword">const</span> index = <span class="built_in">this</span>.observerList.findIndex(<span class="function"><span class="params">o</span> =&gt;</span> o.name === observer.name);</span><br><span class="line">        <span class="built_in">this</span>.observerList.splice(index, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    notifyObservers (message) &#123;</span><br><span class="line">        <span class="keyword">const</span> observers = <span class="built_in">this</span>.observerList;</span><br><span class="line">        observers.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">            item.notified(message);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被观察者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">observer</span> </span>&#123;</span><br><span class="line">    <span class="title">constructor</span> (<span class="params">name, subject</span>) &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="keyword">if</span> (subject) &#123;</span><br><span class="line">           subject.addObserver(<span class="built_in">this</span>); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    notified (message) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name, <span class="string">&#x27; is sent a message&#x27;</span>, message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2-发布订阅模式"><a href="#2-发布订阅模式" class="headerlink" title="2 发布订阅模式"></a>2 发布订阅模式</h2><p>发布订阅是一种消息范式，消息的发送者不会将消息发送给特定的接收者，而是将发布的消息分为不同的类别，无需了解哪些订阅者可能存在</p>
+<img src="https://static.vue-js.com/e24d3cd0-3f7c-11ec-8e64-91fdec0f05a1.png">
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PubSub</span> </span>&#123;</span><br><span class="line">    <span class="title">constructor</span> (<span class="params"></span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         </div>
 

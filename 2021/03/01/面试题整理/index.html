@@ -469,6 +469,15 @@
 </ul>
 <p>flex: 1是？</p>
 <p>flex-grow flex-shrink flex-basis 分别为1 1 0%</p>
+<p>flex-grow：规定子元素之间的比例系数</p>
+<p>flex-shrink：表示子元素超出之后，就收缩元素</p>
+<p>flex-basis：决定flex元素在主轴方向的初始大小</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="15-margin塌陷"><a href="#15-margin塌陷" class="headerlink" title="15 margin塌陷"></a>15 margin塌陷</h2><p>在标准文档流中，竖直方向的margin会出现叠加现象，较大的margin会覆盖掉较小的margin，竖直方向上的两个盒子中间只有一个较大的margin</p>
 <p>往往在兄弟和父子关系的元素会产生margin塌陷</p>
 <p>解决方法：</p>
@@ -537,6 +546,15 @@
 <p>当然，在上述例子中，<code>date instanceof Object</code>也是正确的</p>
 </li>
 </ul>
+<p><strong>难点：instanceof可以用来判断基本数据类型吗</strong></p>
+<p>可以：可以通过自定义对象来判定基本数据类型：使用Symbol.hasInstance</p>
+<p>自定义Symbol.hasInstance，就是规定这个对象使用instanceof之后返回的是true还是false</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> [<span class="built_in">Symbol</span>.hasInstance] (x) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typeof</span> x === <span class="string">&#x27;string&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;&#x27;</span> <span class="keyword">instanceof</span> P); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="6-0-1-0-2-0-3问题"><a href="#6-0-1-0-2-0-3问题" class="headerlink" title="6 0.1+0.2 !== 0.3问题"></a>6 0.1+0.2 !== 0.3问题</h2><ul>
 <li><p>因为js使用64位的双精度浮点，故只有53位有效数字，在计算机内部编码的时候，0.1和0.2在转换为二进制的时候都是无限循环的，因此在第54位有效数字就已经被截取掉了，这是第一个造成精度丢失的地方。</p>
 </li>
@@ -569,12 +587,13 @@
 </li>
 <li><p>ToBoolean：<code>false</code>，<code>null</code>，<code>undefined</code>，<code>&#39;&#39;</code>，<code>0</code>，<code>NaN</code>转化为<code>false</code>，其他的全为<code>true</code></p>
 </li>
-<li><p>ToPrimitive：对象类型需要转换为原始类型的时候，先查找对象的<code>valueOf</code>方法，如果返回值不是原始数据类型或者没有该方法，那么就查找<code>toString</code>方法</p>
+<li><p>ToPrimitive：对象类型需要转换为原始类型的时候，先查找<code>Symbol.toPrimitive()</code>方法，再查找对象的<code>valueOf</code>方法，如果返回值不是原始数据类型或者没有该方法，那么就查找<code>toString</code>方法</p>
 <ul>
 <li>数组：valueOf为本身，toString为数组的join方法，<code>[].toString() === &#39;&#39;</code></li>
 <li>对象：valueOf和toString需要自己定义</li>
+<li>注意：Date对象会优先尝试toString()方法来实现转换</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    valueOf () &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    toString () &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;123&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Number</span>(obj) <span class="comment">// 123</span></span><br><span class="line"><span class="comment">// 过程：首先查找valueOf</span></span><br><span class="line"><span class="comment">// 发现不是原始类型时，就继续查找toString方法</span></span><br><span class="line"><span class="comment">// toString返回&quot;123&quot;，那么就返回&quot;123&quot;</span></span><br><span class="line"><span class="comment">// 经过Number转换，得到的为123</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> q = &#123;&#125;</span><br><span class="line"><span class="built_in">Number</span>(q) <span class="comment">// NaN</span></span><br><span class="line"><span class="comment">// 过程：首先查找valueOf，没有</span></span><br><span class="line"><span class="comment">// 再查找toString方法，返回&#x27;[object Object]&#x27;</span></span><br><span class="line"><span class="comment">// 经过Number转换，字符串转换为NaN</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    valueOf () &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    toString () &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;123&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Number</span>(obj) <span class="comment">// 123</span></span><br><span class="line"><span class="comment">// 过程：首先查找valueOf</span></span><br><span class="line"><span class="comment">// 发现不是原始类型时，就继续查找toString方法</span></span><br><span class="line"><span class="comment">// toString返回&quot;123&quot;，那么就返回&quot;123&quot;</span></span><br><span class="line"><span class="comment">// 经过Number转换，得到的为123</span></span><br><span class="line"><span class="comment">// 注意：Date对象会优先尝试toString()方法来实现转换</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> q = &#123;&#125;</span><br><span class="line"><span class="built_in">Number</span>(q) <span class="comment">// NaN</span></span><br><span class="line"><span class="comment">// 过程：首先查找valueOf，没有</span></span><br><span class="line"><span class="comment">// 再查找toString方法，返回&#x27;[object Object]&#x27;</span></span><br><span class="line"><span class="comment">// 经过Number转换，字符串转换为NaN</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="宽松相等比较规则"><a href="#宽松相等比较规则" class="headerlink" title="宽松相等比较规则"></a>宽松相等比较规则</h3><ul>
 <li><p>布尔类型域其他类型比较：两边全部转换成Number类型</p>
@@ -617,13 +636,16 @@
 <li><p>数组遍历：map、forEach【没有返回值，直接在原数据修改】、every、someone、filter</p>
 </li>
 </ul>
-<h2 id="9-预编译与执行上下文"><a href="#9-预编译与执行上下文" class="headerlink" title="9 预编译与执行上下文"></a>9 预编译与执行上下文</h2><p>在js文件执行的时候，会先进行语法分析，判断语法是否有错误</p>
-<p>然后进行预编译阶段【发生在函数执行的前一刻】，在这个阶段，会进行变量的声明提升和函数的声明提升</p>
-<p>最后由解释器逐行解释并转换为其他语言来进行编译</p>
+<h2 id="9-预编译与执行上下文"><a href="#9-预编译与执行上下文" class="headerlink" title="9 预编译与执行上下文"></a>9 预编译与执行上下文</h2><h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><p>在js文件执行的时候，会先进行语法分析，判断语法是否有错误</p>
+<p>接着再进行预编译：</p>
+<p>全局预编译：发生在页面加载完成的时候执行</p>
+<p>局部预编译：预编译阶段<strong>【发生在函数执行的前一刻】</strong>，在这个阶段，会进行变量的声明提升和函数的声明提升</p>
+<p>最后再由解释器逐行解释并转换为其他语言来进行编译</p>
 <p>在预编译的前期：如果声明变量没有声明就赋值，那么这个变量就会被隐式定义为全局变量</p>
 <p>所有的全局变量都可以在window中访问获取</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = b = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="comment">// a = undefined, 因为赋值之后，局部变量会被垃圾回收</span></span><br><span class="line"><span class="comment">// b = 100, 因为b没有声明就被赋值，在这里视为将b隐式定义为全局变量，不会被回收</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="预编译步骤"><a href="#预编译步骤" class="headerlink" title="预编译步骤"></a>预编译步骤</h4><p>首先，会先创建一个AO【执行期上下文】</p>
 <p>在函数体内部，如果有多个属性重名，将参照该方式预编译：</p>
 <ul>
 <li>找形参和变量声明【注意，不找函数声明，因为这个在最后一步执行】，该属性值首先为undefined</li>
@@ -635,16 +657,18 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 经过预编译，值为function</span></span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">123</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 重新赋值，值为123</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 值为123</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 因为是函数表达式，所以初始AO的时候值为undefined，但是在解释运行的时候，就会赋值</span></span><br><span class="line">    <span class="built_in">console</span>.log(b);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">d</span> (<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 函数声明，初始AO为 d()&#123;&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>同理，不在函数内也可以，只不过是在全局作用域执行同样的步骤罢了</strong></p>
-<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><ul>
-<li>运行期上下文：函数执行时，会创建一个执行期上下文的内部对象，它定义了一个函数执行时的环境，每次调用函数都会创建一次</li>
-<li>执行期上下文：确定当前环境下变量的取值以及this的指向<ul>
-<li>种类：全局执行上下文，函数执行上下文，eval上下文</li>
-</ul>
-</li>
-</ul>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="什么是执行上下文"><a href="#什么是执行上下文" class="headerlink" title="什么是执行上下文"></a>什么是执行上下文</h4><p>执行上下文指的是当前执行环境中的变量、函数声明、参数、作用域链和this等信息</p>
+<p>我们可以理解成执行上下文就是当前代码的运行的环境</p>
+<h4 id="如何创建"><a href="#如何创建" class="headerlink" title="如何创建"></a>如何创建</h4><p>在预编译阶段创建，也就是说，在函数执行的前一刻创建。但是创建的。</p>
+<p>但是作用域的确定，是在函数定义时就已经确定了，函数作用域的链式关系跟定义该函数所处的上下文相关</p>
+<h4 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h4><p>执行上下文分类有两种：全局执行上下文和函数执行上下文。</p>
+<p>全局执行上下文是执行js代码时创建的上下文</p>
+<p>函数执行上下文是在函数<strong>执行的时候</strong>创建的一个新的函数执行上下文</p>
+<h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>利用执行上下文栈来工作，因为js是单线程的，因此只能做一件事情，其他事情就在指定的上下文栈中等待执行</p>
+<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文，压入执行上下文栈顶，然后每次函数调用都会创建一个新的执行上下文放入到栈顶，随着函数执行完毕之后被执行上下文栈顶弹出</p>
 <h2 id="10-作用域-作用域链"><a href="#10-作用域-作用域链" class="headerlink" title="10 作用域-作用域链"></a>10 作用域-作用域链</h2><ul>
-<li>作用域：是一个函数和变量生效的区域。也是一个只能通过js引擎存取的一个对象<code>[[scope]]</code></li>
-<li>作用域链，<code>[[scope]]</code>存储执行期上下文对象的集合，并呈链式链接，我们叫做作用域链，<ul>
+<li>作用域：是一个让某些函数和变量生效的区域。也是一个只能通过js引擎存取的一个对象，称之为：<code>[[scope]]</code></li>
+<li>作用域链，<code>[[scope]]</code>存储执行期上下文对象的集合，并呈链式链接，我们叫做作用域链<ul>
 <li>函数被定义但未执行的时候作用域链将所在环境的执行上下文加入</li>
 <li>函数被执行的时候将函数自身内部环境的执行上下文加入</li>
 </ul>
@@ -652,21 +676,24 @@
 </ul>
 <img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E9%9D%A2%E7%BB%8F/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86.png"/>
 
+<ul>
+<li>执行环境**[EC]**：函数在运行的时候都会产生一个执行环境，并且JS引擎还会产生一个</li>
+</ul>
 <p><strong>遵照先进先出法则</strong>，至上向下寻找变量，如果找不到，就向下一层的作用域，来进行寻找。</p>
 <p>函数执行完毕，函数内部环境的上下文将会被销毁</p>
+<p>注意：预编译阶段出现于函数执行的前一刻，而作用域的开辟则是在函数创建的时候</p>
 <h2 id="11-闭包"><a href="#11-闭包" class="headerlink" title="11 闭包"></a>11 闭包</h2><p>什么是闭包：当函数有权访问另一个函数作用域的变量的时候，该函数，变量还有作用域。通常当内部函数被保存到外部时，就会产生闭包。</p>
-<p>通常，闭包会导致原有的函数作用域不释放，造成内存泄漏</p>
-<ul>
+<h3 id="通常，闭包会导致原有的函数作用域不释放，造成内存泄漏"><a href="#通常，闭包会导致原有的函数作用域不释放，造成内存泄漏" class="headerlink" title="通常，闭包会导致原有的函数作用域不释放，造成内存泄漏"></a>通常，闭包会导致原有的函数作用域不释放，造成内存泄漏</h3><ul>
 <li>误区：闭包一定造成内存泄露：是闭包导致的作用域不释放才会造成内存泄漏</li>
 <li>闭包的缺点：导致变量不会被垃圾回收机制回收，造成了内存消耗</li>
 </ul>
-<p>通常闭包的用法：</p>
-<ul>
+<h3 id="通常闭包的用法："><a href="#通常闭包的用法：" class="headerlink" title="通常闭包的用法："></a>通常闭包的用法：</h3><ul>
 <li>公有变量</li>
 <li>封装，属性私有化</li>
 <li>用于模块化开发</li>
 <li>防止污染全局变量</li>
 </ul>
+<h3 id="作用域如何才会释放"><a href="#作用域如何才会释放" class="headerlink" title="作用域如何才会释放"></a>作用域如何才会释放</h3><p>当发现仍然有函数访问该作用域内部的变量的时候，该作用域不会释放，反之就会立刻释放。</p>
 <h2 id="12-原型和原型链"><a href="#12-原型和原型链" class="headerlink" title="12 原型和原型链"></a>12 原型和原型链</h2><p>原型【prototype】：函数内置对象，描述函数创建时的公共祖先</p>
 <ul>
 <li><p>公共祖先都是空对象<code>&#123;&#125;</code>，我们可以通过往空对象添加属性方法，原来的构造函数进行实例化的时候，每一个实例化对象都会继承同一个公共祖先</p>
@@ -684,13 +711,15 @@
 <p>每一个原型都内置了一个构造器对象，用于方便查看是哪个构造函数使用该原型</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor)</span><br></pre></td></tr></table></figure>
 
+<img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/JavaScript/原型链.png">
+
 
 
 <p>构造函数原型.constructor -&gt; 构造函数</p>
 <p>实例.proto -&gt; 构造函数原型</p>
 <p>构造函数.prototype -&gt; 构造函数原型</p>
 <p>对于Object原型对象来说，构造函数的原型是它的一个实例，那么有：</p>
-<p>构造函数原型-&gt;Object .proto</p>
+<p>构造函数原型-&gt;Object .<code>__proto__</code></p>
 <p>Object原型对象跟Object构造函数相对应，Object构造函数.prototype得到Object原型对象</p>
 <p>因为Object原型对象已经不再是任何实例了，因此proto指向null</p>
 <p>对于原型链而言的作用，当一个实例对象找不到属性和方法的时候，就会往原型上面找，找不到就再往上面找<strong>【比如toString方法可以在任何的实例使用】</strong></p>
@@ -706,12 +735,12 @@
 <p>第二个输出，setTimeout内部的回调函数可以理解为被作为参数传给了setTimeout，因此做过赋值操作，为默认绑定</p>
 <p>第三个输出，虽然有setTimeout，但是<code>sayHi</code>不是作为回调函数传入，而是在回调函数内部执行，因此是隐式绑定</p>
 </li>
+</ul>
+<ul>
 <li><p>显式绑定：通过call、apply、bind，显式指定this的指向对象，</p>
 <p>在this判断的时候，把函数当变量传值一般需要经过绑定，因为函数作为变量传进函数会导致该函数进行”赋值”，导致丢失隐式绑定，变成默认绑定</p>
 <p><strong>注意：</strong>传入对象为null或者undefined时，这些值会被忽略，并且执行默认绑定规则</p>
 </li>
-</ul>
-<ul>
 <li><p>new绑定</p>
 <ul>
 <li><p>创建一个空对象，构造函数的this指向该对象</p>
@@ -721,7 +750,7 @@
 <li><p>执行构造函数，属性和方法添加到该空对象【this引用的对象】</p>
 </li>
 <li><p>如果构造函数中没有返回其他对象，那么返回this，即创建的新对象，否则返回构造函数中规定的其他对象</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Hi = <span class="keyword">new</span> sayHi(<span class="string">&#x27;Yevtte&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Hello,&#x27;</span>, Hi.name);<span class="comment">// Yevtte，优先级new比默认高</span></span><br></pre></td></tr></table></figure></li>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Hi = <span class="keyword">new</span> sayHi(<span class="string">&#x27;Yevtte&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Hello,&#x27;</span>, Hi.name);<span class="comment">// Yevtte，优先级new比默认高</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
@@ -761,7 +790,7 @@
 <ul>
 <li><p>isArray原理：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString().call(arr) === <span class="string">&#x27;[object Array]&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>Object.prototype.toString.call()方法</p>
+<li><p>Object.prototype.toString.call()方法：兼容性最好</p>
 </li>
 </ul>
 <h2 id="16-防抖与节流"><a href="#16-防抖与节流" class="headerlink" title="16 防抖与节流"></a>16 防抖与节流</h2><p>防抖：每一次的触发都要消除上一次的异步处理，如果最后没触发，将会实现【只执行高频最后一次动作】</p>
@@ -771,6 +800,11 @@
 
 <p>节流：触发变得更加稀疏，不到时间点就将一个数记为非空，时间到了再撤去</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Throttle</span> (<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">    time = time || <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">var</span> timer;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (timer === <span class="literal">null</span>) &#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, args)</span><br><span class="line">            timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                timer = <span class="literal">null</span></span><br><span class="line">            &#125;, time)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>操作缓慢：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Consumer</span> (<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tasks = [],</span><br><span class="line">    	timer</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 和apply的区别就是bind不会立即执行，apply会立即执行</span></span><br><span class="line">        task.push(fn.bind(<span class="built_in">this</span>,...args))</span><br><span class="line">        <span class="keyword">if</span> (timer == <span class="literal">null</span>) &#123;</span><br><span class="line">            timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                tasks.shift().call(<span class="built_in">this</span>)</span><br><span class="line">                <span class="keyword">if</span>(task.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="built_in">clearInterval</span>(timer)</span><br><span class="line">                    timer = <span class="literal">null</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, time)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 
 
@@ -1116,6 +1150,21 @@
 <p>如果想让堆地址的数值也不发生改变的话，可以采用object.freeze(obj)进行冻结，这样堆地址的也不可以进行了。</p>
 <p>let和const比起var，也添加了一个暂时性死区的特性。在var中，变量在声明前调用，会被视为undefined，而使用let和const的时候，这样的操作是非法的，会报错，这就叫做暂时性死区</p>
 <h2 id="36-懒加载"><a href="#36-懒加载" class="headerlink" title="36 懒加载"></a>36 懒加载</h2><p>懒加载就是延时加载，通常在用户想要继续往下浏览时，触发某个事件再来进行按需加载的方法就叫懒加载</p>
+<h3 id="资源懒加载"><a href="#资源懒加载" class="headerlink" title="资源懒加载"></a>资源懒加载</h3><ul>
+<li>window.onscroll：滚动浏览器视口的时候触发的函数，频繁触发也是不好的，因此需要一个节流处理</li>
+<li>offsetTop：图片到浏览器顶部的距离：img.offsetTop获取</li>
+<li>scrollTop：滚动的距离：document.documentElement.scrollTop获取</li>
+<li>clientHeight：视口距离：document.documentElement.clientHeight获取</li>
+</ul>
+<img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/7/7/1732813b9ba042a3~tplv-t2oaga2asx-zoom-in-crop-mark:1304:0:0:0.awebp">
+
+<p>如何触发？当scrollTop + clientHeight &gt; offsetTop时，就会触发。但是记住，不要重复触发，也就是：!img.src</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> imgs = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;img&#x27;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lazyLoad</span> (<span class="params">imgs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> clientHeight = <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">    <span class="keyword">const</span> scrollTop = <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; imgs.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (clientHeight + scrollTop &gt;= imgs[i].offsetTop &amp;&amp; !imgs[i].src) &#123;</span><br><span class="line">            imgs[i].src = imgs[i].dataset.src;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Throttle</span> (<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">    time = time || <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, args);</span><br><span class="line">            timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                timer = <span class="literal">null</span>;</span><br><span class="line">            &#125;, time);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onscroll = Throttle(lazyLoad(imgs), <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h3><p>在开发过程中运行资源，会把所有页面加载，这样会有首页初次渲染较慢的问题。所以使用路由懒加载，就是你点击此页面，就再来加载这个页面，这样可以提高首次加载整个应用的等待时间有一定程度的缩短。</p>
+<p>在react如何实现路由懒加载：使用React.lazy函数即可。在这里，需要搭配ES Module的加载方式，因为ES Module支持懒加载的方式</p>
 <h2 id="37-洗牌函数"><a href="#37-洗牌函数" class="headerlink" title="37 洗牌函数"></a>37 洗牌函数</h2><p>可以说一个加分点：用网上的文章洗牌函数都是有问题的</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> shuffle = <span class="function">(<span class="params">array</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> res = [];</span><br><span class="line">    <span class="keyword">while</span> (array.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> index = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * array.length);</span><br><span class="line">        array = array.filter(<span class="function">(<span class="params">item, index_</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> index === index_;</span><br><span class="line">        &#125;);</span><br><span class="line">        res.push(array[index]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1131,12 +1180,23 @@
 
 
 
-<h2 id="40-JS中如何展示大量数据呢？"><a href="#40-JS中如何展示大量数据呢？" class="headerlink" title="40 JS中如何展示大量数据呢？"></a>40 JS中如何展示大量数据呢？</h2><p>第一个办法：只发第一页，然后需要继续向下看数据，就继续请求</p>
+<h2 id="40-JS中如何展示大量数据呢？"><a href="#40-JS中如何展示大量数据呢？" class="headerlink" title="40 JS中如何展示大量数据呢？"></a>40 JS中如何展示大量数据呢？</h2><p>第一个办法：只发第一页，然后需要继续向下看数据，就继续请求。也就是后端对数据进行分页处理</p>
 <p>第二个办法：利用setTimeout和setInterval的特性来做，将大量数据分组，然后再放到微任务，几乎一起同步执行，不过这个的缺点就在于你必须要保证是按照顺序来加载，不然容易出现大量数据的乱序问题</p>
+<p>第三个办法：懒加载，当即将访问到窗口底部的数据，就会请求后端服务加载新数据</p>
 <h2 id="41-实现拖拽效果"><a href="#41-实现拖拽效果" class="headerlink" title="41 实现拖拽效果"></a>41 实现拖拽效果</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">div.onmousedown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> x = e.pageX;</span><br><span class="line">    <span class="keyword">const</span> y = e.pageY;</span><br><span class="line">    <span class="comment">// 得到元素视口位置</span></span><br><span class="line">    <span class="keyword">const</span> &#123;left, top&#125; = div.getBoundingClientRect();</span><br><span class="line">    <span class="built_in">window</span>.onmousemove = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> disX = e.pageX - x;</span><br><span class="line">        <span class="keyword">const</span> disY = e.pageY - y;</span><br><span class="line">        <span class="keyword">const</span> newLeft = left + disX;</span><br><span class="line">        <span class="keyword">const</span> newTop = top + disY;</span><br><span class="line">        div.style.left = newLeft + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">        div.style.top = newTop + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">div.onmouseup = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.onmousemove = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
+<h2 id="42-尾调用优化"><a href="#42-尾调用优化" class="headerlink" title="42 尾调用优化"></a>42 尾调用优化</h2><p>尾调用：就是函数的最后一个步骤是调用另外一个函数</p>
+<p>尾调用优化：即只保留内层函数的调用记录。如果所有函数都是尾调用，那么完全可以做到每次执行时，调用记录只有一项，这将大大节省内存。这就是”尾调用优化”的意义。</p>
+<p>尾递归：递归会造成函数的多层级调用，容易引起内存不足的问题，而尾递归就是尾调用自身，就不容易发生栈溢出的错误</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 尾调用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n, total</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> total;</span><br><span class="line">  <span class="keyword">return</span> factorial(n - <span class="number">1</span>, n * total);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">factorial(<span class="number">5</span>, <span class="number">1</span>) <span class="comment">// 120</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 常规递归</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">factorial(<span class="number">5</span>) <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="43-for-in-和for-of"><a href="#43-for-in-和for-of" class="headerlink" title="43 for in 和for of"></a>43 for in 和for of</h2><p>for in可以遍历原型上的属性，而for of是不可以的</p>
 <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="1-说说对React的理解，有哪些特性"><a href="#1-说说对React的理解，有哪些特性" class="headerlink" title="1 说说对React的理解，有哪些特性"></a>1 说说对React的理解，有哪些特性</h2><h3 id="什么是react"><a href="#什么是react" class="headerlink" title="什么是react"></a>什么是react</h3><p>react是一个构建用户界面的js库，只提供了UI层面的解决方案</p>
 <p>它遵循了组件的设计模式，声明式的编程范式和函数式编程概念，使前端应用程序更加高效</p>
 <p>使用的虚拟DOM操控真实DOM，遵循高阶组件到低阶组件的单向数据流</p>
@@ -1431,6 +1491,12 @@
 <h3 id="卸载阶段"><a href="#卸载阶段" class="headerlink" title="卸载阶段"></a>卸载阶段</h3><ul>
 <li>componentWillUnmount：在组件即将被移除或者销毁后执行，一般用于清理定时器、取消网络请求等事件</li>
 </ul>
+<h2 id="29-首页白屏优化如何解决"><a href="#29-首页白屏优化如何解决" class="headerlink" title="29 首页白屏优化如何解决"></a>29 首页白屏优化如何解决</h2><ul>
+<li>服务端渲染：直接将处理好的HTML发送给前端来展示，但是有不好的地方就是可能会给服务器造成一定的压力，还有前后端的耦合性会较高</li>
+<li>预渲染：使用一些预渲染插件，比如<code>prerender-spa-plugin</code>，在编译阶段就将对应好的路由编译好插入到App节点，这样就能在js文件解析过程中有一些内容展示</li>
+<li>对于一些静态资源本地存储，或者图片压缩</li>
+<li>路由懒加载：使用lazy()的API</li>
+</ul>
 <h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="1-HTTP和HTTPS的区别"><a href="#1-HTTP和HTTPS的区别" class="headerlink" title="1 HTTP和HTTPS的区别"></a>1 HTTP和HTTPS的区别</h2><p>虽然HTTP和HTTPS之间只差了SSL/TLS，但是HTTPS的通信安全得到了极大保障</p>
 <ul>
 <li>HTTP：超文本传输协议，特点如下：<ul>
@@ -1608,7 +1674,13 @@
 <h2 id="9-说一下计网的层次和相关协议"><a href="#9-说一下计网的层次和相关协议" class="headerlink" title="9 说一下计网的层次和相关协议"></a>9 说一下计网的层次和相关协议</h2><p>OSI七层模型分别有：应用层，表示层，会话层，传输层，网络层，数据链路层和物理层</p>
 <h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>用于通过应用程序之间的交互来完成特定的网络应用</p>
 <p>应用层协议定义了应用进程之间的交互规则，通过不同的应用层来提供不同的服务。比如HTTP，DNS和SMTP等</p>
-<h3 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h3><h3 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h3><h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><h2 id="10-说一下Cookie相关的字段属性"><a href="#10-说一下Cookie相关的字段属性" class="headerlink" title="10 说一下Cookie相关的字段属性"></a>10 说一下Cookie相关的字段属性</h2><img src="https://img-blog.csdnimg.cn/20200805102311919.png">
+<h3 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h3><h3 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h3><h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><h2 id="10-说一下Cookie相关的字段属性"><a href="#10-说一下Cookie相关的字段属性" class="headerlink" title="10 说一下Cookie相关的字段属性"></a>10 说一下Cookie相关的字段属性</h2><h3 id="什么是cookie"><a href="#什么是cookie" class="headerlink" title="什么是cookie"></a>什么是cookie</h3><ul>
+<li>cookie是客户端的一种解决请求无状态问题的方案，它是服务器发送到web浏览器上面的一小块数据。大小一般限制在4kb</li>
+<li>cookie是一个在服务器和客户端之间来回传送文本的内置机制。当服务器接收到客户端发出的HTTP请求时，服务器可以发送带有响应的Set-Cookie标头，然后将cookie与HTTP请求头一起发送请求</li>
+<li>cookie安全性较低，一般需要加密。用JS操作cookie也较为复杂。并且每次请求总会发送cookie，会加重服务器处理的负担。</li>
+<li>cookie的创建：document.cookie=”key=value”</li>
+</ul>
+<h3 id="cookie的相关字段属性"><a href="#cookie的相关字段属性" class="headerlink" title="cookie的相关字段属性"></a>cookie的相关字段属性</h3><img src="https://img-blog.csdnimg.cn/20200805102311919.png">
 
 <ul>
 <li>Name和Value：键值对，Name为cookie名称，Value为cookie值</li>
@@ -1660,7 +1732,7 @@
 </tr>
 <tr>
 <td>304</td>
-<td>表示客户端发送附带条件的请求，服务器允许访问资源但是附带条件不满足</td>
+<td>表示客户端发送附带条件的请求，服务器允许访问资源但是附带条件不满足【一般用于协商缓存命中】</td>
 </tr>
 <tr>
 <td>307</td>
@@ -1759,9 +1831,10 @@
 <li>握手：比起HTTP，webSocket需要一次握手进行双方校验，再来进行数据收发</li>
 </ul>
 <h2 id="16-cookie-session-localStorage-sessionStorage"><a href="#16-cookie-session-localStorage-sessionStorage" class="headerlink" title="16 cookie, session, localStorage, sessionStorage"></a>16 cookie, session, localStorage, sessionStorage</h2><h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><ul>
-<li>cookie是客户端的一种解决方案，是在早期为了解决http的无状态问题创建的，它是服务器发送到web浏览器上面的一小块数据。大小一般限制在4kb</li>
+<li>cookie是客户端的一种解决请求无状态问题的方案，它是服务器发送到web浏览器上面的一小块数据。大小一般限制在4kb</li>
 <li>cookie是一个在服务器和客户端之间来回传送文本的内置机制。当服务器接收到客户端发出的HTTP请求时，服务器可以发送带有响应的Set-Cookie标头，然后将cookie与HTTP请求头一起发送请求</li>
 <li>cookie安全性较低，一般需要加密。用JS操作cookie也较为复杂。并且每次请求总会发送cookie，会加重服务器处理的负担。</li>
+<li>cookie的创建：document.cookie=”key=value”</li>
 </ul>
 <h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><ul>
 <li><p>浏览器第一次访问服务器时，服务器就会返回一个Session对象，这个对象有唯一的ID，也就是sessionID，服务器将sessionID用cookie的方式送到浏览器</p>
@@ -1779,6 +1852,7 @@
 <h2 id="17-跨域"><a href="#17-跨域" class="headerlink" title="17 跨域"></a>17 跨域</h2><p>跨域我目前只了解两种方式：jsonp和CORS方式：</p>
 <h3 id="为什么要跨域"><a href="#为什么要跨域" class="headerlink" title="为什么要跨域"></a>为什么要跨域</h3><p>在这里，浏览器有一个策略，叫同源策略。同样的协议域名端口才可以相互传输数据。如果不同源来请求数据，不做任何防范，就容易导致CSRF攻击。</p>
 <h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>跨站请求伪造，攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击的网站发送跨域请求。利用受害者在被攻击网站已经获取的注册凭证，比如session或者cookie，就可以绕过后台验证，达到冒充用户的目的，用用户的信息对被攻击网站执行某项操作。所以后面为了防范CSRF攻击，就不允许非同源的网站获取信息。但是这样也会造成很多麻烦，所以规定了CORS协议，以便于良性的跨域请求</p>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>利用了一些能够跨域请求的标签，比如img和script等，我们只需要规定好服务端的参数，就可以利用JSONP来进行请求</p>
 <h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>现在的跨域都是基于CORS的标准来进行的，它允许浏览器向服务器发送XMLHttpRequest请求，从而克服Ajax只能同源使用的限制</p>
 <p>CORS需要浏览器和服务器同时支持，浏览器一旦发现跨域请求，就会添加一些附加的头的信息</p>
 <p>CORS不支持较老旧版本的浏览器，比如IE不能低于10版本</p>
@@ -1789,6 +1863,7 @@
 <li><p>非简单请求，就是除去上述请求的其他请求。比如PUT方式。非简单请求的CORS请求会在正式通信之前会进行一次预检，也就是OPTION。浏览器会先询问服务器，当前网页所在的域名是否可以请求服务器，以及可以使用HTTP的信息，只有获得正确的回复，才能进行下一步的请求。在服务器收到预检请求，会先检查Origin，Access-Control-Request-Method和Access-Control-Request-Headers字段之后，确认允许跨域请求。如果浏览器否定预检，那么会返回一个正常的HTTP响应，但是没有任何CORS的头的相关信息，之后浏览器认定服务器不允许此次访问；当预检请求通过了，那么服务器发出正常的HTTP请求</p>
 </li>
 </ul>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>Nginx相当于一个跳板，做了个反向代理，将服务器收到的请求转发给代理服务器，这样可以使得让客户端和服务器满足同源策略</p>
 <h2 id="18-TCP的三次握手和四次挥手"><a href="#18-TCP的三次握手和四次挥手" class="headerlink" title="18 TCP的三次握手和四次挥手"></a>18 TCP的三次握手和四次挥手</h2><h3 id="什么是TCP"><a href="#什么是TCP" class="headerlink" title="什么是TCP"></a>什么是TCP</h3><ul>
 <li>TCP是一种传输层的协议，它提供一种面向连接的、可靠的字节流服务。</li>
 <li>TCP使用了校验和，确认和重传机制保证可靠传输<ul>
@@ -1820,7 +1895,14 @@
 <p>这意味着考TIME_WAIT状态：</p>
 <p>如果直接关闭，而不等待2MSL的话。可能会有第四次挥手中，因为网络问题，服务端收不到客户端的ACK，导致服务端会不断发送FIN包的情况。这样就可能导致关闭连接之后还会有这些FIN包去不断干扰。</p>
 <p>另外，也是为了避免前次连接的包对下一次连接进行干扰，才设置2MSL让上一次连接的包失效</p>
-<h2 id="19-XSS和CSRF"><a href="#19-XSS和CSRF" class="headerlink" title="19 XSS和CSRF"></a>19 XSS和CSRF</h2><h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>跨站脚本攻击，攻击者通常在被攻击页面里面插入恶意script代码，当用户浏览该页的时候，嵌入里面的scipt代码会执行，从而达到攻击用户的目的。</p>
+<h2 id="19-XSS和CSRF"><a href="#19-XSS和CSRF" class="headerlink" title="19 XSS和CSRF"></a>19 XSS和CSRF</h2><h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>跨站脚本攻击，攻击者通常在被攻击页面里面插入恶意script代码，当用户浏览该页的时候，嵌入里面的scipt代码会执行，从而达到攻击用户，拿到用户的信息并进行操作。</p>
+<p>XSS可以做到什么事情：</p>
+<ul>
+<li>窃取Cookie</li>
+<li>监听用户行为，比如输入账号密码的时候直接发送到黑客服务器</li>
+<li>修改DOM伪造登录表单</li>
+<li>在页面中生成浮窗广告</li>
+</ul>
 <p>通常XSS有三种：存储型，反射型和DOM型</p>
 <ul>
 <li><p>存储型：攻击者将恶意代码提交到目标网站的数据库中，然后服务器发送到前端，将恶意代码拼接在前端页面中，前端解析执行之后，可能会窃取用户数据，等等</p>
@@ -1845,10 +1927,16 @@
 <li>链接型：需要用户点击嵌在网页上的恶意链接或者恶意图片才会触发，当用户登录信任网站并保存登录状态，就会被窃取信息</li>
 </ul>
 <h3 id="常见解决方案"><a href="#常见解决方案" class="headerlink" title="常见解决方案"></a>常见解决方案</h3><h4 id="XSS解决方案"><a href="#XSS解决方案" class="headerlink" title="XSS解决方案"></a>XSS解决方案</h4><ul>
-<li>内容安全策略</li>
-<li>输入内容的长度限制【只能增加XSS难度，不能防止XSS】</li>
-<li>HTTP-only Cookie：禁止JS读取敏感Cookie，即使XSS攻击之后也不会获取敏感信息</li>
-<li>使用验证码，防止脚本冒充用户提交危险操作</li>
+<li><p>不要相信用户的输入，一定要对用户的输入进行转码或者过滤</p>
+</li>
+<li><p>内容安全策略：限制其他域下的资源下载，禁止向其他域提交数据，提供上报机制以快速发现XSS攻击</p>
+</li>
+<li><p>输入内容的长度限制【只能增加XSS难度，不能防止XSS】</p>
+</li>
+<li><p>HTTP-only：禁止JS读取敏感Cookie，即使XSS攻击之后也不会获取敏感信息</p>
+</li>
+<li><p>使用验证码，防止脚本冒充用户提交危险操作</p>
+</li>
 </ul>
 <h4 id="CSRF解决方案"><a href="#CSRF解决方案" class="headerlink" title="CSRF解决方案"></a>CSRF解决方案</h4><ul>
 <li>增加防护能力<ul>
@@ -1863,6 +1951,7 @@
 <li>添加请求头：X-Content-Type-Options: nosniff，防止黑客上传HTML内容资源被解析成网页</li>
 <li>对于用户上传的图片进行转存或者校验，不要直接使用用户填写的图片链接</li>
 <li>打开其他链接时提前告知有风险</li>
+<li>samesite：禁止向第三方请求携带cookie</li>
 </ul>
 </li>
 </ul>
@@ -1873,13 +1962,20 @@
 <li>CDN节点解决了跨运营商和跨地域访问的问题，访问延时大大降低</li>
 <li>大部分在CDN边缘节点完成，CDN起到了分流作用，减轻了源站的负载</li>
 </ul>
-<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ul>
+<h3 id="工作流程-1"><a href="#工作流程-1" class="headerlink" title="工作流程"></a>工作流程</h3><ul>
 <li>用户访问域名，先经过DNS解析，如果本地DNS命中，则直接返回给用户一个IP地址</li>
 <li>本地DNS如果没命中，则转发授权DNS查询</li>
 <li>网站授权DNS，返回域名CNAME来对应IP地址</li>
 <li>域名解析请求发送到DNS调度系统，DNS调度系统为请求分配最佳节点IP地址</li>
 <li>返回该IP地址给用户，用户对该缓存服务器发起请求</li>
 <li>如果本地DNS有缓存这个域名的解析结果，则直接响应用户的解析请求</li>
+</ul>
+<h2 id="21-HTTP的报文结构"><a href="#21-HTTP的报文结构" class="headerlink" title="21 HTTP的报文结构"></a>21 HTTP的报文结构</h2><p>HTTP的报文结构是：</p>
+<ul>
+<li>起始行：包含了请求方法，请求路径和http的版本号【响应部分叫状态行：版本号 状态码 Reason】</li>
+<li>头部</li>
+<li>空行：用于区分头部和实体，如果在头部中间加一行空行，那么空行后面的部分强制识别成实体</li>
+<li>实体：一般用于传输数据时，存放数据的部分</li>
 </ul>
 <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p>进程是资源分配的最小单位，线程是CPU调度的最小单位</p>
 <ul>
@@ -1901,7 +1997,7 @@
 <li>阻塞状态：进程正在等待某一事件而暂停运行，比如等待资源，或者等待IO操作完成</li>
 <li>结束状态：进程从系统中消失，可能是正常结束，也可能是其他原因中断了执行</li>
 </ul>
-<h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><h2 id="1-webpack中loader和plugin的原理及其区别"><a href="#1-webpack中loader和plugin的原理及其区别" class="headerlink" title="1 webpack中loader和plugin的原理及其区别"></a>1 webpack中loader和plugin的原理及其区别</h2><h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><ul>
+<h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><h2 id="1-webpack中loader和plugin的原理及其区别"><a href="#1-webpack中loader和plugin的原理及其区别" class="headerlink" title="1 webpack中loader和plugin的原理及其区别"></a>1 webpack中loader和plugin的原理及其区别</h2><h2 id="2-babel的用处？"><a href="#2-babel的用处？" class="headerlink" title="2 babel的用处？"></a>2 babel的用处？</h2><h2 id="3-npm-run-build的编译流程"><a href="#3-npm-run-build的编译流程" class="headerlink" title="3 npm run build的编译流程"></a>3 npm run build的编译流程</h2><h2 id="4-tree-shaking"><a href="#4-tree-shaking" class="headerlink" title="4 tree shaking"></a>4 tree shaking</h2><h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><ul>
 <li><p>rebase：用于将一个分支合到另一个分支的下节点</p>
 <p>下面就是合并bugfix到main下面</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[bugfix*]: git rebase main</span><br></pre></td></tr></table></figure></li>
@@ -1923,7 +2019,6 @@
 <img src="https://static.vue-js.com/e24d3cd0-3f7c-11ec-8e64-91fdec0f05a1.png">
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PubSub</span> </span>&#123;</span><br><span class="line">    <span class="title">constructor</span> (<span class="params"></span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
         </div>
 

@@ -324,7 +324,11 @@
 </ul>
 </li>
 </ul>
-<h2 id="9-HTML5相关"><a href="#9-HTML5相关" class="headerlink" title="9 HTML5相关"></a>9 HTML5相关</h2><h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h2 id="1-选择器优先级"><a href="#1-选择器优先级" class="headerlink" title="1 选择器优先级"></a>1 选择器优先级</h2><p>判断优先级时，先判断一条属性声明是否有权重，也就是是否有：<code>!important</code>。如果加上权重，那么优先级最高，前提是没有相同优先级的声明。</p>
+<h2 id="9-HTML5相关"><a href="#9-HTML5相关" class="headerlink" title="9 HTML5相关"></a>9 HTML5相关</h2><ul>
+<li>canvas</li>
+<li>video &amp; audio</li>
+</ul>
+<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h2 id="1-选择器优先级"><a href="#1-选择器优先级" class="headerlink" title="1 选择器优先级"></a>1 选择器优先级</h2><p>判断优先级时，先判断一条属性声明是否有权重，也就是是否有：<code>!important</code>。如果加上权重，那么优先级最高，前提是没有相同优先级的声明。</p>
 <p>样式优先级从左到右为：行内样式，id选择器，class选择器，标签选择器</p>
 <p>一条规则优先级是从左到右的样式种类选择叠加而成的，注意，叠加不会产生进位，只是一个判定优先级的手段。叠加完毕之后，再从两条规则从左往右比较，谁的数大谁的优先级大。如果经过选择器比较，优先级仍然相同，那么后面的选择器的样式会覆盖前面的选择器的样式</p>
 <h2 id="2-盒子模型"><a href="#2-盒子模型" class="headerlink" title="2 盒子模型"></a>2 盒子模型</h2><p>所有html元素都可以看作盒子</p>
@@ -418,7 +422,10 @@
 <p>grid-auto-flow：划分网格之后，按照顺序来放置网格，默认为行，如果修改为column，则默认按列顺序放HTML元素</p>
 <p>grid-row：用于定义元素长度跨度从第几条分割线开始，并从第几条分割线结束</p>
 <p>grid-column：用于定义元素高度从第几条分割线开始，并从第几条分割线结束</p>
-<h2 id="12-BFC"><a href="#12-BFC" class="headerlink" title="12 BFC"></a>12 BFC</h2><h3 id="BFC的特点"><a href="#BFC的特点" class="headerlink" title="BFC的特点"></a>BFC的特点</h3><p>BFC，也叫做块级格式化上下文，它是页面中的一块渲染区域，并且有一套自己的渲染规则</p>
+<h2 id="12-BFC"><a href="#12-BFC" class="headerlink" title="12 BFC"></a>12 BFC</h2><h3 id="什么是BFC"><a href="#什么是BFC" class="headerlink" title="什么是BFC"></a>什么是BFC</h3><p>BFC：块级格式化上下文</p>
+<p>它决定了元素如何对其内容进行定位，以及与其它元素的关系和相互作用，当涉及到可视化布局时，BFC会提供一个环境，HTML在这个环境中按照一定的规则进行布局。也就是说，BFC是一个完全独立的空间，让里面的子元素不会影响到外面的布局</p>
+<h3 id="什么叫触发BFC"><a href="#什么叫触发BFC" class="headerlink" title="什么叫触发BFC"></a>什么叫触发BFC</h3><p>父元素达到了BFC的触发条件，也就是有特定CSS时，父元素和整个子元素都是触发了BFC。其中父元素不同，则BFC不同；父元素相同，则BFC相同。</p>
+<h3 id="BFC的特点"><a href="#BFC的特点" class="headerlink" title="BFC的特点"></a>BFC的特点</h3><p>BFC，也叫做块级格式化上下文，它是页面中的一块渲染区域，并且有一套自己的渲染规则</p>
 <ul>
 <li>内部的盒子会在垂直方向上接连放置</li>
 <li>对于同一个BFC，两个相邻盒子的margin会相互重叠，与方向无关</li>
@@ -429,15 +436,25 @@
 </ul>
 <p>BFC的目的就是为了形成一个相对于外界完全独立的空间，让内部的子元素不会影响到外部的元素</p>
 <h3 id="BFC的触发条件"><a href="#BFC的触发条件" class="headerlink" title="BFC的触发条件"></a>BFC的触发条件</h3><ul>
-<li>根元素，即HTML元素</li>
+<li>根元素中添加</li>
 <li>浮动元素：float值为left或者right</li>
-<li>overflow的值不为visible，为auto、scroll、hidden</li>
-<li>display的值为inline-block|flex|inline-flex|table-cell|grid</li>
-<li>position的值为absolute或者fixed</li>
+<li><code>overflow</code>的值不为<code>visible</code>，为<code>auto、scroll、hidden</code></li>
+<li><code>display</code>的值为<code>inline-block|flex|inline-flex|table-cell|grid</code></li>
+<li><code>position</code>的值为<code>absolute</code>或者<code>fixed</code></li>
 </ul>
 <h3 id="BFC的应用"><a href="#BFC的应用" class="headerlink" title="BFC的应用"></a>BFC的应用</h3><ul>
 <li>去除margin重叠：只需要再其中一个盒子添加另一个不同的BFC，就可以margin相互不重叠</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
 <li>去除浮动：利用BFC计算高度的时候，浮动元素也会参与，只需要将父元素触发BFC就可以避免高度坍塌</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.fix</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">background-color</span>: aqua;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box3</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: black;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>自适应多栏布局：浮动元素BFC会对齐左边距，弄成两个不同的BFC，就可以实现不重叠的效果，做成自适应多栏布局</li>
 </ul>
 <h2 id="13-transition-animation"><a href="#13-transition-animation" class="headerlink" title="13 transition animation"></a>13 transition animation</h2><ul>
@@ -469,8 +486,8 @@
 </ul>
 <p>flex: 1是？</p>
 <p>flex-grow flex-shrink flex-basis 分别为1 1 0%</p>
-<p>flex-grow：规定子元素之间的比例系数</p>
-<p>flex-shrink：表示子元素超出之后，就收缩元素</p>
+<p>flex-grow：规定子元素之间的放大比例，也就是存在剩余空间也不会放大</p>
+<p>flex-shrink：表示空间如果不足，子元素就收缩元素。</p>
 <p>flex-basis：决定flex元素在主轴方向的初始大小</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -488,6 +505,7 @@
 <li>父盒子添加position: fixed</li>
 <li>为父盒子添加 display：table</li>
 <li>利用伪元素给子元素的前面添加一个空元素。</li>
+<li>还可以使用BFC方法</li>
 </ul>
 <h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><h2 id="1-介绍js的基本数据类型"><a href="#1-介绍js的基本数据类型" class="headerlink" title="1 介绍js的基本数据类型"></a>1 介绍js的基本数据类型</h2><p>js的基本数据类型有<code>Number</code>，<code>undefined</code>，<code>null</code>，<code>String</code>，<code>Boolean</code></p>
 <p>ES6增加的数据类型为<code>Symbol</code></p>
@@ -631,7 +649,7 @@
 </li>
 <li><p>数组截取：slice(start, end)【截取index为start到end数组，左闭右开，不影响原数组】</p>
 </li>
-<li><p>数组插入：splice(start, removeNumber, …insearchArray)</p>
+<li><p>数组插入：splice(start, removeNumber, …insearchArray) 就在起始部分开始删除和添加</p>
 </li>
 <li><p>数组遍历：map、forEach【没有返回值，直接在原数据修改】、every、someone、filter</p>
 </li>
@@ -833,6 +851,12 @@
 <li>将this的属性方法添加到空对象</li>
 <li>如果构造函数没有规定返回对象，则this为创建的对象，反之为该创建的对象</li>
 </ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myNew</span> (<span class="params">obj, ...rest</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> newObj = <span class="built_in">Object</span>.create(obj.prototype);</span><br><span class="line">    newObj.__proto__ = obj.prototype;</span><br><span class="line">    <span class="keyword">const</span> result = obj.apply(newObj, rest);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> result === <span class="string">&#x27;object&#x27;</span> ? result : newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="19-事件循环机制"><a href="#19-事件循环机制" class="headerlink" title="19 事件循环机制"></a>19 事件循环机制</h2><p>JS是单线程的，因此同一个时间只能做一件事情，但是如果没有事件循环机制，处理延时过长的IO的时候，JS不会停止，会造成假死状态，将会影响用户的交互体验</p>
 <p>因此设计出了事件循环机制</p>
 <p>如果是同步任务，那么将会扔进执行栈中，如果是异步任务，就扔进任务队列里面</p>
@@ -1090,6 +1114,28 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> deepClone = <span class="function">(<span class="params">obj</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> res = obj <span class="keyword">instanceof</span> <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj[key] &amp;&amp; <span class="keyword">typeof</span>(obj[key]) === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">            res[key] = deepClone(obj[key]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res[key] = obj[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>浅拷贝，就是复制一份原对象的指针值，两个指向的是同一个堆地址，如果一个改变了，同理浅拷贝的另一个对象也会改变</p>
+<h3 id="深拷贝的几种方式"><a href="#深拷贝的几种方式" class="headerlink" title="深拷贝的几种方式"></a>深拷贝的几种方式</h3><ul>
+<li>Object.assign：表示将两个对象合并，默认是对对象进行深拷贝的，不过是对最外层进行深拷贝，如果内部还有对象，那么就只是进行浅拷贝，这点需要注意。</li>
+</ul>
+<img src="https://raw.githubusercontent.com/BK201-Drama/picBed/main/%E9%9D%92%E8%AE%AD%E8%90%A5/%E6%B7%B1%E6%8B%B7%E8%B4%9D.png"/>
+
+<ul>
+<li>用JSON.parse和JSON.stringify来做。本质是执行JSON会构建新的内存来存放新对象<ul>
+<li>会忽略<code>undefined</code>和<code>symbol</code></li>
+<li>不可以对Function进行拷贝，因为JSON字符串不支持function，在序列化的时候自动删除</li>
+<li>Map，Set和其他内置类型在进行序列化也会丢失</li>
+<li>不支持循环引用对象的拷贝</li>
+</ul>
+</li>
+<li>用JQ的extend方法：<code>$.entend(true, [], array)</code></li>
+<li>使用MessageChannel</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123;port1, port2&#125; = <span class="keyword">new</span> MessageChannel();</span><br><span class="line">        port2.onmessage = <span class="function"><span class="params">ev</span> =&gt;</span> resolve(ev.data);</span><br><span class="line">        port1.postMessage(obj);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点，异步，并且也不支持function</p>
+<ul>
+<li>lodash方法：lodash.cloneDeep方法：是最完美的方法，不过要引入lodash依赖</li>
+</ul>
 <h2 id="31-jsonp"><a href="#31-jsonp" class="headerlink" title="31 jsonp"></a>31 jsonp</h2><p>jsonp是JSON with padding的简称，是一种非官方的跨域解决方案，通过客户端的script标签发出的请求方式。</p>
 <p>在浏览器中，有同源安全机制，就是浏览器会将协议端口域名三者都相同的视为同源。如果不依赖ajax请求，浏览器会将其非同源的响应数据丢弃。</p>
 <p>但是有些标签发出的请求是不会进行同源检测的。比如script标签和img标签等。这样，后端就不需要做解决跨域的响应头。</p>
@@ -1268,7 +1314,8 @@
 <li>props在组件内部不能修改，而state可以修改</li>
 <li>state是多变的，可以修改</li>
 </ul>
-<h2 id="4-setState的执行机制"><a href="#4-setState的执行机制" class="headerlink" title="4 setState的执行机制"></a>4 setState的执行机制</h2><p>在react中，state操控组件内部的状态，而setState就是用于修改state的值而存在的，起到了更新组件数据的作用</p>
+<h2 id="4-setState的执行机制"><a href="#4-setState的执行机制" class="headerlink" title="4 setState的执行机制"></a>4 setState的执行机制</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在react中，只要在react中，状态的更新都会经过合并之后再一次性更新</p>
+<h3 id="大致用法"><a href="#大致用法" class="headerlink" title="大致用法"></a>大致用法</h3><p>在react中，state操控组件内部的状态，而setState就是用于修改state的值而存在的，起到了更新组件数据的作用</p>
 <p>setState本身是一个异步的操作，因此如果需要获得更新后的state，我们需要再setState内部指定一个回调函数来进行</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.setState(&#123;</span><br><span class="line">    <span class="attr">mes</span>: <span class="string">&#x27;1&#x27;</span></span><br><span class="line">&#125;, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.state.mes) <span class="comment">// 1 因为回调已经实时更新了</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
@@ -1321,18 +1368,15 @@
 <p>如果是单向数据流，但是是父组件向后代组件通讯的时候，可以使用Provider和Consumer组件来进行通信</p>
 <h2 id="9-React-Hooks的理解"><a href="#9-React-Hooks的理解" class="headerlink" title="9 React Hooks的理解"></a>9 React Hooks的理解</h2><p>对我而言，hooks是为了让函数也能有状态。对于一个项目，初期对于一些组件的构想肯定是不会做状态改变，只会做渲染工作，通常选型都会使用函数组件，但是随着后面的业务变动，会导致该函数组件也需要状态，可是重新使用类组件的成本会很高，所以需要hooks，相当于给函数组件注入能够让自己有状态，而且有声明周期的功能，下面是对一些常用hooks的介绍</p>
 <ul>
-<li><p>useCallback：根据变量是否变化，以此来决定useCallback里面的函数是否要重新返回一个新的函数，这样可以一定程度上避免函数栈内存代表的内存地址不相等，而两个函数的却是相等的时候，可以不重新渲染导致重新render。它的原理是，当变量触发变化的时候，才会导致函数的重新构建，否则每一次都会重新使用该函数。</p>
-</li>
-<li><p>useMemo：根据变量是否变化，以此来决定useMemo里面的值是否要重新返回一个新的值，这里其中包括了普通的值还有对象和数组这一类的值。在之前没有useMemo的时候，就算经过更，对象内部的值没有变化，但是对象的栈地址的引用值也是变化的，就导致了每一次都会粗暴的render，使用了useMemo，变量没有变化，useMemo的返回值没有变化的时候，React就会使用之前的值来避免这个地方的render。与useCallback有相同功效，只不过useCallback针对的是函数，useMemo针对的是数值</p>
-<ul>
+<li>useCallback：根据变量是否变化，以此来决定useCallback里面的函数是否要重新返回一个新的函数，这样可以一定程度上避免函数栈内存代表的内存地址不相等，而两个函数的却是相等的时候，可以不重新渲染导致重新render。它的原理是，当变量触发变化的时候，才会导致函数的重新构建，否则每一次都会重新使用该函数。</li>
+<li>useMemo：根据变量是否变化，以此来决定useMemo里面的值是否要重新返回一个新的值，这里其中包括了普通的值还有对象和数组这一类的值。在之前没有useMemo的时候，就算经过更，对象内部的值没有变化，但是对象的栈地址的引用值也是变化的，就导致了每一次都会粗暴的render，使用了useMemo，变量没有变化，useMemo的返回值没有变化的时候，React就会使用之前的值来避免这个地方的render。与useCallback有相同功效，只不过useCallback针对的是函数，useMemo针对的是数值<ul>
 <li>当然，我们可以把一些昂贵的计算逻辑放到useMemo中，当依赖值改变的时候才会更新。否则每次粗暴render之后，又要反复计算这些数据</li>
 </ul>
 </li>
-<li><p>useState：让函数组件也能拥有状态的钩子</p>
-</li>
-<li><p>useEffect：让函数组件也能拥有类似于生命周期的特性，比如能在组件初始加载的时候执行一些任务，也可以来做一些数据的监听，该数据改变，就可以触发一些事件的执行</p>
-</li>
+<li>useState：让函数组件也能拥有状态的钩子</li>
+<li>useEffect：让函数组件也能拥有类似于生命周期的特性，比如能在组件初始加载的时候执行一些任务，也可以来做一些数据的监听，该数据改变，就可以触发一些事件的执行</li>
 </ul>
+<p>react hooks的使用是有一点需要注意的，就是要规避闭包陷阱问题。</p>
 <h2 id="10-Redux的理解与工作原理"><a href="#10-Redux的理解与工作原理" class="headerlink" title="10 Redux的理解与工作原理"></a>10 Redux的理解与工作原理</h2><h2 id="11-说说对React-Router的理解"><a href="#11-说说对React-Router的理解" class="headerlink" title="11 说说对React Router的理解"></a>11 说说对React Router的理解</h2><p>react-router和前端路由的原理大致是相同的，可以实现无刷新条件下切换显示不同的页面</p>
 <p>路由的本质就是页面的URL发生改变的时候，页面的显示结果可以根据URL的变化而变化，但URL不会刷新</p>
 <p>因此是可以通过前端路由来实现单页SPA引用</p>
@@ -1407,6 +1451,12 @@
 </ul>
 <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>于简单的列表渲染，使用key反而开销变得更大，本来可以重写，但使用了key，就会考虑重排，增大开销</p>
 <p>react diff是深度优先算法</p>
+<p>跟vue一样，react也有diff算法，而元素key属性的作用是判断元素是新创建的还是被移动的元素，从而减少不必要的diff</p>
+<p>因此key的值需要为每一个元素赋予一个确定的标识，如果组件重新加载，发现key相同的元素其他的也相同，那么在react中是不会被销毁和重新加载的，会被保留，减少变化的开销；如果找不到对应的完全相同的元素，将会大规模修改组件。</p>
+<p>key较为适合列表元素频繁增删的适合会更加有用处，如果只是单纯修改内部列表元素，key反而不是一个很好的选择</p>
+<p>此外，key不推荐使用index来赋予，因为如果是数组的头插的话，会导致所有数组的index变化，反而对react的性能优化会更加不利</p>
+<p>key也要避免用随机数来使用，不然也是不利于性能优化</p>
+<p>设置key，是为了不通过diff算法，让组件有一个更加简单的更新真实DOM的机制</p>
 <h2 id="17-说说对Fiber架构的理解，解决了什么问题"><a href="#17-说说对Fiber架构的理解，解决了什么问题" class="headerlink" title="17 说说对Fiber架构的理解，解决了什么问题"></a>17 说说对Fiber架构的理解，解决了什么问题</h2><p>JS引擎和页面渲染引擎两个线程是互斥的，其中一个执行的时候，另一个往往需要等待</p>
 <p>如果JS线程长时间占用主线程，导致页面渲染不及时，用户容易感受卡顿。当组件较大的时候，JS线程一直执行，等到整颗虚拟DOM计算完成才会开始渲染，那么容易有卡顿的情况</p>
 <h3 id="什么是Fiber"><a href="#什么是Fiber" class="headerlink" title="什么是Fiber"></a>什么是Fiber</h3><p>从架构角度看，Fiber是对React核心算法的重写</p>
@@ -1512,6 +1562,10 @@
 <h3 id="卸载阶段"><a href="#卸载阶段" class="headerlink" title="卸载阶段"></a>卸载阶段</h3><ul>
 <li>componentWillUnmount：在组件即将被移除或者销毁后执行，一般用于清理定时器、取消网络请求等事件</li>
 </ul>
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e12b2e35c8444f19b795b27e38f4c149~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp">
+
+<h3 id="部分钩子被废弃的原因"><a href="#部分钩子被废弃的原因" class="headerlink" title="部分钩子被废弃的原因"></a>部分钩子被废弃的原因</h3><p><code>componentWillMount</code>，<code>componentWillReceiveProps</code>，<code>componentWillUpdate</code></p>
+<p>因为出现了react Fiber，Fiber会对任务进行中断处理，这个过程暂停之后继续执行，所以挂载和更新之前的生命周期钩子就有可能不执行或者多次执行</p>
 <h2 id="29-首页白屏优化如何解决"><a href="#29-首页白屏优化如何解决" class="headerlink" title="29 首页白屏优化如何解决"></a>29 首页白屏优化如何解决</h2><ul>
 <li>服务端渲染：直接将处理好的HTML发送给前端来展示，但是有不好的地方就是可能会给服务器造成一定的压力，还有前后端的耦合性会较高</li>
 <li>预渲染：使用一些预渲染插件，比如<code>prerender-spa-plugin</code>，在编译阶段就将对应好的路由编译好插入到App节点，这样就能在js文件解析过程中有一些内容展示</li>
@@ -1528,6 +1582,9 @@
 <li>使用useRef，使得每次render之后的状态都不相互隔离</li>
 <li>使用immutable，让状态的值进行复用</li>
 </ul>
+<h2 id="32-hooks原理"><a href="#32-hooks原理" class="headerlink" title="32 hooks原理"></a>32 hooks原理</h2><p>在使用hooks的函数组件中，有两种状态，一种是mountState，另一种是updateState。其中，mountState是首次渲染，在这个阶段会构建hooks链表并渲染；updateState阶段会依次遍历链表并进行渲染</p>
+<p>hooks的相关所有信息都放在一个hooks对象里面，而hooks对象会以单向链表的形式相互串联</p>
+<p>hooks的渲染是按顺序遍历之前构建好的链表，取出对应的数据信息进行渲染。然后调用hooks也是只记住了对应的索引，根据索引来取出数据来进行渲染。如果把hooks放到逻辑判断中导致了链表读取顺序的差异，那将会导致渲染的结果是不可控的。</p>
 <h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="1-HTTP和HTTPS的区别"><a href="#1-HTTP和HTTPS的区别" class="headerlink" title="1 HTTP和HTTPS的区别"></a>1 HTTP和HTTPS的区别</h2><p>虽然HTTP和HTTPS之间只差了SSL/TLS，但是HTTPS的通信安全得到了极大保障</p>
 <ul>
 <li>HTTP：超文本传输协议，特点如下：<ul>

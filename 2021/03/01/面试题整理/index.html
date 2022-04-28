@@ -675,9 +675,10 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 经过预编译，值为function</span></span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">123</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 重新赋值，值为123</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 值为123</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 因为是函数表达式，所以初始AO的时候值为undefined，但是在解释运行的时候，就会赋值</span></span><br><span class="line">    <span class="built_in">console</span>.log(b);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">d</span> (<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 函数声明，初始AO为 d()&#123;&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>同理，不在函数内也可以，只不过是在全局作用域执行同样的步骤罢了</strong></p>
-<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="什么是执行上下文"><a href="#什么是执行上下文" class="headerlink" title="什么是执行上下文"></a>什么是执行上下文</h4><p>执行上下文指的是当前执行环境中的变量、函数声明、参数、作用域链和this等信息</p>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="运行上下文"><a href="#运行上下文" class="headerlink" title="运行上下文"></a>运行上下文</h4><p>在函数创建时，会将函数创建的执行环境放入作用域中</p>
+<h4 id="什么是执行上下文"><a href="#什么是执行上下文" class="headerlink" title="什么是执行上下文"></a>什么是执行上下文</h4><p>执行上下文指的是当前执行环境中的变量、函数声明、参数、作用域链和this等信息</p>
 <p>我们可以理解成执行上下文就是当前代码的运行的环境</p>
-<h4 id="如何创建"><a href="#如何创建" class="headerlink" title="如何创建"></a>如何创建</h4><p>在预编译阶段创建，也就是说，在函数执行的前一刻创建。但是创建的。</p>
+<h4 id="如何创建"><a href="#如何创建" class="headerlink" title="如何创建"></a>如何创建</h4><p>在预编译阶段创建，也就是说，在函数执行的前一刻创建。</p>
 <p>但是作用域的确定，是在函数定义时就已经确定了，函数作用域的链式关系跟定义该函数所处的上下文相关</p>
 <h4 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h4><p>执行上下文分类有两种：全局执行上下文和函数执行上下文。</p>
 <p>全局执行上下文是执行js代码时创建的上下文</p>
@@ -700,7 +701,7 @@
 <p><strong>遵照先进先出法则</strong>，至上向下寻找变量，如果找不到，就向下一层的作用域，来进行寻找。</p>
 <p>函数执行完毕，函数内部环境的上下文将会被销毁</p>
 <p>注意：预编译阶段出现于函数执行的前一刻，而作用域的开辟则是在函数创建的时候</p>
-<h2 id="11-闭包"><a href="#11-闭包" class="headerlink" title="11 闭包"></a>11 闭包</h2><p>什么是闭包：当函数有权访问另一个函数作用域的变量的时候，该函数，变量还有作用域。通常当内部函数被保存到外部时，就会产生闭包。</p>
+<h2 id="11-闭包"><a href="#11-闭包" class="headerlink" title="11 闭包"></a>11 闭包</h2><p>什么是闭包：当函数有权访问另一个函数作用域的变量的时候，该函数，变量还有作用域就构成一个闭包。通常当内部函数被保存到外部时，就会产生闭包。</p>
 <h3 id="通常，闭包会导致原有的函数作用域不释放，造成内存泄漏"><a href="#通常，闭包会导致原有的函数作用域不释放，造成内存泄漏" class="headerlink" title="通常，闭包会导致原有的函数作用域不释放，造成内存泄漏"></a>通常，闭包会导致原有的函数作用域不释放，造成内存泄漏</h3><ul>
 <li>误区：闭包一定造成内存泄露：是闭包导致的作用域不释放才会造成内存泄漏</li>
 <li>闭包的缺点：导致变量不会被垃圾回收机制回收，造成了内存消耗</li>
@@ -1314,7 +1315,11 @@
 <li>props在组件内部不能修改，而state可以修改</li>
 <li>state是多变的，可以修改</li>
 </ul>
-<h2 id="4-setState的执行机制"><a href="#4-setState的执行机制" class="headerlink" title="4 setState的执行机制"></a>4 setState的执行机制</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在react中，只要在react中，状态的更新都会经过合并之后再一次性更新</p>
+<h2 id="4-setState的执行机制"><a href="#4-setState的执行机制" class="headerlink" title="4 setState的执行机制"></a>4 setState的执行机制</h2><h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><p>在react中，如果一个动作有多次调用setState，那么react会将状态放入一个队列，最后将状态进行合并。如果是赋值操作，则取该属性最后赋值的值；如果是回调函数操作，那么每次的状态改变都需要进行额外计算</p>
+<p>在同步任务内部，setState是异步的，但是当setState写在setTimeout内部时，就会有setState的同步现象。在这里，setTimeout帮助了setState脱离了react的管控，因此在内部变成了同步处理。</p>
+<h4 id="setState为何异步"><a href="#setState为何异步" class="headerlink" title="setState为何异步"></a>setState为何异步</h4><p>react内部有一个对象：<code>batchingStrategy</code>，其内部的<code>isBatchingUpdates</code>属性直接决定了要进行更新流程，还是排队等待。当它的值为false的时候，表示不进行批量更新操作。每当react想要调用<code>batchingStrategy.batchingUpdates</code>方法的时候，会将<code>isBatchingUpdates</code>置为true，然后这个时候任何需要更新的组件都只能暂时进入队列里面等候批量更新</p>
+<h4 id="setState为何能脱离react管控"><a href="#setState为何能脱离react管控" class="headerlink" title="setState为何能脱离react管控"></a>setState为何能脱离react管控</h4><p>因为<code>batchingStrategy.batchingUpdates</code>方法，不仅仅会在setState中会被调用，与更新相关的地方也是会被调用的。React中为了保证组件上的事件触发的setState也能有效，React会在事件内部开启批量更新。</p>
+<p>然而，因为setState在异步任务里面，将会导致事件内部的<code>isBatchingUpdates</code>的开启和关闭都会先执行，因为在此会先执行同步任务再执行异步任务，因此执行setTimeout的时候，<code>isBatchingUpdates</code>已经是false了，此时setTimeout内部的setState就相当于是脱离了<code>isBatchingUpdates</code>的管控，会随着每次调用都执行。</p>
 <h3 id="大致用法"><a href="#大致用法" class="headerlink" title="大致用法"></a>大致用法</h3><p>在react中，state操控组件内部的状态，而setState就是用于修改state的值而存在的，起到了更新组件数据的作用</p>
 <p>setState本身是一个异步的操作，因此如果需要获得更新后的state，我们需要再setState内部指定一个回调函数来进行</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.setState(&#123;</span><br><span class="line">    <span class="attr">mes</span>: <span class="string">&#x27;1&#x27;</span></span><br><span class="line">&#125;, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.state.mes) <span class="comment">// 1 因为回调已经实时更新了</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -1327,7 +1332,6 @@
 
 
 
-<p>在react中，状态的更新是默认异步批量的，并非同步更新，也就是说当开发者调用setState的时候，并没有立即执行，而是先缓存起来，等到事件函数执行完毕之后，再来进行更新，只进行更新渲染一次</p>
 <h2 id="5-React的事件机制"><a href="#5-React的事件机制" class="headerlink" title="5 React的事件机制"></a>5 React的事件机制</h2><p>React基于浏览器的事件机制自身实现了一套事件机制，包括事件注册，事件合成，事件冒泡，事件派发等。这套事件机制被称为合成事件</p>
 <p>合成事件是React模拟原生DOM事件所有能力的一个事件对象，如果想获得原生DOM事件，可以通过e.nativeEvent属性获取</p>
 <p>React事件并不是直接将事件直接绑定到真实的DOM上，而是绑定到结构的最外层，然后使用一个统一的事件去监听。这个事件监听器维持了一个映射来保存所有组件内部的事件监听和处理函数。当组件挂载或者卸载的时候，只是在这个统一的事件监听器上面插入或者删除一些对象。当事件发生的时候，首先被这个统一的事件监听器处理，然后在映射里面找到真正的事件处理函数并调用。这样能简化事件处理和回收机制，性能大幅提高。</p>
@@ -1368,15 +1372,22 @@
 <p>如果是单向数据流，但是是父组件向后代组件通讯的时候，可以使用Provider和Consumer组件来进行通信</p>
 <h2 id="9-React-Hooks的理解"><a href="#9-React-Hooks的理解" class="headerlink" title="9 React Hooks的理解"></a>9 React Hooks的理解</h2><p>对我而言，hooks是为了让函数也能有状态。对于一个项目，初期对于一些组件的构想肯定是不会做状态改变，只会做渲染工作，通常选型都会使用函数组件，但是随着后面的业务变动，会导致该函数组件也需要状态，可是重新使用类组件的成本会很高，所以需要hooks，相当于给函数组件注入能够让自己有状态，而且有声明周期的功能，下面是对一些常用hooks的介绍</p>
 <ul>
-<li>useCallback：根据变量是否变化，以此来决定useCallback里面的函数是否要重新返回一个新的函数，这样可以一定程度上避免函数栈内存代表的内存地址不相等，而两个函数的却是相等的时候，可以不重新渲染导致重新render。它的原理是，当变量触发变化的时候，才会导致函数的重新构建，否则每一次都会重新使用该函数。</li>
-<li>useMemo：根据变量是否变化，以此来决定useMemo里面的值是否要重新返回一个新的值，这里其中包括了普通的值还有对象和数组这一类的值。在之前没有useMemo的时候，就算经过更，对象内部的值没有变化，但是对象的栈地址的引用值也是变化的，就导致了每一次都会粗暴的render，使用了useMemo，变量没有变化，useMemo的返回值没有变化的时候，React就会使用之前的值来避免这个地方的render。与useCallback有相同功效，只不过useCallback针对的是函数，useMemo针对的是数值<ul>
-<li>当然，我们可以把一些昂贵的计算逻辑放到useMemo中，当依赖值改变的时候才会更新。否则每次粗暴render之后，又要反复计算这些数据</li>
-</ul>
+<li><p>useCallback：它的原理是，当变量触发变化的时候，才会导致函数的重新构建，否则每一次都会重新使用该函数。我们一般配合memo优化子组件的渲染次数。</p>
+<p>render-props模式：父组件刷新，子组件全部都必须刷新一次。</p>
+<p>我们可以使用React.memo，用于避免一些组件因为父组件直接render导致不必要的刷新，但是只是对父传给子的props来进行浅比较判断，甚至如果是传入一个方法给子组件，都会导致每次的函数创建，就会导致每次的方法的存放地址不相等，进而导致了子组件的无意义render。</p>
+<p>useCallback一般用于render-props模式中，它让每次父组件刷新之后，方法都被保存下来，供子组件复用。使用了React.memo的子组件识别了props一致的时候，就可以避免子组件的无意义的render</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useCallback, memo &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> Parent = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [parentState, setParentState] = useState(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">const</span> parentFunction = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;parent&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> childFunction = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&#x27;child&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> childFunctionCallback = useCallback(childFunction, []);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="xml">    	<span class="tag">&lt;<span class="name">button</span>&gt;</span>parentState: &#123;parentState&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    	<span class="tag">&lt;<span class="name">Child</span> <span class="attr">handleClick</span>=<span class="string">&#123;childFunctionCallback&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Child = memo(<span class="function">(<span class="params">&#123;handleClick&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;child render&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>child<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p>useMemo：根据变量是否变化，以此来决定useMemo里面的值是否要重新返回一个新的值，这里其中包括了普通的值还有对象和数组这一类的值。还是因为万恶的render-props模式，父组件的强制全刷新导致的。有一些值，计算量大，每次render整个父组件之后还要重新计算一次大规模计算，这显然是不好的。因此，useMemo就是为了解决粗暴render，从而反复大规模计算的问题。让大规模计算的结果缓存，等到组件真的触发了依赖刷新，再来进行重新计算</p>
 </li>
-<li>useState：让函数组件也能拥有状态的钩子</li>
-<li>useEffect：让函数组件也能拥有类似于生命周期的特性，比如能在组件初始加载的时候执行一些任务，也可以来做一些数据的监听，该数据改变，就可以触发一些事件的执行</li>
+<li><p>useState：让函数组件也能拥有状态的钩子</p>
+</li>
+<li><p>useEffect：让函数组件也能拥有类似于生命周期的特性，比如能在组件初始加载的时候执行一些任务，也可以来做一些数据的监听，该数据改变，就可以触发一些事件的执行</p>
+</li>
 </ul>
 <p>react hooks的使用是有一点需要注意的，就是要规避闭包陷阱问题。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在使用hooks的函数组件中，有两种状态，一种是mountState，另一种是updateState。其中，mountState是首次渲染，在这个阶段会构建hooks链表并渲染；updateState阶段会依次遍历链表并进行渲染</p>
+<p>hooks的相关所有信息都放在一个hooks对象里面，而hooks对象会以单向链表的形式相互串联</p>
+<p>hooks的渲染是按顺序遍历之前构建好的链表，取出对应的数据信息进行渲染。然后调用hooks也是只记住了对应的索引，根据索引来取出数据来进行渲染。如果把hooks放到逻辑判断中导致了链表读取顺序的差异，那将会导致渲染的结果是不可控的。</p>
 <h2 id="10-Redux的理解与工作原理"><a href="#10-Redux的理解与工作原理" class="headerlink" title="10 Redux的理解与工作原理"></a>10 Redux的理解与工作原理</h2><h2 id="11-说说对React-Router的理解"><a href="#11-说说对React-Router的理解" class="headerlink" title="11 说说对React Router的理解"></a>11 说说对React Router的理解</h2><p>react-router和前端路由的原理大致是相同的，可以实现无刷新条件下切换显示不同的页面</p>
 <p>路由的本质就是页面的URL发生改变的时候，页面的显示结果可以根据URL的变化而变化，但URL不会刷新</p>
 <p>因此是可以通过前端路由来实现单页SPA引用</p>
@@ -1461,6 +1472,7 @@
 <p>如果JS线程长时间占用主线程，导致页面渲染不及时，用户容易感受卡顿。当组件较大的时候，JS线程一直执行，等到整颗虚拟DOM计算完成才会开始渲染，那么容易有卡顿的情况</p>
 <h3 id="什么是Fiber"><a href="#什么是Fiber" class="headerlink" title="什么是Fiber"></a>什么是Fiber</h3><p>从架构角度看，Fiber是对React核心算法的重写</p>
 <p>从编码角度看，Fiber是React内部定义的一种数据结构，它是Fiber树结构的节点单位，也就是React16新架构下的虚拟DOM</p>
+<p>从工作流的角度来看，Fiber保存了组件需要更新的状态和副作用，一个Fiber对应了一个工作单元</p>
 <p>它是react核心算法的一次重新实现</p>
 <ul>
 <li>为每个任务增加了优先级，优先级高的能中断优先级低的，然后再重新执行优先级低的任务</li>
@@ -1469,8 +1481,8 @@
 </ul>
 <h3 id="解决了什么问题"><a href="#解决了什么问题" class="headerlink" title="解决了什么问题"></a>解决了什么问题</h3><p>fiber把渲染更新过程拆分成多个子任务，每次只做一小部分，做完看是否还有剩余时间，如果有，则将继续执行下一个任务；如果没有，挂起当前任务，将时间控制权交给主线程，等主线程不忙的时候再继续执行，使得加载大组件时消除用户感觉卡顿的现象</p>
 <h2 id="18-说说JSX转换为真实DOM的过程"><a href="#18-说说JSX转换为真实DOM的过程" class="headerlink" title="18 说说JSX转换为真实DOM的过程"></a>18 说说JSX转换为真实DOM的过程</h2><ul>
-<li>首先，babel会将JSX格式的虚拟DOM转换为React.createElement这种形式</li>
-<li>createElement函数对key和ref等特殊props进行处理，并获取defaultProps对默认props进行赋值，并且对传入的孩子节点进行处理，最终构造成一个虚拟DOM</li>
+<li>首先，babel会将JSX格式的虚拟DOM转换为React.createElement这种形式，React.createElement将会返回一个ReactElement的JS对象</li>
+<li>createElement函数会先对key、ref、self、source四个属性值二次处理，然后再遍历config，筛选可以提入props的属性，然后再提取子元素放入childArray数组，最后格式化defaultProps，返回一个ReactElement对象</li>
 <li>ReactDOM.render将生成好的虚拟DOM渲染到指定容器上，其中采用了批处理、事务等机制并且对特定浏览器进行了性能优化，最终转化为真实DOM</li>
 </ul>
 <h2 id="19-React性能优化的手段有哪些"><a href="#19-React性能优化的手段有哪些" class="headerlink" title="19 React性能优化的手段有哪些"></a>19 React性能优化的手段有哪些</h2><ul>
@@ -1582,9 +1594,6 @@
 <li>使用useRef，使得每次render之后的状态都不相互隔离</li>
 <li>使用immutable，让状态的值进行复用</li>
 </ul>
-<h2 id="32-hooks原理"><a href="#32-hooks原理" class="headerlink" title="32 hooks原理"></a>32 hooks原理</h2><p>在使用hooks的函数组件中，有两种状态，一种是mountState，另一种是updateState。其中，mountState是首次渲染，在这个阶段会构建hooks链表并渲染；updateState阶段会依次遍历链表并进行渲染</p>
-<p>hooks的相关所有信息都放在一个hooks对象里面，而hooks对象会以单向链表的形式相互串联</p>
-<p>hooks的渲染是按顺序遍历之前构建好的链表，取出对应的数据信息进行渲染。然后调用hooks也是只记住了对应的索引，根据索引来取出数据来进行渲染。如果把hooks放到逻辑判断中导致了链表读取顺序的差异，那将会导致渲染的结果是不可控的。</p>
 <h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="1-HTTP和HTTPS的区别"><a href="#1-HTTP和HTTPS的区别" class="headerlink" title="1 HTTP和HTTPS的区别"></a>1 HTTP和HTTPS的区别</h2><p>虽然HTTP和HTTPS之间只差了SSL/TLS，但是HTTPS的通信安全得到了极大保障</p>
 <ul>
 <li>HTTP：超文本传输协议，特点如下：<ul>
@@ -1758,7 +1767,8 @@
 <p>从参数的角度，如果get使用一般情况，那么他的数据是直接暴露在url中的，并且浏览器是有url的长度限制的，因此只能在一般使用情况发送小批量数据，但是post放在请求体中【虽然也可以暴露在url】，一般用于放敏感信息</p>
 <p>为什么浏览器url有长度限制？因为url需要浏览器解析，那么需要分配一块有限的连续内存。如果url过长并发又过高的时候，服务器很容易报错503【服务器过载，无法处理请求】</p>
 <p>从幂等性的角度，get是幂等的，而post不是幂等的</p>
-<p>从TCP的角度，在非火狐浏览器中，get请求会一次性发出所有报文，而post请求会分成两个tcp的数据包，首先发送header部分，如果服务器响应为100，那么就会发body部分</p>
+<p>安全性：两者都是不安全的，只要使用http请求，就是明文传输，就没有所谓谁更安全一说</p>
+<p>网上的两个tcp包，这个是部分框架的特定行为，已经经过证实，在chrome中是没有这么一说的</p>
 <h2 id="9-说一下计网的层次和相关协议"><a href="#9-说一下计网的层次和相关协议" class="headerlink" title="9 说一下计网的层次和相关协议"></a>9 说一下计网的层次和相关协议</h2><p>OSI七层模型分别有：应用层，表示层，会话层，传输层，网络层，数据链路层和物理层</p>
 <h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>用于通过应用程序之间的交互来完成特定的网络应用</p>
 <p>应用层协议定义了应用进程之间的交互规则，通过不同的应用层来提供不同的服务。比如HTTP，DNS和SMTP等</p>

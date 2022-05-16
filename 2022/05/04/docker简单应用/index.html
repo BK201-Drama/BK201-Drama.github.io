@@ -13,7 +13,7 @@
 
 
 
-<title>字节一面凉经 | BK201-Drama</title>
+<title>BK201-Drama</title>
 
 
 
@@ -127,73 +127,11 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "Collapse all"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "Expand all"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">字节一面凉经</h1>
+            <h1 class="post-title"></h1>
             
                 <div class="post-meta">
                     
@@ -202,7 +140,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">十二月 31, 2021&nbsp;&nbsp;00:00:00</a>
+                        Date: <a href="#">五月 4, 2022&nbsp;&nbsp;22:12:08</a>
                         </span>
                     
                     
@@ -211,49 +149,7 @@
         </header>
 
         <div class="post-content">
-            <p>一面就凉了，但是还是得好好记录一下。</p>
-<h1 id="实习面试"><a href="#实习面试" class="headerlink" title="实习面试"></a>实习面试</h1><ul>
-<li>请简要介绍一下你自己</li>
-<li>关于项目，你在项目中起到的作用，项目的来源，如何学习，学习的平台，项目的选择都会问你一下</li>
-<li>接下来对着简历询问：<ul>
-<li>使用过react-hooks吗，简要说一下：<ul>
-<li>会更加细问你使用过useMemo等内容</li>
-<li>会问你你在做项目的过程中体现了hooks了吗？自己觉得使用hooks之后有什么感想。</li>
-</ul>
-</li>
-<li>了解跨域，说一下为什么需要跨域？<ul>
-<li>主要是要说出这是一个安全问题，还要说明是侧重于CSRF攻击。</li>
-</ul>
-</li>
-<li>关于git，如果我commit了一个备注，我觉得这个备注不好，想要撤销，那么我应该怎么办？<ul>
-<li>当时不知道怎么做，只知道reset回退版本再进行一次提交</li>
-<li>正确的做法是使用：<strong>git commit –amend</strong></li>
-</ul>
-</li>
-<li>关于GET和POST的区别<ul>
-<li>安全性POST较好</li>
-<li>POST用于表单传输</li>
-<li>GET快于POST</li>
-<li><del>GET是url传参，而POST是放在了请求体</del>：面试官纠正了我这个的一些小错误，他说其实GET和POST都遵循HTTP请求，所以GET请求体来存放数据也是可行的，这个不能视为明显区别。<ul>
-<li>在此，面试官还补充了：因为url是有最大长度的，所以参数的存放是有限的，所以GET采取url传参的话，只能适用于较少的数据</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>考算法题：leetcode的两数之和<ul>
-<li>我猜可能前端实习生考的算法题都不会太难</li>
-</ul>
-</li>
-<li>没有对着简历询问的，面试官的自由询问：<ul>
-<li>对Promise了解吗，在项目中有使用过Promise吗？</li>
-<li>了解闭包吗？面试官不知道是否了解，考了一道场景题，但是该场景题跟闭包好像也没有太大关系？</li>
-</ul>
-</li>
-<li>你还有什么需要了解的吗？</li>
-</ul>
-
+            
         </div>
 
         
@@ -285,10 +181,6 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
-                    
-                        <a href="/tags/%E5%85%B6%E4%BB%96/"># 其他</a>
-                    
-                        
                 </span>
             </div>
             <div>
@@ -299,10 +191,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/01/08/Promise/">Promise</a>
             
-            
-            <a class="next" rel="next" href="/2021/12/31/%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95/">字节面试</a>
+            <a class="next" rel="next" href="/2022/03/26/%E8%B4%9D%E5%A3%B3%E6%89%BE%E6%88%BF%E9%9D%A2%E8%AF%95/">贝壳找房面试</a>
             
         </section>
 
